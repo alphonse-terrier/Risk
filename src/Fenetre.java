@@ -19,8 +19,9 @@ public class Fenetre extends JFrame {
 
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setContentPane(new Map());
         this.setVisible(true);
+        this.setContentPane(new Map());
+
 
     }
 

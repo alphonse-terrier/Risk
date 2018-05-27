@@ -30,12 +30,10 @@ public class Map extends JPanel {
 
         try {
 
-            super.paintComponent(g);
             File imageFile1 = new File("borders.png");
             BufferedImage img = ImageIO.read(imageFile1);
-            System.out.println("Bonjour");
 
-            setBackground(new Color(149, 193,168));
+
 
             File folder = new File("countries_png");
             File[] listOfFiles = folder.listFiles();
@@ -56,8 +54,6 @@ public class Map extends JPanel {
                 public void mousePressed(MouseEvent e) {
                     int x = e.getX();
                     int y = e.getY();
-                    System.out.println(x);
-                    System.out.println(y);
                     String countryClicked = getCountry(x, y);
                     System.out.println(countryClicked);
                 }
@@ -83,14 +79,14 @@ public class Map extends JPanel {
             if (file.isFile()) {
                 String filename = new File(String.valueOf(file)).getName().replaceFirst("[.][^.]+$", "");
                 try {
-                BufferedImage country = ImageIO.read(file);
-                Color color = new Color(country.getRGB(x - x_adapt, y - y_adapt));
-                int red = color.getRed();
-                int green = color.getGreen();
-                int blue = color.getBlue();
-                if (red < 255 || green < 255 || blue < 255) {
-                    return(filename);
-                }} catch (IOException e) {
+                    BufferedImage country = ImageIO.read(file);
+                    Color color = new Color(country.getRGB(x - x_adapt, y - y_adapt));
+                    int red = color.getRed();
+                    int green = color.getGreen();
+                    int blue = color.getBlue();
+                    if (red < 255 || green < 255 || blue < 255) {
+                        return(filename);
+                    }} catch (IOException e) {
 
                     e.printStackTrace();
 
@@ -100,8 +96,6 @@ public class Map extends JPanel {
             }
         }
         return("C'est pas l'homme qui prend la mer, c'est la mer qui prend l'homme");
-
-
 
 
     }
