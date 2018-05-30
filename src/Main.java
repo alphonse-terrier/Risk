@@ -10,6 +10,7 @@ public class Main {
 
     public static void main(String[] args){
         Fenetre carte = new Fenetre();
+        Territoire.checkIfConquestIsPossible("uswest");
     }
 
 }
