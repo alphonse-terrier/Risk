@@ -3,17 +3,23 @@ import java.util.*;
 
 
 /**
- * 
+ *
  */
 public class Joueur {
 
     private String name;
     public ArrayList<Territoire> listTerritoires;
+    public ArrayList<Unite> listUnites;
     public int nbArmees;
-    public Joueur(String name, ArrayList<Territoire> listTerritoires, int nbArmees) {
+    public ArrayList<Region> listRegions;
+
+
+    public Joueur(String name, ArrayList<Territoire> listTerritoires, int nbArmees, ArrayList<Unite> listUnites) {
         this.name = name;
         this.listTerritoires = listTerritoires;
         this.nbArmees = nbArmees;
+        this.listUnites = listUnites;
+        this.listRegions = Region.getRegions(listTerritoires);
     }
 
     public String getName() {
@@ -24,35 +30,5 @@ public class Joueur {
         this.name = name;
     }
 
-
-
-
-
-
-    /**
-     * Default constructor
-     */
-
-    /**
-     * 
-     */
-    public String Nom;
-
-
-
-
-    /**
-     * @param String s
-     */
-    public void setNom(String s) {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void getNom() {
-        // TODO implement here
-    }
 
 }

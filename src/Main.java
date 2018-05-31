@@ -9,8 +9,11 @@ import javax.swing.*;
 public class Main {
 
     public static void main(String[] args){
+
         Fenetre carte = new Fenetre();
+
         initGame();
+        // Condition d'arrêt du jeu : Joueur.listRegions.size() == 6
     }
 
 
@@ -32,7 +35,7 @@ public class Main {
             String name = inputName.nextLine();
             int nbArmees = 50 - 5 * nbJoueurs;
 
-            joueurs.add(new Joueur(name, new ArrayList<Territoire>(), nbArmees));
+            joueurs.add(new Joueur(name, new ArrayList<Territoire>(), nbArmees, new ArrayList<Unite>()));
         }
 
         ArrayList<Territoire> allTerritories = Territoire.getAllCountriesName();

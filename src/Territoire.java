@@ -12,12 +12,19 @@ import java.io.BufferedReader;
  *
  */
 public class Territoire {
-    private String name;
-    public Territoire(String name) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 
+    private String name;
 
+    public Territoire(String name) {
+        this.name = name;
+    }
 
 
     // public list <Territoire> voisins;
