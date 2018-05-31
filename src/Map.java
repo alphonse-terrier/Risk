@@ -23,8 +23,8 @@ import java.awt.event.MouseEvent;
 
 public class Map extends JPanel {
 
-    private int x_adapt = 15;
-    private int y_adapt = 15;
+    public static int x_adapt = 15;
+    public static int y_adapt = 15;
 
     public void paintComponent(Graphics g){
 
@@ -54,7 +54,7 @@ public class Map extends JPanel {
                 public void mousePressed(MouseEvent e) {
                     int x = e.getX();
                     int y = e.getY();
-                    String countryClicked = getCountry(x, y);
+                    String countryClicked = Territoire.getCountryName(x, y);
                     System.out.println(countryClicked);
                 }
             });
@@ -71,34 +71,7 @@ public class Map extends JPanel {
 
     }
 
-    public String getCountry(int x, int y)  {
-        File folder = new File("countries_png");
-        File[] listOfFiles = folder.listFiles();
 
-        for (File file : listOfFiles) {
-            if (file.isFile()) {
-                String filename = new File(String.valueOf(file)).getName().replaceFirst("[.][^.]+$", "");
-                try {
-                    BufferedImage country = ImageIO.read(file);
-                    Color color = new Color(country.getRGB(x - x_adapt, y - y_adapt));
-                    int red = color.getRed();
-                    int green = color.getGreen();
-                    int blue = color.getBlue();
-                    if (red < 255 || green < 255 || blue < 255) {
-                        return(filename);
-                    }} catch (IOException e) {
-
-                    e.printStackTrace();
-
-                }
-
-
-            }
-        }
-        return("C'est pas l'homme qui prend la mer, c'est la mer qui prend l'homme");
-
-
-    }
 
 
 
