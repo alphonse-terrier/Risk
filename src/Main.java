@@ -3,17 +3,22 @@
  */
 
 
-import java.util.*;
-import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         Fenetre carte = new Fenetre();
+        Territoire france = new Territoire("france");
 
+        Unite soldat = new Canon(2, 2, france);
+        System.out.println(soldat.cost);
         initGame();
-        // Condition d'arrêt du jeu : Joueur.listRegions.size() == 6
+
+        // A FAIRE : Condition d'arrêt du jeu : Joueur.listRegions.size() == 6
     }
 
 
@@ -43,15 +48,17 @@ public class Main {
 
 
         int i = 0;
-        while(i < allTerritories.size()) {
+        while (i < allTerritories.size()) {
             for (int x = 0; x < nbJoueurs; x++) {
                 if (i < allTerritories.size()) {
-                joueurs.get(x).listTerritoires.add(allTerritories.get(i));
-                i+=1;
+                    joueurs.get(x).listTerritoires.add(allTerritories.get(i));
+                    i += 1;
 
                 }
             }
         }
+
+        // A FAIRE : Manque le placement des unités sur les territoires (partie 3.1.4)
 
 
     }
