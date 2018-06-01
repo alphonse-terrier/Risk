@@ -13,4 +13,6 @@ public class Canon extends Unite {
         super(positionx, positiony, territoire, 7, 4,9, 3, 2, 1);
     }
 
+
+
 }

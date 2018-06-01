@@ -1,5 +1,6 @@
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Unite {
@@ -20,7 +21,7 @@ public class Unite {
     public Unite(int positionx, int positiony, Territoire territoire, int cost, int minpower, int maxpower, int priorityAttack, int priorityDefense, int mvtParTour) {
         this.positionx = positionx;
         this.positiony = positiony;
-        this.territoire = territoire;
+        this.territoire = territoire; //dépend de x et y, coder la fonction pour get le Territoire
         this.cost = cost;
         this.minpower = minpower;
         this.maxpower = maxpower;
@@ -49,6 +50,22 @@ public class Unite {
         // Implémenter dernière ligne tableau (relire partie 3.2.1)
 
         return joueur;
+    }
+
+    public static ArrayList<Unite> getAllUnitsinTerritoire(String countryName, ArrayList<Unite> AllUnits) {
+        ArrayList<Unite> AllUnitsinTerritoire = new ArrayList<Unite>();
+        for (int i = 0; i < 0; i++) {
+            if (Objects.equals(Territoire.getCountryName(AllUnits.get(i).positionx, AllUnits.get(i).positiony), countryName)) {
+                AllUnitsinTerritoire.add(AllUnits.get(i));
+            }
+        }
+
+        return AllUnitsinTerritoire;
+    }
+
+    public int getPower(int minpower, int maxpower) {
+        int power = ThreadLocalRandom.current().nextInt(minpower, maxpower + 1);
+        return power;
     }
 
 }

@@ -11,13 +11,13 @@ public class Fenetre extends JFrame {
 
     public Fenetre() {
 
-        this.setTitle("Jeu Risk par Aymeric Bès de Berc & Alphonse Terrier"); //Titre de la fenêtre
+        this.setTitle("Jeu Risk par Aymeric Bès de Berc & Alphonse Terrier");
 
-        this.setSize(1000, 690); //Taille de la fenêtre
+        this.setSize(1000, 690);
 
         this.setLocationRelativeTo(null);
 
-        this.setResizable(false); //La fenêtre n'est pas redimensionnable
+        this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         this.setContentPane(new Map());

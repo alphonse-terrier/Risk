@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
 import java.util.*;
 import java.io.BufferedReader;
 
@@ -20,9 +21,11 @@ public class Territoire {
     }
 
     private String name;
+    public ArrayList<Unite> listUnits;
 
     public Territoire(String name) {
         this.name = name;
+        this.listUnits = Unite.getAllUnitsinTerritoire(name, new ArrayList<Unite>()); // Remplacer new ArrayList<Unite>()
     }
 
 
