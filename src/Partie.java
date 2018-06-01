@@ -73,8 +73,14 @@ public class Partie {
 
 
         for (int x = 1; x < nbJoueurs+1; x++) {
+            ImageIcon iconejoueur = new ImageIcon ("iconejoueur.png");
             JOptionPane jop2 = new JOptionPane();
-            String name = jop2.showInputDialog(null, "Entrer le nom du joueur " + x + ":", "Saisie des noms des joueurs", JOptionPane.QUESTION_MESSAGE);
+            String name = (String) jop2.showInputDialog(null,
+                    "Entrer le nom du joueur " + x + ":",
+                    "Saisie des noms des joueurs", JOptionPane.QUESTION_MESSAGE,
+                    iconejoueur,
+                    null,
+                    "");
             int nbUnites = 50 - 5 * nbJoueurs;
             joueurs.add(new Joueur(name, new ArrayList<Territoire>(), new ArrayList<Unite>(), nbUnites, new ArrayList<Region>(), couleurs.get(x)));
             System.out.println(name);
@@ -95,8 +101,6 @@ public class Partie {
         }
 
     }
-
-
 
 
     public static void initGame() {
