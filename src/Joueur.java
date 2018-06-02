@@ -36,5 +36,10 @@ public class Joueur {
         this.name = name;
     }
 
+    public void putUnite(Unite unit) {
+        listUnites.add(unit);
+        nbUnites -= unit.cost;
+    }
+
 
 }

@@ -26,6 +26,7 @@ public class Main {
 
     public static BufferedImage changeColor(BufferedImage image, Color couleur) {
         Color black = new Color(0, 0, 0);
+
         final int blackRGB = black.getRGB();
         final int colorRGB = couleur.getRGB();
         for (int x = 0; x < image.getWidth(); x++) {
@@ -55,8 +56,8 @@ public class Main {
 
     }
 
-    public static void drawImage(String pathname, int x, int y, Graphics g) {
-        BufferedImage img = ImageReader(pathname);
+    public static void drawImage(BufferedImage img, int x, int y, Graphics g) {
+
 
         g.drawImage(img, x, y, Map.imgobs);
     }

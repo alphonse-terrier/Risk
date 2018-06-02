@@ -31,7 +31,8 @@ public class Fenetre extends JFrame {
                 super.mouseClicked(event);
                 int x = event.getX()- Map.x_adapt;
                 int y = event.getY() - Map.y_adapt;
-                joueurs.get(0).listUnites.add(new Canon(x, y));
+                joueurs.get(0).listUnites.remove(0);
+                joueurs.get(0).putUnite(new Soldat(x, y));
                 // Implémenter une fonction qui agit au clic et qui modifie la liste de toutes les units sous certaines conditions (la liste permettra la lecture des images dans Map)
                 // https://stackoverflow.com/questions/35299786/draw-circle-on-jpanel-after-mouse-click
                 repaint();
