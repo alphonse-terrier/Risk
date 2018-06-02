@@ -39,7 +39,6 @@ public class Partie {
                 cbdejoueurs,
                 cbdejoueurs[0]);
         int nbJoueurs = Integer.parseInt(nombre);
-        System.out.println(nbJoueurs);
 
 
         ArrayList<Color> couleurs = new ArrayList<Color>();
