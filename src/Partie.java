@@ -61,7 +61,7 @@ public class Partie {
 
                 File imageFile1 = new File("iconejoueur.png");
                 BufferedImage iconejoueur = ImageIO.read(imageFile1);
-                iconejoueur = changeColor(iconejoueur, couleurs.get(x));
+                iconejoueur = Main.changeColor(iconejoueur, couleurs.get(x));
                 ImageIcon imageIcon = new ImageIcon(iconejoueur);
                 JOptionPane jop2 = new JOptionPane();
                 String name = "";
@@ -105,19 +105,6 @@ public class Partie {
 
     }
 
-    public static BufferedImage changeColor(BufferedImage iconejoueur, Color couleur) {
-        Color black = new Color(0, 0, 0);
-        final int blackRGB = black.getRGB();
-        final int colorRGB = couleur.getRGB();
-        for (int x = 0; x < iconejoueur.getWidth(); x++) {
-            for (int y = 0; y < iconejoueur.getHeight(); y++) {
-                if (iconejoueur.getRGB(x, y) == blackRGB) {
-                    iconejoueur.setRGB(x, y, colorRGB);
-                }
-            }
-        }
 
-        return iconejoueur;
-    }
 
 }
