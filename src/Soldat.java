@@ -1,5 +1,6 @@
-
-import java.util.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 /**
  *
@@ -11,8 +12,10 @@ public class Soldat extends Unite {
      */
 
 
+
     public Soldat(int positionx, int positiony, Territoire territoire) {
-        super(positionx, positiony, territoire, 1, 1, 6, 2, 1, 2);
+
+        super(positionx, positiony, territoire, new File("soldat.png"), 1, 1, 6, 2, 1, 2);
     }
 
 }

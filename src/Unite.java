@@ -1,4 +1,6 @@
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,13 +17,15 @@ public class Unite {
     public int priorityAttack;
     public int priorityDefense;
     public int mvtParTour;
+    public File img;
     public Territoire territoire;
 
 
-    public Unite(int positionx, int positiony, Territoire territoire, int cost, int minpower, int maxpower, int priorityAttack, int priorityDefense, int mvtParTour) {
+    public Unite(int positionx, int positiony, Territoire territoire, File img, int cost, int minpower, int maxpower, int priorityAttack, int priorityDefense, int mvtParTour) {
         this.positionx = positionx;
         this.positiony = positiony;
         this.territoire = territoire; //dépend de x et y, coder la fonction pour get le Territoire
+        this.img = img;
         this.cost = cost;
         this.minpower = minpower;
         this.maxpower = maxpower;
