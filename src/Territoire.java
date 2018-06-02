@@ -1,33 +1,24 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
-import java.util.*;
-import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
  */
 public class Territoire {
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    private String name;
     public ArrayList<Unite> listUnits;
+    private String name;
 
     public Territoire(String name) {
         this.name = name;
         this.listUnits = Unite.getAllUnitsinTerritoire(name, new ArrayList<Unite>()); // Remplacer new ArrayList<Unite>()
     }
-
 
     // public list <Territoire> voisins;
     public static boolean checkIfConquestIsPossible(String[] listTerritories, String countryToConquest) {
@@ -51,7 +42,6 @@ public class Territoire {
         }
         return false;
     }
-
 
     /**
      * public static ArrayList<String> initRegions(int nombreJoueurs) {
@@ -101,5 +91,15 @@ public class Territoire {
             }
         }
         return listCountries;
+    }
+
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

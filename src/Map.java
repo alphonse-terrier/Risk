@@ -30,17 +30,8 @@ public class Map extends JPanel {
 
         try {
 
-            File folder = new File("countries_png");
-            File[] listOfFiles = folder.listFiles();
 
-            for (File file : listOfFiles) {
-                if (file.isFile()) {
-                    BufferedImage country = ImageIO.read(file);
-                    g.drawImage(country, x_adapt, y_adapt, this);
-                }
-            }
-
-            File imageFile1 = new File("borders.png");
+            File imageFile1 = new File("countriesborders.png");
             BufferedImage img = ImageIO.read(imageFile1);
 
             g.drawImage(img, x_adapt, y_adapt, this);
