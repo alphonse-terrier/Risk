@@ -3,7 +3,6 @@
  */
 
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -20,10 +19,44 @@ public class Fenetre extends JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setContentPane(new Map());
+        Map map = new Map();
+        map.addMouseListener(new MyMouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent event) {
+                super.mouseClicked(event);
+            }
+        });
+        this.setContentPane(map);
 
 
     }
 
 
 }
+
+abstract class MyMouseListener implements MouseListener {
+
+    public void mouseClicked(MouseEvent event) {
+        int x = event.getX();
+        int y = event.getY();
+
+        String countryClicked = Territoire.getCountryName(x, y);
+        System.out.println(countryClicked);
+
+
+    }
+
+    public void mouseEntered(MouseEvent event) {
+    }
+
+    public void mouseExited(MouseEvent event) {
+    }
+
+    public void mousePressed(MouseEvent event) {
+    }
+
+    public void mouseReleased(MouseEvent event) {
+    }
+}
+
+

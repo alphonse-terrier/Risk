@@ -1,12 +1,18 @@
-
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class Unite {
-
+public class Unite extends JPanel {
 
 
     public int positionx;
@@ -38,10 +44,6 @@ public class Unite {
     //ajouter la couleur
 
 
-
-
-
-
     public static Joueur attributionUnites(Joueur joueur) {
         int nbTerritoires = joueur.listTerritoires.size();
         joueur.nbUnites += nbTerritoires / 3;
@@ -71,5 +73,7 @@ public class Unite {
         int power = ThreadLocalRandom.current().nextInt(minpower, maxpower + 1);
         return power;
     }
+
+
 
 }

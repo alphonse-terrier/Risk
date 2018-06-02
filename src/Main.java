@@ -3,8 +3,11 @@
  */
 
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 
 public class Main {
@@ -31,5 +34,28 @@ public class Main {
 
         return image;
     }
+
+    public static BufferedImage ImageReader(String pathname) {
+        BufferedImage img = null;
+        try {
+
+            File imageFile1 = new File(pathname);
+            img = ImageIO.read(imageFile1);
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+        return img;
+
+    }
+
+    public static void drawImage(String pathname, int x, int y, Graphics g) {
+        BufferedImage img = ImageReader(pathname);
+        g.drawImage(img, x, y, Map.imgobs);
+    }
+
+
 
 }

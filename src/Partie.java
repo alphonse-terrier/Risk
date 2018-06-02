@@ -58,12 +58,12 @@ public class Partie {
         couleurs.add(new Color(102, 15, 51));
         ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
 
-        try {
+
             for (int x = 0; x < nbJoueurs; x++) {
 
 
-                File imageFile1 = new File("iconejoueur.png");
-                BufferedImage iconejoueur = ImageIO.read(imageFile1);
+
+                BufferedImage iconejoueur = Main.ImageReader("iconejoueur.png");
                 iconejoueur = Main.changeColor(iconejoueur, couleurs.get(x));
                 ImageIcon imageIcon = new ImageIcon(iconejoueur);
                 JOptionPane jop2 = new JOptionPane();
@@ -81,11 +81,7 @@ public class Partie {
 
                 joueurs.add(new Joueur(name, new ArrayList<Territoire>(), new ArrayList<Unite>(), nbUnites, new ArrayList<Region>(), couleurs.get(x)));
             }
-        } catch (IOException e) {
 
-            e.printStackTrace();
-
-        }
 
         ArrayList<Territoire> allTerritories = Territoire.getAllCountriesName();
         Collections.shuffle(allTerritories);
@@ -103,10 +99,14 @@ public class Partie {
         }
 
         // A FAIRE : Manque le placement des unités sur les territoires (partie 3.1.4)
+
         Fenetre carte = new Fenetre();
 
 
     }
+
+
+
 
 
 
