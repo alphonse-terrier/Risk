@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
         Partie.initGame();
+        
 
         // A FAIRE : Condition d'arrêt du jeu : Joueur.listRegions.size() == 6
     }

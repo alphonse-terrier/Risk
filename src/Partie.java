@@ -1,5 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -39,6 +43,7 @@ public class Partie {
                 cbdejoueurs,
                 cbdejoueurs[0]);
         int nbJoueurs = Integer.parseInt(nombre);
+        System.out.println(nbJoueurs);
 
 
         ArrayList<Color> couleurs = new ArrayList<Color>();
@@ -50,20 +55,33 @@ public class Partie {
         couleurs.add(new Color(102, 15, 51));
         ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
 
+        try {
+            for (int x = 0; x < nbJoueurs; x++) {
 
-        for (int x = 0; x < nbJoueurs; x++) {
 
-            ImageIcon iconejoueur = new ImageIcon("iconejoueur.png");
-            JOptionPane jop2 = new JOptionPane();
-            String name = (String) jop2.showInputDialog(null,
-                    "Entrer le nom du joueur " + (x+1) + ":",
-                    "Saisie des noms des joueurs", JOptionPane.QUESTION_MESSAGE,
-                    iconejoueur,
-                    null,
-                    "");
-            int nbUnites = 50 - 5 * nbJoueurs;
+                File imageFile1 = new File("iconejoueur.png");
+                BufferedImage iconejoueur = ImageIO.read(imageFile1);
+                iconejoueur = changeColor(iconejoueur, couleurs.get(x));
+                ImageIcon imageIcon = new ImageIcon(iconejoueur);
+                JOptionPane jop2 = new JOptionPane();
+                String name = "";
+                while ("".equals(name)) {
+                    name = (String) jop2.showInputDialog(null,
+                            "Entrer le nom du joueur " + (x + 1) + ":",
+                            "Saisie des noms des joueurs", JOptionPane.QUESTION_MESSAGE,
+                            imageIcon,
+                            null,
+                            "");
+                }
 
-            joueurs.add(new Joueur(name, new ArrayList<Territoire>(), new ArrayList<Unite>(), nbUnites, new ArrayList<Region>(), couleurs.get(x)));
+                int nbUnites = 50 - 5 * nbJoueurs;
+
+                joueurs.add(new Joueur(name, new ArrayList<Territoire>(), new ArrayList<Unite>(), nbUnites, new ArrayList<Region>(), couleurs.get(x)));
+            }
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
         }
 
         ArrayList<Territoire> allTerritories = Territoire.getAllCountriesName();
@@ -85,6 +103,21 @@ public class Partie {
         Fenetre carte = new Fenetre();
 
 
+    }
+
+    public static BufferedImage changeColor(BufferedImage iconejoueur, Color couleur) {
+        Color black = new Color(0, 0, 0);
+        final int blackRGB = black.getRGB();
+        final int colorRGB = couleur.getRGB();
+        for (int x = 0; x < iconejoueur.getWidth(); x++) {
+            for (int y = 0; y < iconejoueur.getHeight(); y++) {
+                if (iconejoueur.getRGB(x, y) == blackRGB) {
+                    iconejoueur.setRGB(x, y, colorRGB);
+                }
+            }
+        }
+
+        return iconejoueur;
     }
 
 }
