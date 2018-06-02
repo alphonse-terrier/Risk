@@ -23,15 +23,17 @@ public class Unite extends JPanel {
     public int priorityAttack;
     public int priorityDefense;
     public int mvtParTour;
-    public File img;
+    public String imgpath;
     public Territoire territoire;
 
 
-    public Unite(int positionx, int positiony, Territoire territoire, File img, int cost, int minpower, int maxpower, int priorityAttack, int priorityDefense, int mvtParTour) {
+
+
+    public Unite(int positionx, int positiony, String imgpath, int cost, int minpower, int maxpower, int priorityAttack, int priorityDefense, int mvtParTour) {
         this.positionx = positionx;
         this.positiony = positiony;
-        this.territoire = territoire; //dépend de x et y, coder la fonction pour get le Territoire
-        this.img = img;
+        //this.territoire = territoire; //dépend de x et y, coder la fonction pour get le Territoire
+        this.imgpath = imgpath;
         this.cost = cost;
         this.minpower = minpower;
         this.maxpower = maxpower;

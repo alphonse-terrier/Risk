@@ -4,9 +4,6 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.ImageObserver;
 
 
@@ -22,26 +19,23 @@ public class Map extends JPanel {
         }
     };
 
-    public void paintComponent(final Graphics g) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
 
         Main.drawImage("countriesborders.png", x_adapt, y_adapt, g);
+/**/
+        for (int x = 0; x < Fenetre.joueurs.size(); x++) {
+            for (int y = 0; y < Fenetre.joueurs.get(x).listUnites.size(); y++) {
+                if (Fenetre.joueurs.get(x).listUnites.isEmpty() == false){
 
-        /**
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int x = e.getX() - x_adapt;
-                int y = e.getY() - y_adapt;
-
-                //String countryClicked = Territoire.getCountryName(x, y);
-                //System.out.println(countryClicked);
+                    Main.drawImage(Fenetre.joueurs.get(x).listUnites.get(y).imgpath, Fenetre.joueurs.get(x).listUnites.get(y).positionx, Fenetre.joueurs.get(x).listUnites.get(y).positiony, g);
+                }
             }
-        });
-        */
+        }
+
+
     }
-
-
 }
 
 

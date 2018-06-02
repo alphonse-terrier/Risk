@@ -27,6 +27,7 @@ public class Joueur {
 
 
 
+
     public String getName() {
         return name;
     }

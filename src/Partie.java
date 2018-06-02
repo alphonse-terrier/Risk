@@ -1,9 +1,6 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,26 +9,8 @@ import java.util.Collections;
  */
 public class Partie {
 
-    /**
-     *
-     */
-    public boolean Victoire;
 
-    /**
-     * Default constructor
-     */
-    public Partie() {
-    }
-
-    /**
-     * @param Territoire t
-     * @param Joueur     j
-     * @param Mission    m
-     * @param Region     r
-     */
-
-
-    public static void initGame() {
+    public static ArrayList<Joueur> initGame() {
         ImageIcon icone = new ImageIcon("iconenbjoueurs.png");
         String[] cbdejoueurs = {"2", "3", "4", "5", "6"};
         JOptionPane jop = new JOptionPane();
@@ -59,28 +38,27 @@ public class Partie {
         ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
 
 
-            for (int x = 0; x < nbJoueurs; x++) {
+        for (int x = 0; x < nbJoueurs; x++) {
 
 
-
-                BufferedImage iconejoueur = Main.ImageReader("iconejoueur.png");
-                iconejoueur = Main.changeColor(iconejoueur, couleurs.get(x));
-                ImageIcon imageIcon = new ImageIcon(iconejoueur);
-                JOptionPane jop2 = new JOptionPane();
-                String name = "";
-                while ("".equals(name) || name == null) {
-                    name = (String) jop2.showInputDialog(null,
-                            "Entrer le nom du joueur " + (x + 1) + ":",
-                            "Saisie des noms des joueurs", JOptionPane.QUESTION_MESSAGE,
-                            imageIcon,
-                            null,
-                            "");
-                }
-
-                int nbUnites = 50 - 5 * nbJoueurs;
-
-                joueurs.add(new Joueur(name, new ArrayList<Territoire>(), new ArrayList<Unite>(), nbUnites, new ArrayList<Region>(), couleurs.get(x)));
+            BufferedImage iconejoueur = Main.ImageReader("iconejoueur.png");
+            iconejoueur = Main.changeColor(iconejoueur, couleurs.get(x));
+            ImageIcon imageIcon = new ImageIcon(iconejoueur);
+            JOptionPane jop2 = new JOptionPane();
+            String name = "";
+            while ("".equals(name) || name == null) {
+                name = (String) jop2.showInputDialog(null,
+                        "Entrer le nom du joueur " + (x + 1) + ":",
+                        "Saisie des noms des joueurs", JOptionPane.QUESTION_MESSAGE,
+                        imageIcon,
+                        null,
+                        "");
             }
+
+            int nbUnites = 50 - 5 * nbJoueurs;
+
+            joueurs.add(new Joueur(name, new ArrayList<Territoire>(), new ArrayList<Unite>(), nbUnites, new ArrayList<Region>(), couleurs.get(x)));
+        }
 
 
         ArrayList<Territoire> allTerritories = Territoire.getAllCountriesName();
@@ -100,14 +78,10 @@ public class Partie {
 
         // A FAIRE : Manque le placement des unités sur les territoires (partie 3.1.4)
 
-        Fenetre carte = new Fenetre();
+        joueurs.get(0).listUnites.add(new Canon(23, 24));
 
-
+        return joueurs;
     }
-
-
-
-
 
 
 }

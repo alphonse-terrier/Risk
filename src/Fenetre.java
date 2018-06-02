@@ -5,10 +5,12 @@
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class Fenetre extends JFrame {
-
+    public static ArrayList<Joueur> joueurs = Partie.initGame();
     public Fenetre() {
+
 
         this.setTitle("Jeu Risk par Aymeric Bès de Berc & Alphonse Terrier");
 
@@ -19,14 +21,24 @@ public class Fenetre extends JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+
+
         Map map = new Map();
-        map.addMouseListener(new MyMouseListener() {
+        this.setContentPane(map);
+        map.addMouseListener(new NewMouseListener() {
             @Override
             public void mouseClicked(MouseEvent event) {
                 super.mouseClicked(event);
+                int x = event.getX()- Map.x_adapt;
+                int y = event.getY() - Map.y_adapt;
+                joueurs.get(0).listUnites.add(new Canon(x, y));
+                // Implémenter une fonction qui agit au clic et qui modifie la liste de toutes les units sous certaines conditions (la liste permettra la lecture des images dans Map)
+                // https://stackoverflow.com/questions/35299786/draw-circle-on-jpanel-after-mouse-click
+                repaint();
+
             }
         });
-        this.setContentPane(map);
+
 
 
     }
@@ -34,14 +46,15 @@ public class Fenetre extends JFrame {
 
 }
 
-abstract class MyMouseListener implements MouseListener {
+abstract class NewMouseListener implements MouseListener {
 
     public void mouseClicked(MouseEvent event) {
-        int x = event.getX();
-        int y = event.getY();
+        int x = event.getX()- Map.x_adapt;
+        int y = event.getY() - Map.y_adapt;
 
         String countryClicked = Territoire.getCountryName(x, y);
         System.out.println(countryClicked);
+
 
 
     }

@@ -8,13 +8,17 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Main {
 
+
+
     public static void main(String[] args) {
 
-        Partie.initGame();
+        Fenetre carte = new Fenetre();
+
         
 
         // A FAIRE : Condition d'arrêt du jeu : Joueur.listRegions.size() == 6
@@ -53,6 +57,7 @@ public class Main {
 
     public static void drawImage(String pathname, int x, int y, Graphics g) {
         BufferedImage img = ImageReader(pathname);
+
         g.drawImage(img, x, y, Map.imgobs);
     }
 
