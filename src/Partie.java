@@ -35,13 +35,16 @@ public class Partie {
         ImageIcon icone = new ImageIcon("iconenbjoueurs.png");
         String[] cbdejoueurs = {"2", "3", "4", "5", "6"};
         JOptionPane jop = new JOptionPane();
-        String nombre = (String) jop.showInputDialog(null,
-                "Veuillez saisir le nombre de joueurs ?",
-                "Choix du nombre de joueurs",
-                JOptionPane.QUESTION_MESSAGE,
-                icone,
-                cbdejoueurs,
-                cbdejoueurs[0]);
+        String nombre = null;
+        while (nombre == null) {
+            nombre = (String) jop.showInputDialog(null,
+                    "Veuillez saisir le nombre de joueurs ?",
+                    "Choix du nombre de joueurs",
+                    JOptionPane.QUESTION_MESSAGE,
+                    icone,
+                    cbdejoueurs,
+                    cbdejoueurs[0]);
+        }
         int nbJoueurs = Integer.parseInt(nombre);
         System.out.println(nbJoueurs);
 
@@ -65,7 +68,7 @@ public class Partie {
                 ImageIcon imageIcon = new ImageIcon(iconejoueur);
                 JOptionPane jop2 = new JOptionPane();
                 String name = "";
-                while ("".equals(name)) {
+                while ("".equals(name) || name == null) {
                     name = (String) jop2.showInputDialog(null,
                             "Entrer le nom du joueur " + (x + 1) + ":",
                             "Saisie des noms des joueurs", JOptionPane.QUESTION_MESSAGE,
