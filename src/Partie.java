@@ -78,7 +78,7 @@ public class Partie {
 
         // A FAIRE : Manque le placement des unités sur les territoires (partie 3.1.4)
 
-        joueurs.get(0).listUnites.add(new Canon(23, 24));
+        //joueurs.get(0).listUnites.add(new Canon(23, 24));
 
         return joueurs;
     }
