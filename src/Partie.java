@@ -86,10 +86,12 @@ public class Partie {
 
 
         for (int x = 0; x < joueurs.size(); x++) { //Tous les pions ne se mettent pas, à corriger
+            //System.out.println(joueurs.get(x).listTerritoires.size());
             for (int y = 0; y < joueurs.get(x).listTerritoires.size(); y++) {
 
+
                 String territoireName = joueurs.get(x).listTerritoires.get(y).getName();
-                System.out.println(territoireName);
+
 
                 try {
                     String line;
@@ -100,6 +102,10 @@ public class Partie {
                         if (Objects.equals(thatLine[0], territoireName)) {
 
                             joueurs.get(x).putUnite(new Soldat(Integer.parseInt(thatLine[1]), Integer.parseInt(thatLine[2])));
+                            if (Objects.equals(territoireName, "westeurope")) {
+                                System.out.println(Integer.parseInt(thatLine[1]));
+                                System.out.println(Integer.parseInt(thatLine[2]));
+                            }
 
                         }
 
@@ -108,7 +114,7 @@ public class Partie {
                     e.printStackTrace();
                 }
 
-                phasePartie = "Renforts";
+
 
             }
         }
@@ -117,7 +123,7 @@ public class Partie {
 
 
 
-
+        phasePartie = "Renforts";
 
 
         return joueurs;

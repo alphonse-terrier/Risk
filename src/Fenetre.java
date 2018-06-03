@@ -22,7 +22,7 @@ public class Fenetre extends JFrame {
 
         this.setTitle("Jeu Risk par Aymeric Bès de Berc & Alphonse Terrier");
 
-        this.setSize(1000, 690);
+        this.setSize(1300, 690);
 
         this.setLocationRelativeTo(null);
 
@@ -43,10 +43,12 @@ public class Fenetre extends JFrame {
                     int x = event.getX();
                     int y = event.getY();
 
-                /*
-                String countryClicked = Territoire.getCountryName(x, y);
+/*
+                    String countryClicked = Territoire.getCountryName(x, y);
 
-                //System.out.println(countryClicked);
+                    System.out.println(countryClicked);
+                    System.out.println("x : "+x+", y : "+y);
+
                 //joueurs.get(0).listUnites.remove(0);
                 for (int i = 0; i < joueurs.get(0).listTerritoires.size(); i++) {
                     String countryName = joueurs.get(0).listTerritoires.get(i).getName();
@@ -56,10 +58,11 @@ public class Fenetre extends JFrame {
                     }
                 }
                 //System.out.println("x : "+ x +", y : " + y);
+*/
 
 
-                */
 
+                    //Instaurer une conditon pour passer en mode attaque (clique sur le bouton en bas à droite)
 
                     if (Objects.equals(Partie.phasePartie, "Renforts")) {
                         if (Objects.equals("Soldat", currentUnite)) {
@@ -67,9 +70,11 @@ public class Fenetre extends JFrame {
                         }
                         if (Objects.equals("Canon", currentUnite)) {
                             currentJoueur.putUnite(new Canon(x, y));
+
                         }
                         if (Objects.equals("Cavalier", currentUnite)) {
                             currentJoueur.putUnite(new Cavalier(x, y));
+
                         }
                         System.out.println(currentJoueur.nbUnites);
 
@@ -77,26 +82,20 @@ public class Fenetre extends JFrame {
 
                         if (currentJoueur.nbUnites == 0) {
                             Partie.phasePartie = "Déplacement";
+                            setCursor(Cursor.getDefaultCursor());
                         }
 
                     }
                     if (Objects.equals(Partie.phasePartie, "Déplacement")) {
-                        setCursor(Cursor.getDefaultCursor());
+
                         repaint();
                     }
                     if (Objects.equals(Partie.phasePartie, "Attaque")) {
                         repaint();
+                        numerojoueur = (numerojoueur + 1) % joueurs.size();
+                        changeCursor("Soldat");
                     }
 
-
-/**
- for (int i = 0; i > joueurs.size(); i++) {
- Main.Renfort(joueurs.get(i));
- Main.Déplacement(joueurs.get(i));
- Main.Attaque(joueurs.get(i));
-
- }
- */
                 }
 
                 if (event.getButton() == MouseEvent.BUTTON3) {
@@ -120,7 +119,7 @@ public class Fenetre extends JFrame {
     }
 
     public void changeCursor(String pathname) {
-        BufferedImage icone = Main.ImageReader(pathname+".png");
+        BufferedImage icone = Main.ImageReader(pathname + ".png");
         icone = Main.changeColor(icone, currentJoueur.couleur);
         setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon(icone).getImage(), new Point(0, 0), "Curseur"));
         currentUnite = pathname;
@@ -132,8 +131,7 @@ public class Fenetre extends JFrame {
 abstract class NewMouseListener implements MouseListener {
 
     public void mouseClicked(MouseEvent event) {
-        int x = event.getX() - Map.x_adapt;
-        int y = event.getY() - Map.y_adapt;
+
 
 
     }

@@ -46,6 +46,9 @@ public class Joueur {
         String countryname = Territoire.getCountryName(positionx, positiony);
         boolean possible = false;
         for (int i = 0; i < listTerritoires.size(); i++) {
+            //System.out.println(countryname);
+            //System.out.println(listTerritoires.get(i).getName());
+
             if (Objects.equals(countryname, listTerritoires.get(i).getName())) {
                 possible = true;
             }
