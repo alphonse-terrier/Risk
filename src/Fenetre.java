@@ -35,13 +35,12 @@ public class Fenetre extends JFrame {
 
         Map map = new Map();
         this.setContentPane(map);
-        changeCursor("Soldat");
         map.addMouseMotionListener(new NewMouseMotionListener() {
             @Override
             public void mouseMoved(MouseEvent event) {
                 super.mouseMoved(event);
                 int x = event.getX();
-                if (Objects.equals(Partie.phasePartie, "Attaque")) {
+                if (Objects.equals(Partie.phasePartie, "Renforts")) {
                     if (x > 1000) {
                         setCursor(Cursor.getDefaultCursor());
                     } else {
@@ -56,15 +55,12 @@ public class Fenetre extends JFrame {
                                  @Override
                                  public void mouseClicked(MouseEvent event) {
                                      super.mouseClicked(event);
-                                     if (event.getButton() == MouseEvent.BUTTON1) {
+                                     int x = event.getX();
+                                     int y = event.getY();
+                                     if (x < 1000 && y < 690) {
+                                         if (event.getButton() == MouseEvent.BUTTON1) {
 
-                                         int x = event.getX();
-                                         int y = event.getY();
-
-
-                                         //Instaurer une condition pour passer en mode attaque (clique sur le bouton en bas à droite)
-
-                                         if (x < width && y < height) {
+                                             //Instaurer une condition pour passer en mode attaque (clique sur le bouton en bas à droite)
 
 
                                              if (Objects.equals(Partie.phasePartie, "Attaque")) {
@@ -126,12 +122,10 @@ public class Fenetre extends JFrame {
                                              }
 
                                          }
-                                     }
 
-                                     if (event.getButton() == MouseEvent.BUTTON3) {
-                                         int x = event.getX();
-                                         int y = event.getY();
-                                         if (x < width && y < height) {
+
+                                         if (event.getButton() == MouseEvent.BUTTON3) {
+
                                              if (Objects.equals(Partie.phasePartie, "Renforts")) {
                                                  if (Objects.equals("Soldat", currentUnite)) {
                                                      changeCursor("Canon");
@@ -142,8 +136,8 @@ public class Fenetre extends JFrame {
                                                  }
                                              }
                                          }
-                                     }
 
+                                     }
                                  }
 
                                  public void mouseMoved(MouseEvent event) {
