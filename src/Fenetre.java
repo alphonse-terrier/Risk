@@ -37,8 +37,9 @@ public class Fenetre extends JFrame {
                 //joueurs.get(0).listUnites.remove(0);
                 for (int i = 0; i < joueurs.get(0).listTerritoires.size(); i++) {
                     String countryName = joueurs.get(0).listTerritoires.get(i).getName();
-                    if(Objects.equals(countryName, countryClicked)) {
+                    if(Objects.equals(countryName, countryClicked) && joueurs.get(0).nbUnites > 0) {
                         joueurs.get(0).putUnite(new Soldat(x, y));
+                        System.out.println(joueurs.get(0).nbUnites);
                     }
                 }
                 //System.out.println("x : "+ x +", y : " + y);

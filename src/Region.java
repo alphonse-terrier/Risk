@@ -53,9 +53,9 @@ public class Region {
 
 
     public static ArrayList<Region> getRegions(ArrayList<Territoire> listTerritoires) {
-        ArrayList<Region> listRegions = new ArrayList<Region>();
+        ArrayList<Region> listRegions = null;
+
         ArrayList<Region> listAllRegions = getAllRegions();
-        //ArrayList<String> listNameTerritoires = new ArrayList<String>();
 
         for (int i = 0; i < listAllRegions.size(); i++) {
             try {

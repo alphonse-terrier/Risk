@@ -121,5 +121,15 @@ public class Partie {
         return joueurs;
     }
 
+    public static boolean checkIfWin(Joueur joueur) {
+
+        if (joueur.listRegions.size() == 6) {
+
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
 }
