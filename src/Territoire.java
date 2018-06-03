@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/**
- *
- */
+
 public class Territoire {
     public ArrayList<Unite> listUnits;
     private String name;
@@ -19,36 +17,7 @@ public class Territoire {
         this.name = name;
         this.listUnits = Unite.getAllUnitsinTerritoire(name, new ArrayList<Unite>()); // Remplacer new ArrayList<Unite>()
     }
-    /**
-    // public list <Territoire> voisins;
-    public static boolean checkIfConquestIsPossible(String[] listTerritories, String countryToConquest) {
-        for (String s : listTerritories) {
-            try {
-                String line;
-                BufferedReader frontieres = new BufferedReader(new FileReader("frontieres.txt"));
-                while ((line = frontieres.readLine()) != null) {
-                    String[] thatLine = line.split(";");
-                    if (Objects.equals(thatLine[0], s)) {
-                        for (int x = 1; x < thatLine.length; x++) {
-                            if (Objects.equals(thatLine[x], countryToConquest)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
 
-
-     * public static ArrayList<String> initRegions(int nombreJoueurs) {
-     * ArrayList<String> obj = new ArrayList<String>();
-     * return obj;
-     * }
-     */
 
     public static String getCountryName(int x, int y) {
         File folder = new File("countries_png");
@@ -130,7 +99,6 @@ public class Territoire {
 
         return false;
     }
-
 
 
     public String getName() {

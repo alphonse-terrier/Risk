@@ -15,6 +15,7 @@ public class Map extends JPanel {
     public static ImageObserver imgobs = new ImageObserver() {
         @Override
         public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+
             return false;
         }
     };

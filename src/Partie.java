@@ -85,8 +85,7 @@ public class Partie {
 
 
 
-        for (int x = 0; x < joueurs.size(); x++) { //Tous les pions ne se mettent pas, à corriger
-            //System.out.println(joueurs.get(x).listTerritoires.size());
+        for (int x = 0; x < joueurs.size(); x++) {
             for (int y = 0; y < joueurs.get(x).listTerritoires.size(); y++) {
 
 
@@ -116,7 +115,6 @@ public class Partie {
             }
         }
 
-        //joueurs.get(0).listUnites.add(new Soldat(23, 24));
 
 
 
