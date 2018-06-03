@@ -82,19 +82,8 @@ public class Partie {
 
 
 
-
-
-
-
-
-
-
         for (int x = 0; x < joueurs.size(); x++) {
             for (int y = 0; y < joueurs.get(x).listTerritoires.size(); y++) {
-
-
-
-
 
                 String territoireName = joueurs.get(x).listTerritoires.get(y).getName();
                 System.out.println(territoireName);
@@ -104,10 +93,11 @@ public class Partie {
                     BufferedReader positionsInit = Main.readTextFile("positionsinit.txt");
                     while ((line = positionsInit.readLine()) != null) {
                         String[] thatLine = line.split(";");
-                        //System.out.println(thatLine[0]);
+
                         if (Objects.equals(thatLine[0], territoireName)) {
-                            //System.out.println(thatLine[0]);
-                            joueurs.get(x).listUnites.add(new Soldat(Integer.parseInt(thatLine[1]), Integer.parseInt(thatLine[2])));
+
+                            joueurs.get(x).putUnite(new Soldat(Integer.parseInt(thatLine[1]), Integer.parseInt(thatLine[2])));
+
                         }
 
                     }

@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Fenetre extends JFrame {
     public static ArrayList<Joueur> joueurs = Partie.initGame();
@@ -32,12 +33,15 @@ public class Fenetre extends JFrame {
                 int x = event.getX()- Map.x_adapt;
                 int y = event.getY() - Map.y_adapt;
                 String countryClicked = Territoire.getCountryName(x, y);
-                System.out.println(countryClicked);
+                //System.out.println(countryClicked);
                 //joueurs.get(0).listUnites.remove(0);
-                joueurs.get(0).putUnite(new Soldat(x, y));
-                System.out.println("x : "+ x +", y : " + y);
-                // Implémenter une fonction qui agit au clic et qui modifie la liste de toutes les units sous certaines conditions (la liste permettra la lecture des images dans Map)
-                // https://stackoverflow.com/questions/35299786/draw-circle-on-jpanel-after-mouse-click
+                for (int i = 0; i < joueurs.get(0).listTerritoires.size(); i++) {
+                    String countryName = joueurs.get(0).listTerritoires.get(i).getName();
+                    if(Objects.equals(countryName, countryClicked)) {
+                        joueurs.get(0).putUnite(new Soldat(x, y));
+                    }
+                }
+                //System.out.println("x : "+ x +", y : " + y);
                 repaint();
 
             }
