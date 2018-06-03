@@ -41,13 +41,13 @@ public class Fenetre extends JFrame {
             public void mouseMoved(MouseEvent event) {
                 super.mouseMoved(event);
                 int x = event.getX();
-                int y = event.getY();
-                if (x > 1000) {
-                    setCursor(Cursor.getDefaultCursor());
-                }
-                else {
-                    changeCursor(currentUnite);
+                if (Objects.equals(Partie.phasePartie, "Attaque")) {
+                    if (x > 1000) {
+                        setCursor(Cursor.getDefaultCursor());
+                    } else {
+                        changeCursor(currentUnite);
 
+                    }
                 }
             }
         });
@@ -61,25 +61,8 @@ public class Fenetre extends JFrame {
                                          int x = event.getX();
                                          int y = event.getY();
 
-/*
-                    String countryClicked = Territoire.getCountryName(x, y);
 
-                    System.out.println(countryClicked);
-                    System.out.println("x : "+x+", y : "+y);
-
-                //joueurs.get(0).listUnites.remove(0);
-                for (int i = 0; i < joueurs.get(0).listTerritoires.size(); i++) {
-                    String countryName = joueurs.get(0).listTerritoires.get(i).getName();
-                    if(Objects.equals(countryName, countryClicked) && joueurs.get(0).nbUnites > 0) {
-                        joueurs.get(0).putUnite(new Soldat(x, y));
-                        System.out.println(joueurs.get(0).nbUnites);
-                    }
-                }
-                //System.out.println("x : "+ x +", y : " + y);
-*/
-
-
-                                         //Instaurer une conditon pour passer en mode attaque (clique sur le bouton en bas à droite)
+                                         //Instaurer une condition pour passer en mode attaque (clique sur le bouton en bas à droite)
 
                                          if (x < width && y < height) {
 
