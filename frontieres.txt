@@ -18,7 +18,7 @@ indonesia;westaustalia;siam;newguinea;;;
 irkutsk;siberia;mongolia;yakutsk;kamchatka;;
 japan;mongolia;newguinea;kamchatka;;;
 kamchatka;mongolia;japan;yakutsk;irkutsk;alaska;
-madagascar;southafrica;northafrica;;;;
+madagascar;southafrica;eastafrica;;;;
 middleeast;eastafrica;egypt;southeurope;ukraine;afghanistan;india
 mongolia;japan;china;siberia;irkutsk;kamchatka;
 newguinea;japan;westaustalia;eastaustralia;indonesia;;

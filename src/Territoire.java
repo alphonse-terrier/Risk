@@ -19,7 +19,7 @@ public class Territoire {
         this.name = name;
         this.listUnits = Unite.getAllUnitsinTerritoire(name, new ArrayList<Unite>()); // Remplacer new ArrayList<Unite>()
     }
-
+    /**
     // public list <Territoire> voisins;
     public static boolean checkIfConquestIsPossible(String[] listTerritories, String countryToConquest) {
         for (String s : listTerritories) {
@@ -43,7 +43,7 @@ public class Territoire {
         return false;
     }
 
-    /**
+
      * public static ArrayList<String> initRegions(int nombreJoueurs) {
      * ArrayList<String> obj = new ArrayList<String>();
      * return obj;
@@ -80,6 +80,32 @@ public class Territoire {
 
     }
 
+    public static boolean areTheseCountriesAdjacents(String countryname1, String countryname2) {
+
+        if (Objects.equals(countryname1, countryname2)) {
+            return true;
+        }
+
+        try {
+            String line;
+            BufferedReader frontieres = new BufferedReader(new FileReader("frontieres.txt"));
+            while ((line = frontieres.readLine()) != null) {
+                String[] thatLine = line.split(";");
+                if (Objects.equals(thatLine[0], countryname1)) {
+                    for (int x = 1; x < thatLine.length; x++) {
+                        if (Objects.equals(thatLine[x], countryname2)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public static ArrayList<Territoire> getAllCountriesName() {
         File folder = new File("countries_png");
         File[] listOfFiles = folder.listFiles();
@@ -93,8 +119,8 @@ public class Territoire {
         return listCountries;
     }
 
-    public static boolean checkIfThisIsOneOfMyCountry(Joueur joueur, int x, int y) {
-        String country = getCountryName(x, y);
+    public static boolean checkIfThisIsOneOfMyCountry(Joueur joueur, String country) {
+
         for (int i = 0; i < joueur.listTerritoires.size(); i++) {
             if(Objects.equals(country, joueur.listTerritoires.get(i).name)) {
                 return true;

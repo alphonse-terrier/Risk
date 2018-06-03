@@ -81,8 +81,8 @@ public class Unite extends JPanel {
                 int xToCheck = x - uniteX + Map.x_adapt;
                 int yToCheck = y - uniteY + Map.y_adapt;
 
-                if (0 < xToCheck && xToCheck < 33 && 0 < yToCheck && yToCheck < 33) {
-                    Color color = new Color(imgOfUnite.getRGB(xToCheck, yToCheck));
+                if (0 < xToCheck && xToCheck < 35 && 0 < yToCheck && yToCheck < 355) {
+                    Color color = new Color(imgOfUnite.getRGB(15, 15));
                     int red = color.getRed();
                     int green = color.getGreen();
                     int blue = color.getBlue();

@@ -78,7 +78,8 @@ public class Fenetre extends JFrame {
 
 
                         if (Objects.equals(Partie.phasePartie, "Déplacement")) {
-                            if (Territoire.checkIfThisIsOneOfMyCountry(currentJoueur, x, y)) {
+                            String country = Territoire.getCountryName(x, y);
+                            if (Territoire.checkIfThisIsOneOfMyCountry(currentJoueur, country) && Territoire.areTheseCountriesAdjacents(country, Territoire.getCountryName(Unite.SelectionUnite.get(0).positionx, Unite.SelectionUnite.get(0).positiony))) {
 
                                 Unite.SelectionUnite.get(0).positionx = x - Map.x_adapt;
                                 Unite.SelectionUnite.get(0).positiony = y - Map.x_adapt;
