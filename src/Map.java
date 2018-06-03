@@ -24,6 +24,7 @@ public class Map extends JPanel {
         super.paintComponent(g);
 
 
+
         Main.drawImage(Main.ImageReader("countriesborders.png"), x_adapt, y_adapt, g);
 
         for (int x = 0; x < Fenetre.joueurs.size(); x++) {
@@ -46,6 +47,8 @@ public class Map extends JPanel {
         }
 
     }
+
+
 }
 
 
