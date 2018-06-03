@@ -6,20 +6,19 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 public class Main {
-
 
 
     public static void main(String[] args) {
 
         Fenetre carte = new Fenetre();
 
-        
 
         // A FAIRE : Condition d'arrêt du jeu : Joueur.listRegions.size() == 6
     }
@@ -56,12 +55,23 @@ public class Main {
 
     }
 
+
     public static void drawImage(BufferedImage img, int x, int y, Graphics g) {
 
 
         g.drawImage(img, x, y, Map.imgobs);
     }
 
+    public static BufferedReader readTextFile(String pathname) {
+        BufferedReader frontieres = null;
+        try {
+            frontieres = new BufferedReader(new FileReader(pathname));
 
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return frontieres;
+    }
 
 }

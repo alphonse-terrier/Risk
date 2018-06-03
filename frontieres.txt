@@ -1,11 +1,12 @@
-﻿afghanistan;middleeast;india;china;ural;ukraine;
+﻿pays;pays;pays;pays;pays;pays;
+afghanistan;middleeast;india;china;ural;ukraine;
 alaska;kamchatka;northcanada;Alberta;;;
 alberta;northcanada;alaska;ontario;uswest;;
 argentina;brazil;peru;;;;
 brazil;argentina;peru;venezuela;northafrica;;
 centralamerica;venezuela;useast;uswest;;;
 china;afghanistan;siam;india;ural;mongolia;
-madagascar;eastafrica;northafrica;southafrica;;;
+congo;eastafrica;northafrica;southafrica;;;
 eastafrica;madagascar;middleeast;northafrica;congo;egypt;southafrica
 eastaustralia;westaustalia;newguinea;;;;
 egypt;northafrica;eastafrica;middleeast;southeurope;;

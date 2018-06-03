@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 /**
  *
@@ -76,9 +78,55 @@ public class Partie {
             }
         }
 
+
+
+
+
+
+
+
+
+
+
+
+        for (int x = 0; x < joueurs.size(); x++) {
+            for (int y = 0; y < joueurs.get(x).listTerritoires.size(); y++) {
+
+
+
+
+
+                String territoireName = joueurs.get(x).listTerritoires.get(y).getName();
+                System.out.println(territoireName);
+
+                try {
+                    String line;
+                    BufferedReader positionsInit = Main.readTextFile("positionsinit.txt");
+                    while ((line = positionsInit.readLine()) != null) {
+                        String[] thatLine = line.split(";");
+                        //System.out.println(thatLine[0]);
+                        if (Objects.equals(thatLine[0], territoireName)) {
+                            //System.out.println(thatLine[0]);
+                            joueurs.get(x).listUnites.add(new Soldat(Integer.parseInt(thatLine[1]), Integer.parseInt(thatLine[2])));
+                        }
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+
         // A FAIRE : Manque le placement des unités sur les territoires (partie 3.1.4)
 
-        //joueurs.get(0).listUnites.add(new Canon(23, 24));
+        //joueurs.get(0).listUnites.add(new Soldat(23, 24));
+
+
+
+
+
 
         return joueurs;
     }
