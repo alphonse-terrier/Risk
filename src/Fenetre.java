@@ -156,6 +156,19 @@ public class Fenetre extends JFrame {
 
 
         );
+        JLabel joueurActif = new JLabel();
+        JLabel  unitesRestantes = new JLabel();
+        JButton findutour = new JButton();
+        joueurActif.setText("C'est au tour de : " + currentJoueur.getName() + "");
+        getContentPane().add(joueurActif);
+        joueurActif.setBounds(1000, 80, 170, 100);
+        unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités.");
+        getContentPane().add(unitesRestantes);
+        unitesRestantes.setBounds(1000, 150, 170, 100);
+        findutour.setText("Finir le tour.");
+        getContentPane().add(findutour);
+        findutour.setBounds(1000, 250, 100, 40);
+
 
 
     }
