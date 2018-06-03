@@ -36,6 +36,7 @@ public class Map extends JPanel {
 
 
 
+
         for (int a = 0; a < Unite.SelectionUnite.size(); a++) {
             if (!Unite.SelectionUnite.isEmpty()) {
                 Main.drawImage(Main.changeColor(Main.ImageReader(Unite.SelectionUnite.get(a).imgpath), new Color(255, 255, 255)), Unite.SelectionUnite.get(a).positionx, Unite.SelectionUnite.get(a).positiony, g);
