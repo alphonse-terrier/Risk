@@ -1,12 +1,6 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
@@ -25,8 +19,7 @@ public class Unite extends JPanel {
     public int mvtParTour;
     public String imgpath;
     public Territoire territoire;
-
-
+    public static ArrayList<Unite> SelectionUnite;
 
 
     public Unite(int positionx, int positiony, String imgpath, int cost, int minpower, int maxpower, int priorityAttack, int priorityDefense, int mvtParTour) {
@@ -71,13 +64,39 @@ public class Unite extends JPanel {
         return AllUnitsinTerritoire;
     }
 
+    public static boolean checkIfThereIsOneOfMyUnite(Joueur joueur, int x, int y) {
+        for (int i = 0; i < joueur.listUnites.size(); i++) {
+            Unite unite = joueur.listUnites.get(i);
+            String classOfUnite = unite.getClass().getName();
+            int uniteX = unite.positionx;
+            int uniteY = unite.positiony;
+            BufferedImage imgOfUnite = Main.ImageReader(classOfUnite + ".png");
+            System.out.println("x - uniteX : "+ (x - uniteX + Map.x_adapt) + ", y - uniteY : " + (y - uniteY + Map.y_adapt));
+
+            int xToCheck = x - uniteX + Map.x_adapt;
+            int yToCheck = y - uniteY + Map.y_adapt;
+
+            if (0 < xToCheck && xToCheck < 30 && 0 < yToCheck && yToCheck < 30 ) {
+            Color color = new Color(imgOfUnite.getRGB(xToCheck, yToCheck));
+            int red = color.getRed();
+            int green = color.getGreen();
+            int blue = color.getBlue();
+            if (red < 255 || green < 255 || blue < 255) {
+
+                return true;
+            } }
+
+        }
+
+        return false;
+
+
+    }
+
     public int getPower(int minpower, int maxpower) {
         int power = ThreadLocalRandom.current().nextInt(minpower, maxpower + 1);
         return power;
     }
-
-
-
 
 
 }

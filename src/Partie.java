@@ -9,7 +9,10 @@ import java.util.Objects;
 /**
  *
  */
+
+
 public class Partie {
+    public static String phasePartie = "Initialisation";
 
 
     public static ArrayList<Joueur> initGame() {
@@ -82,7 +85,7 @@ public class Partie {
 
 
 
-        for (int x = 0; x < joueurs.size(); x++) {
+        for (int x = 0; x < joueurs.size(); x++) { //Tous les pions ne se mettent pas, à corriger
             for (int y = 0; y < joueurs.get(x).listTerritoires.size(); y++) {
 
                 String territoireName = joueurs.get(x).listTerritoires.get(y).getName();
@@ -105,11 +108,10 @@ public class Partie {
                     e.printStackTrace();
                 }
 
+                phasePartie = "Renforts";
+
             }
         }
-
-
-        // A FAIRE : Manque le placement des unités sur les territoires (partie 3.1.4)
 
         //joueurs.get(0).listUnites.add(new Soldat(23, 24));
 
@@ -121,7 +123,35 @@ public class Partie {
         return joueurs;
     }
 
-    public static boolean checkIfWin(Joueur joueur) {
+
+    public static boolean Tour(Joueur joueur, int x, int y) {
+
+        phasePartie = "Renforts";
+        joueur = Unite.attributionUnites(joueur);
+        while (joueur.nbUnites > 0) {
+
+        }
+        phasePartie = "Déplacement";
+
+
+        phasePartie = "Attaque";
+
+
+
+
+        if (checkIfWin(joueur)) {
+            System.out.println("Le joueur " + joueur.getName() + " a gagné !" );
+            return true;
+        }
+
+        else {
+            return false;
+        }
+
+
+    }
+
+    public static boolean checkIfWin(Joueur joueur) { //listRegions n'est pas fonctionnel
 
         if (joueur.listRegions.size() == 6) {
 

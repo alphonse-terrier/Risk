@@ -59,7 +59,7 @@ public class Territoire {
                 String filename = new File(String.valueOf(file)).getName().replaceFirst("[.][^.]+$", "");
                 try {
                     BufferedImage country = ImageIO.read(file);
-                    Color color = new Color(country.getRGB(x, y));
+                    Color color = new Color(country.getRGB(x-Map.x_adapt, y-Map.y_adapt));
                     int red = color.getRed();
                     int green = color.getGreen();
                     int blue = color.getBlue();

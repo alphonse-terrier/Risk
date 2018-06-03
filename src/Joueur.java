@@ -36,9 +36,25 @@ public class Joueur {
         this.name = name;
     }
 
+
+
+
     public void putUnite(Unite unit) {
-        listUnites.add(unit);
-        nbUnites -= unit.cost;
+
+        int positionx = unit.positionx;
+        int positiony = unit.positiony;
+        String countryname = Territoire.getCountryName(positionx, positiony);
+        boolean possible = false;
+        for (int i = 0; i < listTerritoires.size(); i++) {
+            if (Objects.equals(countryname, listTerritoires.get(i).getName())) {
+                possible = true;
+            }
+        }
+
+        if (possible && (nbUnites - unit.cost) >= 0) {
+            listUnites.add(unit);
+            nbUnites -= unit.cost;
+        }
     }
 
 

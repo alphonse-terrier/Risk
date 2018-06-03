@@ -10,8 +10,10 @@ public class Canon extends Unite {
     /**
      * Default constructor
      */
+    public static String imgpath = "Canon.png";
+
     public Canon(int positionx, int positiony) {
-        super(positionx, positiony, "canon.png",7, 4,9, 3, 2, 1);
+        super(positionx, positiony, imgpath,7, 4,9, 3, 2, 1);
     }
 
 

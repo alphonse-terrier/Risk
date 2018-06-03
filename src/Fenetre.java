@@ -3,13 +3,20 @@
  */
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Fenetre extends JFrame {
     public static ArrayList<Joueur> joueurs = Partie.initGame();
+    public static String currentUnite = "Soldat";
+    private int numerojoueur = 0; //quand il clique sur passer le tour cette variable se change en (numerojoueur+1)%joueurs.size()
+    public Joueur currentJoueur = joueurs.get(numerojoueur);
+
+
     public Fenetre() {
 
 
@@ -26,13 +33,19 @@ public class Fenetre extends JFrame {
 
         Map map = new Map();
         this.setContentPane(map);
+        changeCursor("Soldat");
         map.addMouseListener(new NewMouseListener() {
             @Override
             public void mouseClicked(MouseEvent event) {
                 super.mouseClicked(event);
-                int x = event.getX()- Map.x_adapt;
-                int y = event.getY() - Map.y_adapt;
+                if (event.getButton() == MouseEvent.BUTTON1) {
+
+                    int x = event.getX();
+                    int y = event.getY();
+
+                /*
                 String countryClicked = Territoire.getCountryName(x, y);
+
                 //System.out.println(countryClicked);
                 //joueurs.get(0).listUnites.remove(0);
                 for (int i = 0; i < joueurs.get(0).listTerritoires.size(); i++) {
@@ -43,13 +56,74 @@ public class Fenetre extends JFrame {
                     }
                 }
                 //System.out.println("x : "+ x +", y : " + y);
-                repaint();
+
+
+                */
+
+
+                    if (Objects.equals(Partie.phasePartie, "Renforts")) {
+                        if (Objects.equals("Soldat", currentUnite)) {
+                            currentJoueur.putUnite(new Soldat(x, y));
+                        }
+                        if (Objects.equals("Canon", currentUnite)) {
+                            currentJoueur.putUnite(new Canon(x, y));
+                        }
+                        if (Objects.equals("Cavalier", currentUnite)) {
+                            currentJoueur.putUnite(new Cavalier(x, y));
+                        }
+                        System.out.println(currentJoueur.nbUnites);
+
+                        repaint();
+
+                        if (currentJoueur.nbUnites == 0) {
+                            Partie.phasePartie = "Déplacement";
+                        }
+
+                    }
+                    if (Objects.equals(Partie.phasePartie, "Déplacement")) {
+                        setCursor(Cursor.getDefaultCursor());
+                        repaint();
+                    }
+                    if (Objects.equals(Partie.phasePartie, "Attaque")) {
+                        repaint();
+                    }
+
+
+/**
+ for (int i = 0; i > joueurs.size(); i++) {
+ Main.Renfort(joueurs.get(i));
+ Main.Déplacement(joueurs.get(i));
+ Main.Attaque(joueurs.get(i));
+
+ }
+ */
+                }
+
+                if (event.getButton() == MouseEvent.BUTTON3) {
+                    int x = event.getX();
+                    int y = event.getY();
+                    if (Objects.equals(Partie.phasePartie, "Renforts")) {
+                        if (Objects.equals("Soldat", currentUnite)) {
+                            changeCursor("Canon");
+                        } else if (Objects.equals("Canon", currentUnite)) {
+                            changeCursor("Cavalier");
+                        } else if (Objects.equals("Cavalier", currentUnite)) {
+                            changeCursor("Soldat");
+                        }
+                    }
+                }
 
             }
         });
 
 
+    }
 
+    public void changeCursor(String pathname) {
+        BufferedImage icone = Main.ImageReader(pathname+".png");
+        icone = Main.changeColor(icone, currentJoueur.couleur);
+        setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon(icone).getImage(), new Point(0, 0), "Curseur"));
+        currentUnite = pathname;
     }
 
 
@@ -58,10 +132,8 @@ public class Fenetre extends JFrame {
 abstract class NewMouseListener implements MouseListener {
 
     public void mouseClicked(MouseEvent event) {
-        int x = event.getX()- Map.x_adapt;
+        int x = event.getX() - Map.x_adapt;
         int y = event.getY() - Map.y_adapt;
-
-
 
 
     }
