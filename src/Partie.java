@@ -30,7 +30,7 @@ public class Partie {
                     cbdejoueurs[0]);
         }
         int nbJoueurs = Integer.parseInt(nombre);
-        System.out.println(nbJoueurs);
+
 
 
         ArrayList<Color> couleurs = new ArrayList<Color>();
@@ -102,10 +102,7 @@ public class Partie {
                         if (Objects.equals(thatLine[0], territoireName)) {
 
                             joueurs.get(x).putUnite(new Soldat(Integer.parseInt(thatLine[1]), Integer.parseInt(thatLine[2])));
-                            if (Objects.equals(territoireName, "westeurope")) {
-                                System.out.println(Integer.parseInt(thatLine[1]));
-                                System.out.println(Integer.parseInt(thatLine[2]));
-                            }
+
 
                         }
 

@@ -9,6 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Unite extends JPanel {
 
 
+    public static ArrayList<Unite> SelectionUnite = new ArrayList<Unite>();
     public int positionx;
     public int positiony;
     public int cost;
@@ -19,7 +20,6 @@ public class Unite extends JPanel {
     public int mvtParTour;
     public String imgpath;
     public Territoire territoire;
-    public static ArrayList<Unite> SelectionUnite;
 
 
     public Unite(int positionx, int positiony, String imgpath, int cost, int minpower, int maxpower, int priorityAttack, int priorityDefense, int mvtParTour) {
@@ -55,7 +55,7 @@ public class Unite extends JPanel {
 
     public static ArrayList<Unite> getAllUnitsinTerritoire(String countryName, ArrayList<Unite> AllUnits) {
         ArrayList<Unite> AllUnitsinTerritoire = new ArrayList<Unite>();
-        for (int i = 0; i < 0; i++) {
+        for (int i = 0; i < AllUnits.size(); i++) {
             if (Objects.equals(Territoire.getCountryName(AllUnits.get(i).positionx, AllUnits.get(i).positiony), countryName)) {
                 AllUnitsinTerritoire.add(AllUnits.get(i));
             }
@@ -64,31 +64,39 @@ public class Unite extends JPanel {
         return AllUnitsinTerritoire;
     }
 
-    public static boolean checkIfThereIsOneOfMyUnite(Joueur joueur, int x, int y) {
-        for (int i = 0; i < joueur.listUnites.size(); i++) {
-            Unite unite = joueur.listUnites.get(i);
-            String classOfUnite = unite.getClass().getName();
-            int uniteX = unite.positionx;
-            int uniteY = unite.positiony;
-            BufferedImage imgOfUnite = Main.ImageReader(classOfUnite + ".png");
-            System.out.println("x - uniteX : "+ (x - uniteX + Map.x_adapt) + ", y - uniteY : " + (y - uniteY + Map.y_adapt));
+    public static Unite checkIfDeplacementIsPossible(Joueur joueur, int x, int y) {
 
-            int xToCheck = x - uniteX + Map.x_adapt;
-            int yToCheck = y - uniteY + Map.y_adapt;
+        ArrayList<Unite> allUnits = getAllUnitsinTerritoire(Territoire.getCountryName(x, y), joueur.listUnites);
 
-            if (0 < xToCheck && xToCheck < 30 && 0 < yToCheck && yToCheck < 30 ) {
-            Color color = new Color(imgOfUnite.getRGB(xToCheck, yToCheck));
-            int red = color.getRed();
-            int green = color.getGreen();
-            int blue = color.getBlue();
-            if (red < 255 || green < 255 || blue < 255) {
+        if (allUnits.size() > 1) {
 
-                return true;
-            } }
+            for (int i = 0; i < allUnits.size(); i++) {
+                Unite unite = allUnits.get(i);
+                String classOfUnite = unite.getClass().getName();
+                int uniteX = unite.positionx;
+                int uniteY = unite.positiony;
+                BufferedImage imgOfUnite = Main.ImageReader(classOfUnite + ".png");
+                //System.out.println("x - uniteX : " + (x - uniteX + Map.x_adapt) + ", y - uniteY : " + (y - uniteY + Map.y_adapt));
 
+                int xToCheck = x - uniteX + Map.x_adapt;
+                int yToCheck = y - uniteY + Map.y_adapt;
+
+                if (0 < xToCheck && xToCheck < 33 && 0 < yToCheck && yToCheck < 33) {
+                    Color color = new Color(imgOfUnite.getRGB(xToCheck, yToCheck));
+                    int red = color.getRed();
+                    int green = color.getGreen();
+                    int blue = color.getBlue();
+                    if (red < 255 || green < 255 || blue < 255) {
+                        SelectionUnite.add(unite);
+
+                        return unite;
+                    }
+                }
+
+            }
         }
 
-        return false;
+        return null;
 
 
     }

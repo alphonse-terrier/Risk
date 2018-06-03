@@ -93,6 +93,18 @@ public class Territoire {
         return listCountries;
     }
 
+    public static boolean checkIfThisIsOneOfMyCountry(Joueur joueur, int x, int y) {
+        String country = getCountryName(x, y);
+        for (int i = 0; i < joueur.listTerritoires.size(); i++) {
+            if(Objects.equals(country, joueur.listTerritoires.get(i).name)) {
+                return true;
+            }
+        }
+
+
+        return false;
+    }
+
 
 
     public String getName() {

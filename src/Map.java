@@ -27,22 +27,22 @@ public class Map extends JPanel {
 
         for (int x = 0; x < Fenetre.joueurs.size(); x++) {
             for (int y = 0; y < Fenetre.joueurs.get(x).listUnites.size(); y++) {
-                if (Fenetre.joueurs.get(x).listUnites.isEmpty() == false) {
+                if (!Fenetre.joueurs.get(x).listUnites.isEmpty()) {
 
                     Main.drawImage(Main.changeColor(Main.ImageReader(Fenetre.joueurs.get(x).listUnites.get(y).imgpath), Fenetre.joueurs.get(x).couleur), Fenetre.joueurs.get(x).listUnites.get(y).positionx, Fenetre.joueurs.get(x).listUnites.get(y).positiony, g);
                 }
             }
         }
 
-/**
-        for (int y = 0; y < Unite.SelectionUnite.size(); y++) {
-            if (Unite.SelectionUnite.isEmpty() == false) {
 
-                Main.drawImage(Main.changeColor(Main.ImageReader(Unite.SelectionUnite.get(y).imgpath), new Color(255, 255, 255)), Unite.SelectionUnite.get(y).positionx, Unite.SelectionUnite.get(y).positiony, g);
+
+        for (int a = 0; a < Unite.SelectionUnite.size(); a++) {
+            if (!Unite.SelectionUnite.isEmpty()) {
+                Main.drawImage(Main.changeColor(Main.ImageReader(Unite.SelectionUnite.get(a).imgpath), new Color(255, 255, 255)), Unite.SelectionUnite.get(a).positionx, Unite.SelectionUnite.get(a).positiony, g);
             }
 
         }
- */
+
     }
 }
 
