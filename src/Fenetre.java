@@ -53,14 +53,10 @@ public class Fenetre extends JFrame {
         this.add(unitesRestantes);
 
         findutour.setText("Finir mon tour");
-        findutour.setBounds(1000, 270, 150, 40);
+
         this.add(findutour);
-<<<<<<< HEAD
         findutour.setBounds(1000, 320, 150, 40);
         findutour.setVisible(false);
-
-=======
->>>>>>> f4af102c16bd8918e5b48cdebb3735960e0fa2a6
 
         unselection.setText("Désélectionner");
         unselection.setBounds(1000, 220, 150, 40);
