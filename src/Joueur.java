@@ -8,13 +8,14 @@ import java.util.*;
  */
 public class Joueur {
 
-    public Joueur(String name, ArrayList<Territoire> listTerritoires, ArrayList<Unite> listUnites, int nbUnites, ArrayList<Region> listRegions, Color couleur) {
+    public Joueur(String name, ArrayList<Territoire> listTerritoires, ArrayList<Unite> listUnites, int nbUnites, Color couleur, int nbTerritoiresCapturéesTourPréc) {
         this.name = name;
         this.listTerritoires = listTerritoires;
         this.listUnites = listUnites;
         this.nbUnites = nbUnites;
-        this.listRegions = listRegions;
+        this.listRegions = new ArrayList<Region>();
         this.couleur = couleur;
+        this.nbTerritoiresCapturéesTourPréc = nbTerritoiresCapturéesTourPréc;
     }
 
     private String name;
@@ -23,6 +24,7 @@ public class Joueur {
     public int nbUnites;
     public ArrayList<Region> listRegions;
     public Color couleur;
+    public int nbTerritoiresCapturéesTourPréc;
 
 
 

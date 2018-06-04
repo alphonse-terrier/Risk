@@ -52,6 +52,8 @@ public class Fenetre extends JFrame {
         findutour.setText("Finir mon tour");
         this.add(findutour);
         findutour.setBounds(1000, 320, 150, 40);
+        findutour.setVisible(false);
+
 
         unselection.setText("Désélectionner");
         this.add(unselection);
@@ -61,13 +63,14 @@ public class Fenetre extends JFrame {
         findutour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 if (currentJoueur.nbUnites == 0) {
+
                     changePlayer(currentJoueur);
                     Partie.phasePartie = "Renforts";
 
                     for (int i = 0; i < currentJoueur.listUnites.size(); i++) {
                         if (currentJoueur.listUnites.get(i).getClass().getName() == "Soldat") {
                             currentJoueur.listUnites.get(i).mvtParTour = Soldat.mvtParTourDefault;
-                        } else if (currentJoueur.listUnites.get(i).getClass().getName() == "Soldat") {
+                        } else if (currentJoueur.listUnites.get(i).getClass().getName() == "Cavalier") {
                             currentJoueur.listUnites.get(i).mvtParTour = Cavalier.mvtParTourDefault;
                         } else {
                             currentJoueur.listUnites.get(i).mvtParTour = Canon.mvtParTourDefault;
@@ -77,7 +80,10 @@ public class Fenetre extends JFrame {
                     }
 
 
-                    //attributionUnites(currentJoueur);
+                    currentJoueur = Unite.attributionUnites(currentJoueur);
+                    unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
+                    joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
+
 
                 }
             }
@@ -88,6 +94,7 @@ public class Fenetre extends JFrame {
                 if (Unite.SelectionUnite.size() > 0) {
                     for (int i = 0; i < Unite.SelectionUnite.size(); i++) {
                         Unite.SelectionUnite.remove(i);
+                        unselection.setVisible(false);
                         Partie.phasePartie = "Sélection";
                         repaint();
                     }
@@ -129,12 +136,16 @@ public class Fenetre extends JFrame {
                                                          String countryToConquest = Territoire.getCountryName(x, y);
                                                          String countryOfTheUnit = Territoire.getCountryName(Unite.SelectionUnite.get(i).positionx, Unite.SelectionUnite.get(i).positiony);
                                                          if (Territoire.areTheseCountriesAdjacents(countryToConquest, countryOfTheUnit)) {
-                                                             if (Territoire.checkIfThisIsOneOfMyCountry(currentJoueur, countryToConquest) || Partie.attaque(currentJoueur, countryToConquest)) {
+                                                             if (Territoire.checkIfThisIsOneOfMyCountry(currentJoueur, countryToConquest)) {
                                                                  if (Unite.SelectionUnite.get(i).mvtParTour > 0) {
                                                                      Unite.SelectionUnite.get(i).positionx = x - Map.x_adapt;
                                                                      Unite.SelectionUnite.get(i).positiony = y - Map.x_adapt;
                                                                      Unite.SelectionUnite.get(i).mvtParTour -= 1;
                                                                  }
+                                                             } else  {
+                                                                 Partie.attaque(currentJoueur, countryToConquest);
+                                                                 repaint();
+                                                                 break;
                                                              }
 
 
@@ -150,9 +161,13 @@ public class Fenetre extends JFrame {
 
                                                          Unite.SelectionUnite.remove(i);
 
-                                                         Partie.phasePartie = "NewSélection";
+
                                                      }
+                                                     Partie.phasePartie = "NewSélection";
+
                                                  }
+
+
                                                  repaint();
                                              }
 
@@ -190,6 +205,7 @@ public class Fenetre extends JFrame {
 
                                                  if (currentJoueur.nbUnites == 0) {
                                                      Partie.phasePartie = "Sélection";
+                                                     findutour.setVisible(true);
                                                      setCursor(Cursor.getDefaultCursor());
                                                  }
 
@@ -236,6 +252,7 @@ public class Fenetre extends JFrame {
                                                  }
 
                                                  if (nbUnitesTotal == 0) {
+                                                     findutour.setVisible(true);
                                                      Partie.phasePartie = "Sélection";
                                                      setCursor(Cursor.getDefaultCursor());
                                                  } else {
@@ -255,6 +272,8 @@ public class Fenetre extends JFrame {
                                          if (event.getButton() == MouseEvent.BUTTON3) {
 
                                              if (Objects.equals(Partie.phasePartie, "Renforts") || Objects.equals(Partie.phasePartie, "PoseUnites")) {
+                                                 findutour.setVisible(false);
+
 
                                                  if (Objects.equals("Soldat", currentUnite)) {
                                                      changeCursor("Canon");

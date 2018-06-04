@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  *
@@ -62,7 +63,7 @@ public class Partie {
 
             int nbUnites = 50 - 5 * nbJoueurs;
 
-            joueurs.add(new Joueur(name, new ArrayList<Territoire>(), new ArrayList<Unite>(), nbUnites, new ArrayList<Region>(), couleurs.get(x)));
+            joueurs.add(new Joueur(name, new ArrayList<Territoire>(), new ArrayList<Unite>(), nbUnites, couleurs.get(x), 0));
         }
 
 
@@ -127,11 +128,13 @@ public class Partie {
 
 
         Joueur joueurDefense = null;
+        Territoire territoire = null;
 
         for (int i = 0; i < Fenetre.joueurs.size(); i++) {
             for (int j = 0; j < Fenetre.joueurs.get(i).listTerritoires.size(); j++) {
                 if (Objects.equals(Fenetre.joueurs.get(i).listTerritoires.get(j).getName(), countryToConquest)) {
                     joueurDefense = Fenetre.joueurs.get(i);
+                    territoire = Fenetre.joueurs.get(i).listTerritoires.get(j);
                 }
             }
         }
@@ -159,26 +162,112 @@ public class Partie {
 
         for (int i = 0; i < Unite.SelectionUnite.size(); i++) {
             Unite.SelectionUnite.get(i).actualPower = Unite.SelectionUnite.get(i).getPower();
+            System.out.println(Unite.SelectionUnite.get(i).actualPower);
         }
-
+        System.out.println();
         for (int i = 0; i < unitsJoueurDefense.size(); i++) {
             unitsJoueurDefense.get(i).actualPower = unitsJoueurDefense.get(i).getPower();
+            System.out.println(unitsJoueurDefense.get(i).actualPower);
         }
+        System.out.println();
+
 
         ArrayList<Unite> unitsAttackToRemove = new ArrayList<Unite>();
         ArrayList<Unite> unitsDefenseToRemove = new ArrayList<Unite>();
-
-        //trier UnitsJoueurDefense et Unite.SelectionUnite par actualPower, comparer première avec première, deuxième avec deuxième, supprimer les troupes perdantes dans Unite.SelectionUnite, et les deux listUnite
-
+        ArrayList<Unite> unitsAttackToSave = new ArrayList<Unite>();
 
 
-        allUnitsJoueurDefense = Unite.getAllUnitsinTerritoire(countryToConquest, joueurDefense.listUnites);
-        if (allUnitsJoueurDefense.size() == 0) {
-            return true;
+        Collections.sort(unitsJoueurDefense, (Unit1, Unit2) -> Unit2.actualPower - Unit1.actualPower);
+        for (int i = 0; i < unitsJoueurDefense.size(); i++) {
+            System.out.println(unitsJoueurDefense.get(i).actualPower);
+        }
+        Collections.sort(Unite.SelectionUnite, (Unit1, Unit2) -> Unit2.actualPower - Unit1.actualPower);
+        //trier UnitsJoueurDefense et Unite.SelectionUnite par actualPower
+
+
+        for (int i = 0; i < Math.min(Unite.SelectionUnite.size(), unitsJoueurDefense.size()); i++) {
+            if (Unite.SelectionUnite.get(i).actualPower == unitsJoueurDefense.get(i).actualPower) {
+                if (Unite.SelectionUnite.get(i).priorityAttack > unitsJoueurDefense.get(i).priorityDefense) {
+                    unitsDefenseToRemove.add(unitsJoueurDefense.get(i));
+                    unitsAttackToSave.add(Unite.SelectionUnite.get(i));
+                    Unite.SelectionUnite.get(i).positionx = unitsJoueurDefense.get(i).positionx;
+                    Unite.SelectionUnite.get(i).positiony = unitsJoueurDefense.get(i).positiony;
+                } else {
+                    unitsAttackToRemove.add(Unite.SelectionUnite.get(i));
+
+
+                }
+
+            } else if (Unite.SelectionUnite.get(i).actualPower > unitsJoueurDefense.get(i).actualPower) {
+                unitsDefenseToRemove.add(unitsJoueurDefense.get(i));
+                unitsAttackToSave.add(Unite.SelectionUnite.get(i));
+                Unite.SelectionUnite.get(i).positionx = unitsJoueurDefense.get(i).positionx;
+                Unite.SelectionUnite.get(i).positiony = unitsJoueurDefense.get(i).positiony;
+            } else {
+                unitsAttackToRemove.add(Unite.SelectionUnite.get(i));
+
+            }
         }
 
 
+        for (int i = 0; i < unitsAttackToRemove.size(); i++) {
+            for (int j = 0; j < joueurAttack.listUnites.size(); j++) {
+                if (Objects.equals(unitsAttackToRemove.get(i), joueurAttack.listUnites.get(j))) {
+                    joueurAttack.listUnites.remove(j);
+                }
+            }
 
+        }
+
+        allUnitsJoueurDefense = Unite.getAllUnitsinTerritoire(countryToConquest, joueurDefense.listUnites);
+        if (unitsDefenseToRemove.size() == unitsJoueurDefense.size()) {
+
+
+
+
+            for (int i = 0; i < allUnitsJoueurDefense.size(); i++) {
+                for (int j = 0; j < joueurDefense.listUnites.size(); j++) {
+                    if (Objects.equals(allUnitsJoueurDefense.get(i), joueurDefense.listUnites.get(j))) {
+                        joueurDefense.listUnites.remove(j);
+                    }
+                }
+            }
+                    /*
+            Random random = new Random();
+            for (int i = 0; i < unitsAttackToSave.size(); i++) {
+                int randx = unitsDefenseToRemove.get(0).positionx + random.nextInt(5 + 1 + 5) - 5;
+                int randy = unitsDefenseToRemove.get(0).positiony + random.nextInt(5 + 1 + 5) - 5;
+                while (Objects.equals(Territoire.getCountryName(unitsDefenseToRemove.get(0).positionx, unitsDefenseToRemove.get(0).positiony), Territoire.getCountryName(randx, randy))) {
+                    unitsAttackToSave.get(i).positionx = randx;
+                    unitsAttackToSave.get(i).positiony = randy;
+                    randx = unitsDefenseToRemove.get(0).positionx + random.nextInt(5 + 1 + 5) - 5;
+                    randy = unitsDefenseToRemove.get(0).positiony + random.nextInt(5 + 1 + 5) - 5;
+
+                }
+            } */
+
+            //Changer position troupe restante
+            joueurAttack.nbTerritoiresCapturéesTourPréc += 1;
+            joueurAttack.listTerritoires.add(territoire);
+            Unite.SelectionUnite = new ArrayList<Unite>();
+            return true;
+        } else {
+
+            for (int i = 0; i < unitsDefenseToRemove.size(); i++) {
+                for (int j = 0; j < joueurDefense.listUnites.size(); j++) {
+                    if (Objects.equals(unitsDefenseToRemove.get(i), joueurDefense.listUnites.get(j))) {
+                        joueurDefense.listUnites.remove(j);
+                    }
+                }
+
+            }
+        }
+
+        Unite.SelectionUnite = new ArrayList<Unite>();
+
+
+
+        return false;
 /*
 
 

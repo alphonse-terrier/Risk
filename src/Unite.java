@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -54,8 +55,17 @@ public class Unite extends JPanel {
             joueur.nbUnites += regions.get(i).getWeight();
         }
 
-        // Implémenter dernière ligne tableau (relire partie 3.2.1)
+        Random rand = new Random();
+        for (int i=0; i < joueur.nbTerritoiresCapturéesTourPréc; i++){
+            if ((rand.nextInt(10) + 1)>5) {
+                joueur.nbUnites += 1;
+            }
+        }
 
+
+        if (joueur.nbUnites < 2) {
+            joueur.nbUnites = 2;
+        }
         return joueur;
     }
 
@@ -74,8 +84,9 @@ public class Unite extends JPanel {
 
         ArrayList<Unite> allUnits = getAllUnitsinTerritoire(Territoire.getCountryName(x, y), joueur.listUnites);
 
-
-
+        if (SelectionUnite.size()+1 == allUnits.size()) {
+            return null;
+        }
 
         if (allUnits.size() > 1 && SelectionUnite.size() < 3) {
 

@@ -40,7 +40,7 @@ public class Region {
         ArrayList<Region> listAllRegions = new ArrayList<Region>();
         try {
             String line;
-            BufferedReader continents = new BufferedReader(new FileReader("continents.txt"));
+            BufferedReader continents = new BufferedReader(new FileReader("./Terre/continents.txt"));
             while ((line = continents.readLine()) != null) {
                 String[] thatLine = line.split(";");
                 listAllRegions.add(new Region(thatLine[1], Integer.parseInt(thatLine[0])));
@@ -60,7 +60,7 @@ public class Region {
         for (int i = 0; i < listAllRegions.size(); i++) {
             try {
                 String line;
-                BufferedReader continents = new BufferedReader(new FileReader("continents.txt"));
+                BufferedReader continents = new BufferedReader(new FileReader("./Terre/continents.txt"));
 
                 while ((line = continents.readLine()) != null) {
                     String[] thatLine = line.split(";");
