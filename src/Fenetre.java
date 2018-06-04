@@ -175,19 +175,16 @@ public class Fenetre extends JFrame {
                                                          }
                                                      }
                                                      currentJoueur = changePlayer(currentJoueur);
-                                                     changeCursor(currentUnite);
+
                                                  } else {
-                                                     currentJoueur = changePlayer(currentJoueur);
-                                                     changeCursor("Soldat");
+                                                     currentUnite = "Soldat";
                                                  }
 
 
                                                  int nbUnitesTotal = 0;
                                                  while (currentJoueur.nbUnites == 0 && nbUnitesTotal == 0) {
                                                      currentJoueur = changePlayer(currentJoueur);
-                                                     changeCursor(currentUnite);
-
-
+                                                     nbUnitesTotal = 0;
                                                      for (int i = 0; i < joueurs.size(); i++) {
                                                          nbUnitesTotal += joueurs.get(i).nbUnites;
                                                      }
@@ -197,7 +194,7 @@ public class Fenetre extends JFrame {
                                                          changeCursor(currentUnite);
                                                      }
                                                  }
-
+                                                 changeCursor(currentUnite);
 
                                                  repaint();
 
