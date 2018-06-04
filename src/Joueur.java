@@ -37,7 +37,7 @@ public class Joueur {
 
 
 
-    public void putUnite(Unite unit) {
+    public boolean putUnite(Unite unit) {
 
         int positionx = unit.positionx;
         int positiony = unit.positiony;
@@ -53,6 +53,10 @@ public class Joueur {
         if (possible && (nbUnites - unit.cost) >= 0) {
             listUnites.add(unit);
             nbUnites -= unit.cost;
+            return true;
+        }
+        else {
+            return false;
         }
     }
 

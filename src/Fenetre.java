@@ -12,8 +12,8 @@ import java.util.Objects;
 public class Fenetre extends JFrame {
     public static ArrayList<Joueur> joueurs = Partie.initGame();
     public static String currentUnite = "Soldat";
-    private static int numerojoueur = 0; //quand il clique sur passer le tour cette variable se change en (numerojoueur+1)%joueurs.size()
-    public static Joueur currentJoueur = joueurs.get(numerojoueur);
+    public static Joueur currentJoueur;
+    private static int numerojoueur; //quand il clique sur passer le tour cette variable se change en (numerojoueur+1)%joueurs.size()
     private JLabel joueurActif;
     private JLabel unitesRestantes;
     private JButton findutour;
@@ -28,7 +28,9 @@ public class Fenetre extends JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-
+        numerojoueur = 0;
+        currentJoueur = joueurs.get(numerojoueur);
+        changeCursor("Soldat");
 
         Map map = new Map();
         this.setContentPane(map);
@@ -58,9 +60,6 @@ public class Fenetre extends JFrame {
             }
         });
 
-        changeCursor("Soldat");
-
-
 
         map.addMouseMotionListener(new NewMouseMotionListener() {
             @Override
@@ -85,6 +84,7 @@ public class Fenetre extends JFrame {
                                      int x = event.getX();
                                      int y = event.getY();
 
+
                                      if (x < 1000) {
                                          if (event.getButton() == MouseEvent.BUTTON1) {
 
@@ -101,9 +101,7 @@ public class Fenetre extends JFrame {
                                                          Partie.phasePartie = "NewSélection";
                                                          //Rajouter incrémentation mouvements autorisés
                                                          repaint();
-                                                     }
-
-                                                     else {
+                                                     } else {
                                                          //Attaaaaaaaaaaaaaaaaaaaaque
                                                      }
 
@@ -150,25 +148,59 @@ public class Fenetre extends JFrame {
                                              }
 
 
+                                             if (Objects.equals(Partie.phasePartie, "PoseUnites") && Territoire.checkIfThisIsOneOfMyCountry(currentJoueur, Territoire.getCountryName(x, y))) {
+                                                 int wasAnUnitPut = 0;
+                                                 if (currentJoueur.nbUnites != 0) {
+                                                     while (wasAnUnitPut == 0) {
+                                                         if (Objects.equals("Soldat", currentUnite)) {
+                                                             if (currentJoueur.putUnite(new Soldat(x, y))) {
+                                                                 wasAnUnitPut = 1;
+                                                             }
+                                                         }
+                                                         if (Objects.equals("Canon", currentUnite)) {
+                                                             if (currentJoueur.putUnite(new Canon(x, y))) {
+                                                                 wasAnUnitPut = 1;
+                                                             } else {
+                                                                 changeCursor("Soldat");
+                                                             }
 
+                                                         }
+                                                         if (Objects.equals("Cavalier", currentUnite)) {
+                                                             if (currentJoueur.putUnite(new Cavalier(x, y))) {
+                                                                 wasAnUnitPut = 1;
+                                                             } else {
+                                                                 changeCursor("Soldat");
+                                                             }
 
-
-                                             if (Objects.equals(Partie.phasePartie, "PoseUnites")) {
-
-                                                 if (Objects.equals("Soldat", currentUnite)) {
-                                                     currentJoueur.putUnite(new Soldat(x, y));
+                                                         }
+                                                     }
+                                                     currentJoueur = changePlayer(currentJoueur);
+                                                     changeCursor(currentUnite);
+                                                 } else {
+                                                     currentJoueur = changePlayer(currentJoueur);
+                                                     changeCursor("Soldat");
                                                  }
-                                                 if (Objects.equals("Canon", currentUnite)) {
-                                                     currentJoueur.putUnite(new Canon(x, y));
 
-                                                 }
-                                                 if (Objects.equals("Cavalier", currentUnite)) {
-                                                     currentJoueur.putUnite(new Cavalier(x, y));
 
+                                                 int nbUnitesTotal = 0;
+                                                 while (currentJoueur.nbUnites == 0 && nbUnitesTotal == 0) {
+                                                     currentJoueur = changePlayer(currentJoueur);
+                                                     changeCursor(currentUnite);
+
+
+                                                     for (int i = 0; i < joueurs.size(); i++) {
+                                                         nbUnitesTotal += joueurs.get(i).nbUnites;
+                                                     }
+                                                     if (nbUnitesTotal == 0) {
+                                                         Partie.phasePartie = "Sélection";
+                                                         currentJoueur = changePlayer(currentJoueur);
+                                                         changeCursor(currentUnite);
+                                                     }
                                                  }
-                                                 System.out.println(currentJoueur.nbUnites);
-                                                 changePlayer(currentJoueur);
+
+
                                                  repaint();
+
 
                                              }
 
@@ -178,6 +210,7 @@ public class Fenetre extends JFrame {
                                          if (event.getButton() == MouseEvent.BUTTON3) {
 
                                              if (Objects.equals(Partie.phasePartie, "Renforts") || Objects.equals(Partie.phasePartie, "PoseUnites")) {
+
                                                  if (Objects.equals("Soldat", currentUnite)) {
                                                      changeCursor("Canon");
                                                  } else if (Objects.equals("Canon", currentUnite)) {
@@ -190,10 +223,9 @@ public class Fenetre extends JFrame {
 
                                      }
                                  }
-
+/*
                                  public void mouseMoved(MouseEvent event) {
                                      int x = event.getX();
-                                     int y = event.getY();
                                      if (x > 1000) {
                                          setCursor(Cursor.getDefaultCursor());
                                      } else {
@@ -201,7 +233,7 @@ public class Fenetre extends JFrame {
 
                                      }
 
-                                 }
+                                 }*/
 
                              }
 
@@ -218,11 +250,13 @@ public class Fenetre extends JFrame {
         currentUnite = pathname;
     }
 
-    public void changePlayer(Joueur currentJoueur) {
-        unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités.");
+    public Joueur changePlayer(Joueur currentJoueur) {
+
         numerojoueur = (numerojoueur + 1) % joueurs.size();
         currentJoueur = joueurs.get(numerojoueur);
+        unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités.");
         joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
+        return currentJoueur;
     }
 
 }
