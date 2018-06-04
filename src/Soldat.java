@@ -12,7 +12,11 @@ public class Soldat extends Unite {
      */
     public static String imgpath = "Soldat.png";
 
+    public int getMvtParTourDefault() {
+        return mvtParTourDefault;
+    }
 
+    static int mvtParTourDefault = 2;
 
     public Soldat(int positionx, int positiony) {
 

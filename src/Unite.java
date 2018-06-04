@@ -22,6 +22,10 @@ public class Unite extends JPanel {
     public Territoire territoire;
 
 
+    public int mvtParTourDefault;
+
+
+
     public Unite(int positionx, int positiony, String imgpath, int cost, int minpower, int maxpower, int priorityAttack, int priorityDefense, int mvtParTour) {
         this.positionx = positionx;
         this.positiony = positiony;
