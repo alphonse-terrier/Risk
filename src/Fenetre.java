@@ -17,6 +17,7 @@ public class Fenetre extends JFrame {
     private JLabel joueurActif;
     private JLabel unitesRestantes;
     private JButton findutour;
+    private JButton unselection;
 
 
     public Fenetre() {
@@ -39,18 +40,23 @@ public class Fenetre extends JFrame {
         joueurActif = new JLabel();
         unitesRestantes = new JLabel();
         findutour = new JButton();
+        unselection = new JButton();
         joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
         joueurActif.setBounds(1000, 80, 240, 100);
         this.add(joueurActif);
 
         unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
         this.add(unitesRestantes);
-
         unitesRestantes.setBounds(1000, 150, 200, 100);
+
         findutour.setText("Finir mon tour");
         this.add(findutour);
-        findutour.setBounds(1000, 250, 150, 40);
+        findutour.setBounds(1000, 320, 150, 40);
 
+        unselection.setText("Désélectionner");
+        this.add(unselection);
+        unselection.setBounds(1000, 250, 150, 40);
+        unselection.setVisible(false);
 
         findutour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
@@ -74,6 +80,19 @@ public class Fenetre extends JFrame {
                     //attributionUnites(currentJoueur);
 
                 }
+            }
+        });
+
+        unselection.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                if (Unite.SelectionUnite.size() > 0) {
+                    for (int i = 0; i < Unite.SelectionUnite.size(); i++) {
+                        Unite.SelectionUnite.remove(i);
+                        Partie.phasePartie = "Sélection";
+                        repaint();
+                    }
+                }
+
             }
         });
 
@@ -104,38 +123,42 @@ public class Fenetre extends JFrame {
                                          if (event.getButton() == MouseEvent.BUTTON1) {
 
                                              if (Objects.equals(Partie.phasePartie, "Déplacement")) {
-                                                 if (Unite.SelectionUnite.get(0).mvtParTour > 0) {
-                                                     String country = Territoire.getCountryName(x, y);
-                                                     if (Territoire.areTheseCountriesAdjacents(country, Territoire.getCountryName(Unite.SelectionUnite.get(0).positionx, Unite.SelectionUnite.get(0).positiony))) {
-                                                         if (Territoire.checkIfThisIsOneOfMyCountry(currentJoueur, country)) {
-                                                             Unite.SelectionUnite.get(0).positionx = x - Map.x_adapt;
-                                                             Unite.SelectionUnite.get(0).positiony = y - Map.x_adapt;
-                                                             Unite.SelectionUnite.get(0).mvtParTour -= 1;
-                                                         } else {
-                                                             //Attaaaaaaaaaaaaaaaaaaaaque
-                                                         /* if (Attaque(unit)) {
-                                                         Unite.SelectionUnite.get(0).mvtParTour -= 1;
+                                                 if (Unite.checkIfDeplacementIsPossible(currentJoueur, x, y) == null) {
+                                                     for (int i = Unite.SelectionUnite.size() - 1; i >= 0; i--) {
+
+                                                         String countryToConquest = Territoire.getCountryName(x, y);
+                                                         String countryOfTheUnit = Territoire.getCountryName(Unite.SelectionUnite.get(i).positionx, Unite.SelectionUnite.get(i).positiony);
+                                                         if (Territoire.areTheseCountriesAdjacents(countryToConquest, countryOfTheUnit)) {
+                                                             if (Territoire.checkIfThisIsOneOfMyCountry(currentJoueur, countryToConquest) || Partie.attaque(currentJoueur, countryToConquest)) {
+                                                                 if (Unite.SelectionUnite.get(i).mvtParTour > 0) {
+                                                                     Unite.SelectionUnite.get(i).positionx = x - Map.x_adapt;
+                                                                     Unite.SelectionUnite.get(i).positiony = y - Map.x_adapt;
+                                                                     Unite.SelectionUnite.get(i).mvtParTour -= 1;
+                                                                 }
+                                                             }
+
 
                                                          }
 
-                                                          */
+                                                         if (Territoire.areTheseCountriesTheSame(countryToConquest, Territoire.getCountryName(Unite.SelectionUnite.get(0).positionx, Unite.SelectionUnite.get(0).positiony))) {
+
+                                                             Unite.SelectionUnite.get(i).positionx = x - Map.x_adapt;
+                                                             Unite.SelectionUnite.get(i).positiony = y - Map.x_adapt;
+
                                                          }
+
+
+                                                         Unite.SelectionUnite.remove(i);
+
+                                                         Partie.phasePartie = "NewSélection";
                                                      }
-
-                                                     if (Territoire.areTheseCountriesTheSame(country, Territoire.getCountryName(Unite.SelectionUnite.get(0).positionx, Unite.SelectionUnite.get(0).positiony))) {
-                                                         Unite.SelectionUnite.get(0).positionx = x - Map.x_adapt;
-                                                         Unite.SelectionUnite.get(0).positiony = y - Map.x_adapt;
-                                                     }
-
-
                                                  }
-                                                 Unite.SelectionUnite.remove(0);
-                                                 Partie.phasePartie = "NewSélection";
                                                  repaint();
                                              }
 
                                              if (Objects.equals(Partie.phasePartie, "Sélection")) {
                                                  if (Unite.checkIfDeplacementIsPossible(currentJoueur, x, y) != null) {
+                                                     unselection.setVisible(true);
                                                      Partie.phasePartie = "Déplacement";
                                                  }
 
@@ -147,6 +170,7 @@ public class Fenetre extends JFrame {
                                              }
 
                                              if (Objects.equals(Partie.phasePartie, "Renforts")) {
+                                                 unselection.setVisible(false);
                                                  if (Objects.equals("Soldat", currentUnite)) {
                                                      currentJoueur.putUnite(new Soldat(x, y));
                                                  }
@@ -172,6 +196,7 @@ public class Fenetre extends JFrame {
                                              }
 
                                              if (Objects.equals(Partie.phasePartie, "PoseUnites") && Territoire.checkIfThisIsOneOfMyCountry(currentJoueur, Territoire.getCountryName(x, y))) {
+                                                 unselection.setVisible(false);
                                                  int wasAnUnitPut = 0;
                                                  if (currentJoueur.nbUnites != 0) {
                                                      while (wasAnUnitPut == 0) {

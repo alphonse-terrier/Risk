@@ -20,13 +20,14 @@ public class Unite extends JPanel {
     public int mvtParTour;
     public String imgpath;
     public Territoire territoire;
+    public int actualPower;
 
 
     public int mvtParTourDefault;
 
 
 
-    public Unite(int positionx, int positiony, String imgpath, int cost, int minpower, int maxpower, int priorityAttack, int priorityDefense, int mvtParTour) {
+    public Unite(int positionx, int positiony, String imgpath, int cost, int minpower, int maxpower, int priorityAttack, int priorityDefense, int mvtParTour, int actualPower) {
         this.positionx = positionx;
         this.positiony = positiony;
         //this.territoire = territoire; //dépend de x et y, coder la fonction pour get le Territoire
@@ -37,6 +38,7 @@ public class Unite extends JPanel {
         this.priorityAttack = priorityAttack;
         this.priorityDefense = priorityDefense;
         this.mvtParTour = mvtParTour;
+        this.actualPower = actualPower;
     }
 
 
@@ -72,7 +74,10 @@ public class Unite extends JPanel {
 
         ArrayList<Unite> allUnits = getAllUnitsinTerritoire(Territoire.getCountryName(x, y), joueur.listUnites);
 
-        if (allUnits.size() > 1) {
+
+
+
+        if (allUnits.size() > 1 && SelectionUnite.size() < 3) {
 
             for (int i = 0; i < allUnits.size(); i++) {
                 Unite unite = allUnits.get(i);
@@ -85,14 +90,20 @@ public class Unite extends JPanel {
                 int xToCheck = x - uniteX;
                 int yToCheck = y - uniteY;
 
-                if (0 < xToCheck && xToCheck < 32 && 0 < yToCheck && yToCheck < 32) {
+                if (0 <= xToCheck && xToCheck <= 32 && 0 <= yToCheck && yToCheck <= 32) {
                     Color color = new Color(imgOfUnite.getRGB(xToCheck, yToCheck));
                     int red = color.getRed();
                     int green = color.getGreen();
                     int blue = color.getBlue();
                     if (red < 255 || green < 255 || blue < 255) {
-                        SelectionUnite.add(unite);
+                        for (int j = 0; j < SelectionUnite.size(); j++) {
+                            if (Objects.equals(unite, SelectionUnite.get(j))) {
+                                return null;
+                            }
 
+                        }
+
+                        SelectionUnite.add(unite);
                         return unite;
                     }
                 }
@@ -105,8 +116,8 @@ public class Unite extends JPanel {
 
     }
 
-    public int getPower(int minpower, int maxpower) {
-        int power = ThreadLocalRandom.current().nextInt(minpower, maxpower + 1);
+    public int getPower() {
+        int power = ThreadLocalRandom.current().nextInt(this.minpower, this.maxpower + 1);
         return power;
     }
 

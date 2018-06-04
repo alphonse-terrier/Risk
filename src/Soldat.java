@@ -20,7 +20,7 @@ public class Soldat extends Unite {
 
     public Soldat(int positionx, int positiony) {
 
-        super(positionx, positiony, imgpath, 1, 1, 6, 2, 1, 2);
+        super(positionx, positiony, imgpath, 1, 1, 6, 2, 1, 2, 0);
     }
 
 }

@@ -32,7 +32,6 @@ public class Partie {
         int nbJoueurs = Integer.parseInt(nombre);
 
 
-
         ArrayList<Color> couleurs = new ArrayList<Color>();
         couleurs.add(new Color(210, 21, 27));
         couleurs.add(new Color(255, 133, 0));
@@ -83,9 +82,6 @@ public class Partie {
         }
 
 
-
-
-
         for (int x = 0; x < joueurs.size(); x++) {
             for (int y = 0; y < joueurs.get(x).listTerritoires.size(); y++) {
 
@@ -112,11 +108,8 @@ public class Partie {
                 }
 
 
-
             }
         }
-
-
 
 
         phasePartie = "PoseUnites";
@@ -126,40 +119,134 @@ public class Partie {
     }
 
 
-    public static boolean Tour(Joueur joueur, int x, int y) {
+    public static boolean attaque(Joueur joueurAttack, String countryToConquest) {
 
-        phasePartie = "Renforts";
-        joueur = Unite.attributionUnites(joueur);
-        while (joueur.nbUnites > 0) {
+/*
+        ArrayList<Unite> allUnitsJoueurAttack = Unite.getAllUnitsinTerritoire(countryOfTheUnit, joueurAttack.listUnites);
+        Joueur joueurDefense = null;
 
-        }
-        phasePartie = "Déplacement";
-
-
-        phasePartie = "Attaque";
-
-
-
-
-        if (checkIfWin(joueur)) {
-            System.out.println("Le joueur " + joueur.getName() + " a gagné !" );
-            return true;
+        for (int i = 0; i < Fenetre.joueurs.size(); i++) {
+            for (int j = 0; j < Fenetre.joueurs.get(i).listTerritoires.size(); j++) {
+                if (Objects.equals(Fenetre.joueurs.get(i).listTerritoires.get(j).getName(), countryToConquest)) {
+                    joueurDefense = Fenetre.joueurs.get(i);
+                }
+            }
         }
 
+
+        ArrayList<Unite> allUnitsJoueurDefense = Unite.getAllUnitsinTerritoire(countryToConquest, joueurDefense.listUnites);
+        ArrayList<Unite> unitsJoueurAttack = new ArrayList<Unite>();
+        System.out.println(allUnitsJoueurAttack);
+        System.out.println(allUnitsJoueurDefense);
+
+        if (allUnitsJoueurAttack.size() > 3) {
+            while (unitsJoueurAttack.size() < 3) {
+                int iterator = 0;
+                for (int i = 0; i < allUnitsJoueurAttack.size() - 1; i++) {
+                    if (allUnitsJoueurAttack.get(i + 1).priorityAttack <= allUnitsJoueurAttack.get(i).priorityAttack) {
+                        iterator = i + 1;
+
+                    }
+
+
+                }
+                unitsJoueurAttack.add(allUnitsJoueurAttack.get(iterator));
+                allUnitsJoueurAttack.remove(allUnitsJoueurAttack.get(iterator));
+            }
+        } else {
+            unitsJoueurAttack = allUnitsJoueurAttack;
+        }
+
+
+
+
+
+        ArrayList<Unite> unitsJoueurDefense = new ArrayList<Unite>();
+
+        if (allUnitsJoueurDefense.size() > 2) {
+            while (unitsJoueurDefense.size() < 2) {
+                int iterator = 0;
+                for (int i = 0; i < allUnitsJoueurDefense.size() - 1; i++) {
+                    if (allUnitsJoueurDefense.get(i + 1).priorityDefense <= allUnitsJoueurDefense.get(i).priorityDefense) {
+                        iterator = i + 1;
+
+                    }
+
+
+                }
+                unitsJoueurDefense.add(allUnitsJoueurDefense.get(iterator));
+                allUnitsJoueurDefense.remove(allUnitsJoueurDefense.get(iterator));
+            }
+        } else {
+            unitsJoueurDefense = allUnitsJoueurDefense;
+        }
+
+
+        for (int i = 0; i < unitsJoueurAttack.size(); i++) {
+            unitsJoueurAttack.get(i).actualPower = unitsJoueurAttack.get(i).getPower();
+        }
+
+        for (int i = 0; i < unitsJoueurDefense.size(); i++) {
+            unitsJoueurDefense.get(i).actualPower = unitsJoueurDefense.get(i).getPower();
+        }
+
+
+        System.out.println(unitsJoueurAttack);
+        System.out.println(unitsJoueurDefense);
+
+        ArrayList<Unite> unitsJoueurFightAttack = new ArrayList<Unite>();
+        ArrayList<Unite> unitsJoueurFightDefense = new ArrayList<Unite>();
+
+
+        if (unitsJoueurAttack.size() > 1) {
+            while (unitsJoueurFightAttack.size() < 2) {
+                int iterator = 0;
+                for (int i = 0; i < unitsJoueurAttack.size() - 1; i++) {
+                    if (unitsJoueurAttack.get(i + 1).priorityDefense >= unitsJoueurAttack.get(i).priorityDefense) {
+                        iterator = i + 1;
+
+                    }
+
+
+                }
+                unitsJoueurFightAttack.add(unitsJoueurAttack.get(iterator));
+                unitsJoueurAttack.remove(unitsJoueurAttack.get(iterator));
+
+            }
+        }
         else {
-            return false;
+            unitsJoueurFightAttack = unitsJoueurAttack;
         }
 
 
+        if (unitsJoueurDefense.size() == 2) {
+            if (Math.max(unitsJoueurDefense.get(0).actualPower, unitsJoueurDefense.get(1).actualPower) == unitsJoueurDefense.get(1).actualPower) {
+                unitsJoueurFightDefense.add(unitsJoueurDefense.get(1));
+                unitsJoueurFightDefense.add(unitsJoueurDefense.get(0));
+            } else {
+                unitsJoueurFightDefense.add(unitsJoueurDefense.get(0));
+                unitsJoueurFightDefense.add(unitsJoueurDefense.get(1));
+            }
+        } else {
+            unitsJoueurFightDefense = unitsJoueurDefense;
+        }
+
+        System.out.println(unitsJoueurFightAttack);
+        System.out.println(unitsJoueurFightDefense);
+
+        ArrayList<Unite> unitsAttackToRemove = new ArrayList<Unite>();
+        ArrayList<Unite> unitsDefenseToRemove = new ArrayList<Unite>();
+*/
+        return true;
     }
+
 
     public static boolean checkIfWin(Joueur joueur) { //listRegions n'est pas fonctionnel
 
         if (joueur.listRegions.size() == 6) {
 
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
