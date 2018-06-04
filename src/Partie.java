@@ -121,8 +121,11 @@ public class Partie {
 
     public static boolean attaque(Joueur joueurAttack, String countryToConquest) {
 
-/*
-        ArrayList<Unite> allUnitsJoueurAttack = Unite.getAllUnitsinTerritoire(countryOfTheUnit, joueurAttack.listUnites);
+        if (Unite.SelectionUnite.size() > 3) {
+            return false;
+        }
+
+
         Joueur joueurDefense = null;
 
         for (int i = 0; i < Fenetre.joueurs.size(); i++) {
@@ -135,31 +138,6 @@ public class Partie {
 
 
         ArrayList<Unite> allUnitsJoueurDefense = Unite.getAllUnitsinTerritoire(countryToConquest, joueurDefense.listUnites);
-        ArrayList<Unite> unitsJoueurAttack = new ArrayList<Unite>();
-        System.out.println(allUnitsJoueurAttack);
-        System.out.println(allUnitsJoueurDefense);
-
-        if (allUnitsJoueurAttack.size() > 3) {
-            while (unitsJoueurAttack.size() < 3) {
-                int iterator = 0;
-                for (int i = 0; i < allUnitsJoueurAttack.size() - 1; i++) {
-                    if (allUnitsJoueurAttack.get(i + 1).priorityAttack <= allUnitsJoueurAttack.get(i).priorityAttack) {
-                        iterator = i + 1;
-
-                    }
-
-
-                }
-                unitsJoueurAttack.add(allUnitsJoueurAttack.get(iterator));
-                allUnitsJoueurAttack.remove(allUnitsJoueurAttack.get(iterator));
-            }
-        } else {
-            unitsJoueurAttack = allUnitsJoueurAttack;
-        }
-
-
-
-
 
         ArrayList<Unite> unitsJoueurDefense = new ArrayList<Unite>();
 
@@ -169,10 +147,7 @@ public class Partie {
                 for (int i = 0; i < allUnitsJoueurDefense.size() - 1; i++) {
                     if (allUnitsJoueurDefense.get(i + 1).priorityDefense <= allUnitsJoueurDefense.get(i).priorityDefense) {
                         iterator = i + 1;
-
                     }
-
-
                 }
                 unitsJoueurDefense.add(allUnitsJoueurDefense.get(iterator));
                 allUnitsJoueurDefense.remove(allUnitsJoueurDefense.get(iterator));
@@ -180,6 +155,37 @@ public class Partie {
         } else {
             unitsJoueurDefense = allUnitsJoueurDefense;
         }
+
+
+        for (int i = 0; i < Unite.SelectionUnite.size(); i++) {
+            Unite.SelectionUnite.get(i).actualPower = Unite.SelectionUnite.get(i).getPower();
+        }
+
+        for (int i = 0; i < unitsJoueurDefense.size(); i++) {
+            unitsJoueurDefense.get(i).actualPower = unitsJoueurDefense.get(i).getPower();
+        }
+
+        ArrayList<Unite> unitsAttackToRemove = new ArrayList<Unite>();
+        ArrayList<Unite> unitsDefenseToRemove = new ArrayList<Unite>();
+
+        //trier UnitsJoueurDefense et Unite.SelectionUnite par actualPower, comparer première avec première, deuxième avec deuxième, supprimer les troupes perdantes dans Unite.SelectionUnite, et les deux listUnite
+
+
+
+        allUnitsJoueurDefense = Unite.getAllUnitsinTerritoire(countryToConquest, joueurDefense.listUnites);
+        if (allUnitsJoueurDefense.size() == 0) {
+            return true;
+        }
+
+
+
+/*
+
+
+
+
+
+
 
 
         for (int i = 0; i < unitsJoueurAttack.size(); i++) {
@@ -191,8 +197,6 @@ public class Partie {
         }
 
 
-        System.out.println(unitsJoueurAttack);
-        System.out.println(unitsJoueurDefense);
 
         ArrayList<Unite> unitsJoueurFightAttack = new ArrayList<Unite>();
         ArrayList<Unite> unitsJoueurFightDefense = new ArrayList<Unite>();
@@ -231,13 +235,11 @@ public class Partie {
             unitsJoueurFightDefense = unitsJoueurDefense;
         }
 
-        System.out.println(unitsJoueurFightAttack);
-        System.out.println(unitsJoueurFightDefense);
 
-        ArrayList<Unite> unitsAttackToRemove = new ArrayList<Unite>();
-        ArrayList<Unite> unitsDefenseToRemove = new ArrayList<Unite>();
+
+
 */
-        return true;
+
     }
 
 
