@@ -121,12 +121,17 @@ public class Fenetre extends JFrame {
                                                           */
                                                          }
                                                      }
-                                                 }
 
+                                                     if (Territoire.areTheseCountriesTheSame(country, Territoire.getCountryName(Unite.SelectionUnite.get(0).positionx, Unite.SelectionUnite.get(0).positiony))) {
+                                                         Unite.SelectionUnite.get(0).positionx = x - Map.x_adapt;
+                                                         Unite.SelectionUnite.get(0).positiony = y - Map.x_adapt;
+                                                     }
+
+
+                                                 }
                                                  Unite.SelectionUnite.remove(0);
                                                  Partie.phasePartie = "NewSélection";
                                                  repaint();
-
                                              }
 
                                              if (Objects.equals(Partie.phasePartie, "Sélection")) {

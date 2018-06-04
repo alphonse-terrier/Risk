@@ -18,8 +18,8 @@ public class Territoire {
         //this.listUnits = Unite.getAllUnitsinTerritoire(name, new ArrayList<Unite>()); // Remplacer new ArrayList<Unite>()
     }
 
-
-    public static String getCountryName(int x, int y) {
+/*
+    public static String OldgetCountryName(int x, int y) {
         File folder = new File("./Terre/countries_png");
         File[] listOfFiles = folder.listFiles();
 
@@ -48,8 +48,37 @@ public class Territoire {
 
 
     }
+*/
 
-    public static boolean areTheseCountriesAdjacents(String countryname1, String countryname2) {
+    public static String getCountryName(int x, int y) {
+        try {
+            String line;
+            BufferedReader countries = new BufferedReader(new FileReader("./Terre/countries.txt"));
+            while ((line = countries.readLine()) != null) {
+                String[] thatLine = line.split(";");
+
+                if (Integer.parseInt(thatLine[0]) == x && Integer.parseInt(thatLine[1]) == y) {
+                    return thatLine[2];
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ("C'est pas l'homme qui prend la mer, c'est la mer qui prend l'homme");
+
+
+    }
+
+    public static boolean areTheseCountriesTheSame(String countryname1, String countryname2) {
+        if (Objects.equals(countryname1, countryname2)) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+        public static boolean areTheseCountriesAdjacents(String countryname1, String countryname2) {
 
         if (Objects.equals(countryname1, countryname2)) {
             return true;
