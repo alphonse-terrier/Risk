@@ -174,30 +174,31 @@ public class Fenetre extends JFrame {
 
                                                          }
                                                      }
-                                                     currentJoueur = changePlayer(currentJoueur);
 
                                                  } else {
                                                      currentUnite = "Soldat";
                                                  }
 
-
+                                                 currentJoueur = changePlayer(currentJoueur);
+                                                 changeCursor(currentUnite);
                                                  int nbUnitesTotal = 0;
-                                                 while (currentJoueur.nbUnites == 0 && nbUnitesTotal == 0) {
-                                                     currentJoueur = changePlayer(currentJoueur);
-                                                     nbUnitesTotal = 0;
-                                                     for (int i = 0; i < joueurs.size(); i++) {
-                                                         nbUnitesTotal += joueurs.get(i).nbUnites;
-                                                     }
-                                                     if (nbUnitesTotal == 0) {
-                                                         Partie.phasePartie = "Sélection";
+                                                 for (int i = 0; i < joueurs.size(); i++) {
+                                                     nbUnitesTotal += joueurs.get(i).nbUnites;
+                                                 }
+
+                                                 if (nbUnitesTotal == 0) {
+                                                     Partie.phasePartie = "Sélection";
+                                                     setCursor(Cursor.getDefaultCursor());
+                                                 } else {
+                                                     while (currentJoueur.nbUnites == 0) {
                                                          currentJoueur = changePlayer(currentJoueur);
                                                          changeCursor(currentUnite);
                                                      }
                                                  }
-                                                 changeCursor(currentUnite);
+
+
 
                                                  repaint();
-
 
                                              }
 
@@ -220,7 +221,7 @@ public class Fenetre extends JFrame {
 
                                      }
                                  }
-/*
+
                                  public void mouseMoved(MouseEvent event) {
                                      int x = event.getX();
                                      if (x > 1000) {
@@ -230,7 +231,7 @@ public class Fenetre extends JFrame {
 
                                      }
 
-                                 }*/
+                                 }
 
                              }
 
