@@ -44,15 +44,12 @@ public class Fenetre extends JFrame {
         joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
         joueurActif.setBounds(1000, 80, 240, 100);
         this.add(joueurActif);
-
         unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
         this.add(unitesRestantes);
         unitesRestantes.setBounds(1000, 150, 200, 100);
-
         findutour.setText("Finir mon tour");
         this.add(findutour);
         findutour.setBounds(1000, 320, 150, 40);
-
         unselection.setText("Désélectionner");
         this.add(unselection);
         unselection.setBounds(1000, 250, 150, 40);
