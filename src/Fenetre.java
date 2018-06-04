@@ -41,24 +41,31 @@ public class Fenetre extends JFrame {
         unitesRestantes = new JLabel();
         findutour = new JButton();
         unselection = new JButton();
+
         joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
-        joueurActif.setBounds(1000, 80, 240, 100);
+        joueurActif.setFont(new Font("Verdana", 1, 13));
+        joueurActif.setBounds(1000, 100, 240, 100);
         this.add(joueurActif);
 
         unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
+        unitesRestantes.setFont(new Font("Verdana", 1, 13));
+        unitesRestantes.setBounds(1000, 140, 200, 100);
         this.add(unitesRestantes);
-        unitesRestantes.setBounds(1000, 150, 200, 100);
 
         findutour.setText("Finir mon tour");
+        findutour.setBounds(1000, 270, 150, 40);
         this.add(findutour);
+<<<<<<< HEAD
         findutour.setBounds(1000, 320, 150, 40);
         findutour.setVisible(false);
 
+=======
+>>>>>>> f4af102c16bd8918e5b48cdebb3735960e0fa2a6
 
         unselection.setText("Désélectionner");
-        this.add(unselection);
-        unselection.setBounds(1000, 250, 150, 40);
+        unselection.setBounds(1000, 220, 150, 40);
         unselection.setVisible(false);
+        this.add(unselection);
 
         findutour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
