@@ -26,7 +26,7 @@ public class Map extends JPanel {
 
 
         Main.drawImage(Main.ImageReader("./Terre/countriesborders.png"), x_adapt, y_adapt, g);
-        Main.drawImage(Main.changeColor(Main.ImageReader("iconejoueur.png"), Fenetre.currentJoueur.couleur), 1000, 250, g);
+        Main.drawImage(Main.changeColor(Main.ImageReader("iconejoueur.png"), Fenetre.currentJoueur.couleur), 1050, 50, g);
 
 
         for (int x = 0; x < Fenetre.joueurs.size(); x++) {
