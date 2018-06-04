@@ -190,8 +190,8 @@ public class Partie {
                 if (Unite.SelectionUnite.get(i).priorityAttack > unitsJoueurDefense.get(i).priorityDefense) {
                     unitsDefenseToRemove.add(unitsJoueurDefense.get(i));
                     unitsAttackToSave.add(Unite.SelectionUnite.get(i));
-                    Unite.SelectionUnite.get(i).positionx = unitsJoueurDefense.get(i).positionx;
-                    Unite.SelectionUnite.get(i).positiony = unitsJoueurDefense.get(i).positiony;
+                    //Unite.SelectionUnite.get(i).positionx = unitsJoueurDefense.get(i).positionx;
+                    //Unite.SelectionUnite.get(i).positiony = unitsJoueurDefense.get(i).positiony;
                 } else {
                     unitsAttackToRemove.add(Unite.SelectionUnite.get(i));
 
@@ -201,8 +201,8 @@ public class Partie {
             } else if (Unite.SelectionUnite.get(i).actualPower > unitsJoueurDefense.get(i).actualPower) {
                 unitsDefenseToRemove.add(unitsJoueurDefense.get(i));
                 unitsAttackToSave.add(Unite.SelectionUnite.get(i));
-                Unite.SelectionUnite.get(i).positionx = unitsJoueurDefense.get(i).positionx;
-                Unite.SelectionUnite.get(i).positiony = unitsJoueurDefense.get(i).positiony;
+                //Unite.SelectionUnite.get(i).positionx = unitsJoueurDefense.get(i).positionx;
+                //Unite.SelectionUnite.get(i).positiony = unitsJoueurDefense.get(i).positiony;
             } else {
                 unitsAttackToRemove.add(Unite.SelectionUnite.get(i));
 
@@ -232,24 +232,10 @@ public class Partie {
                     }
                 }
             }
-                    /*
-            Random random = new Random();
-            for (int i = 0; i < unitsAttackToSave.size(); i++) {
-                int randx = unitsDefenseToRemove.get(0).positionx + random.nextInt(5 + 1 + 5) - 5;
-                int randy = unitsDefenseToRemove.get(0).positiony + random.nextInt(5 + 1 + 5) - 5;
-                while (Objects.equals(Territoire.getCountryName(unitsDefenseToRemove.get(0).positionx, unitsDefenseToRemove.get(0).positiony), Territoire.getCountryName(randx, randy))) {
-                    unitsAttackToSave.get(i).positionx = randx;
-                    unitsAttackToSave.get(i).positiony = randy;
-                    randx = unitsDefenseToRemove.get(0).positionx + random.nextInt(5 + 1 + 5) - 5;
-                    randy = unitsDefenseToRemove.get(0).positiony + random.nextInt(5 + 1 + 5) - 5;
 
-                }
-            } */
-
-            //Changer position troupe restante
             joueurAttack.nbTerritoiresCapturéesTourPréc += 1;
             joueurAttack.listTerritoires.add(territoire);
-            Unite.SelectionUnite = new ArrayList<Unite>();
+
             return true;
         } else {
 
@@ -268,6 +254,24 @@ public class Partie {
 
 
         return false;
+
+
+
+                            /*
+            Random random = new Random();
+            for (int i = 0; i < unitsAttackToSave.size(); i++) {
+                int randx = unitsDefenseToRemove.get(0).positionx + random.nextInt(5 + 1 + 5) - 5;
+                int randy = unitsDefenseToRemove.get(0).positiony + random.nextInt(5 + 1 + 5) - 5;
+                while (Objects.equals(Territoire.getCountryName(unitsDefenseToRemove.get(0).positionx, unitsDefenseToRemove.get(0).positiony), Territoire.getCountryName(randx, randy))) {
+                    unitsAttackToSave.get(i).positionx = randx;
+                    unitsAttackToSave.get(i).positiony = randy;
+                    randx = unitsDefenseToRemove.get(0).positionx + random.nextInt(5 + 1 + 5) - 5;
+                    randy = unitsDefenseToRemove.get(0).positiony + random.nextInt(5 + 1 + 5) - 5;
+
+                }
+            } */
+
+        //Changer position troupe restante
 /*
 
 

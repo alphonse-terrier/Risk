@@ -146,8 +146,15 @@ public class Fenetre extends JFrame {
                                                                      Unite.SelectionUnite.get(i).mvtParTour -= 1;
                                                                  }
                                                              } else  {
-                                                                 Partie.attaque(currentJoueur, countryToConquest);
-                                                                 repaint();
+                                                                 if(Partie.attaque(currentJoueur, countryToConquest)){
+                                                                     for (int j = 0; j < Unite.SelectionUnite.size(); j++) {
+                                                                         Unite.SelectionUnite.get(j).positionx = x - Map.x_adapt;
+                                                                         Unite.SelectionUnite.get(j).positiony = y - Map.x_adapt;
+                                                                         Unite.SelectionUnite.get(j).mvtParTour -= 1;
+                                                                     }
+                                                                     Unite.SelectionUnite = new ArrayList<Unite>();
+                                                                 }
+
                                                                  break;
                                                              }
 
@@ -230,6 +237,7 @@ public class Fenetre extends JFrame {
                                                                  wasAnUnitPut = 1;
                                                              } else {
                                                                  changeCursor("Soldat");
+
                                                              }
 
                                                          }
@@ -238,6 +246,7 @@ public class Fenetre extends JFrame {
                                                                  wasAnUnitPut = 1;
                                                              } else {
                                                                  changeCursor("Soldat");
+
                                                              }
 
                                                          }
