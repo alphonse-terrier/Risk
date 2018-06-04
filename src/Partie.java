@@ -50,6 +50,7 @@ public class Partie {
             iconejoueur = Main.changeColor(iconejoueur, couleurs.get(x));
             ImageIcon imageIcon = new ImageIcon(iconejoueur);
             JOptionPane jop2 = new JOptionPane();
+            String[] nomJoueursDefault = {"Bill Gates", "Mark Zuckerberg", "Jeff Bezos", "Jimmy Wales", "Dara Khosrowshahi", "Larry Page"};
             String name = "";
             while ("".equals(name) || name == null) {
                 name = (String) jop2.showInputDialog(null,
@@ -57,7 +58,7 @@ public class Partie {
                         "Saisie des noms des joueurs", JOptionPane.QUESTION_MESSAGE,
                         imageIcon,
                         null,
-                        "");
+                        nomJoueursDefault[x]);
             }
 
             int nbUnites = 50 - 5 * nbJoueurs;

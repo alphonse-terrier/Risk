@@ -40,8 +40,10 @@ public class Fenetre extends JFrame {
         joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
         joueurActif.setBounds(1000, 80, 170, 100);
         this.add(joueurActif);
+
         unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
         this.add(unitesRestantes);
+
         unitesRestantes.setBounds(1000, 150, 170, 100);
         findutour.setText("Finir mon tour");
         this.add(findutour);
@@ -53,6 +55,7 @@ public class Fenetre extends JFrame {
                 if (currentJoueur.nbUnites == 0) {
                     changePlayer(currentJoueur);
                     Partie.phasePartie = "Renforts";
+                    //attributionUnites(currentJoueur);
 
                 }
             }
@@ -69,7 +72,6 @@ public class Fenetre extends JFrame {
                         setCursor(Cursor.getDefaultCursor());
                     } else {
                         changeCursor(currentUnite);
-
                     }
                 }
             }
@@ -82,13 +84,8 @@ public class Fenetre extends JFrame {
                                      int x = event.getX();
                                      int y = event.getY();
 
-
                                      if (x < 1000) {
                                          if (event.getButton() == MouseEvent.BUTTON1) {
-
-                                             //Instaurer une condition pour passer en mode attaque (clique sur le bouton en bas à droite)
-
-
                                              if (Objects.equals(Partie.phasePartie, "Déplacement")) {
                                                  String country = Territoire.getCountryName(x, y);
                                                  if (Territoire.areTheseCountriesAdjacents(country, Territoire.getCountryName(Unite.SelectionUnite.get(0).positionx, Unite.SelectionUnite.get(0).positiony))) {
@@ -102,8 +99,6 @@ public class Fenetre extends JFrame {
                                                      } else {
                                                          //Attaaaaaaaaaaaaaaaaaaaaque
                                                      }
-
-
                                                  }
                                              }
 
@@ -118,7 +113,6 @@ public class Fenetre extends JFrame {
                                              if (Objects.equals(Partie.phasePartie, "NewSélection")) {
                                                  Partie.phasePartie = "Sélection";
                                              }
-
 
                                              if (Objects.equals(Partie.phasePartie, "Renforts")) {
                                                  if (Objects.equals("Soldat", currentUnite)) {
@@ -144,7 +138,6 @@ public class Fenetre extends JFrame {
                                                  }
 
                                              }
-
 
                                              if (Objects.equals(Partie.phasePartie, "PoseUnites") && Territoire.checkIfThisIsOneOfMyCountry(currentJoueur, Territoire.getCountryName(x, y))) {
                                                  int wasAnUnitPut = 0;
@@ -193,8 +186,6 @@ public class Fenetre extends JFrame {
                                                          changeCursor(currentUnite);
                                                      }
                                                  }
-
-
 
                                                  repaint();
 
