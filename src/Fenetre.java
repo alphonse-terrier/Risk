@@ -28,26 +28,28 @@ public class Fenetre extends JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+
         numerojoueur = 0;
         currentJoueur = joueurs.get(numerojoueur);
         changeCursor("Soldat");
 
         Map map = new Map();
         this.setContentPane(map);
+        map.setLayout(null);
         joueurActif = new JLabel();
         unitesRestantes = new JLabel();
         findutour = new JButton();
         joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
-        joueurActif.setBounds(1000, 80, 170, 100);
+        joueurActif.setBounds(1000, 80, 240, 100);
         this.add(joueurActif);
 
         unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
         this.add(unitesRestantes);
 
-        unitesRestantes.setBounds(1000, 150, 170, 100);
+        unitesRestantes.setBounds(1000, 150, 200, 100);
         findutour.setText("Finir mon tour");
         this.add(findutour);
-        findutour.setBounds(1000, 250, 100, 40);
+        findutour.setBounds(1000, 250, 150, 40);
 
 
         findutour.addActionListener(new ActionListener() {
@@ -67,8 +69,8 @@ public class Fenetre extends JFrame {
             public void mouseMoved(MouseEvent event) {
                 super.mouseMoved(event);
                 int x = event.getX();
-                if (Objects.equals(Partie.phasePartie, "Renforts")) {
-                    if (x > 1000) {
+                if (Objects.equals(Partie.phasePartie, "Renforts") || Objects.equals(Partie.phasePartie, "PoseUnites")) {
+                    if (x > 960) {
                         setCursor(Cursor.getDefaultCursor());
                     } else {
                         changeCursor(currentUnite);
