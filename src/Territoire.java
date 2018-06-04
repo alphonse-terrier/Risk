@@ -15,12 +15,12 @@ public class Territoire {
 
     public Territoire(String name) {
         this.name = name;
-        this.listUnits = Unite.getAllUnitsinTerritoire(name, new ArrayList<Unite>()); // Remplacer new ArrayList<Unite>()
+        //this.listUnits = Unite.getAllUnitsinTerritoire(name, new ArrayList<Unite>()); // Remplacer new ArrayList<Unite>()
     }
 
 
     public static String getCountryName(int x, int y) {
-        File folder = new File("countries_png");
+        File folder = new File("./Terre/countries_png");
         File[] listOfFiles = folder.listFiles();
 
         for (File file : listOfFiles) {
@@ -57,7 +57,7 @@ public class Territoire {
 
         try {
             String line;
-            BufferedReader frontieres = new BufferedReader(new FileReader("frontieres.txt"));
+            BufferedReader frontieres = new BufferedReader(new FileReader("./Terre/frontieres.txt"));
             while ((line = frontieres.readLine()) != null) {
                 String[] thatLine = line.split(";");
                 if (Objects.equals(thatLine[0], countryname1)) {
@@ -76,7 +76,7 @@ public class Territoire {
     }
 
     public static ArrayList<Territoire> getAllCountriesName() {
-        File folder = new File("countries_png");
+        File folder = new File("./Terre/countries_png");
         File[] listOfFiles = folder.listFiles();
         ArrayList listCountries = new ArrayList();
         for (File file : listOfFiles) {

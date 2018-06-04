@@ -10,12 +10,13 @@ public class Soldat extends Unite {
     /**
      * Default constructor
      */
+    public static String imgpath = "Soldat.png";
 
 
 
     public Soldat(int positionx, int positiony) {
 
-        super(positionx, positiony, "soldat.png", 1, 1, 6, 2, 1, 2);
+        super(positionx, positiony, imgpath, 1, 1, 6, 2, 1, 2);
     }
 
 }

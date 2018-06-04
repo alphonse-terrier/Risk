@@ -94,7 +94,7 @@ public class Partie {
 
                 try {
                     String line;
-                    BufferedReader positionsInit = Main.readTextFile("positionsinit.txt");
+                    BufferedReader positionsInit = Main.readTextFile("./Terre/positionsinit.txt");
                     while ((line = positionsInit.readLine()) != null) {
                         String[] thatLine = line.split(";");
 
@@ -118,7 +118,7 @@ public class Partie {
 
 
 
-        phasePartie = "Renforts";
+        phasePartie = "PoseUnites";
 
 
         return joueurs;

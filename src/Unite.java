@@ -78,11 +78,11 @@ public class Unite extends JPanel {
                 BufferedImage imgOfUnite = Main.ImageReader(classOfUnite + ".png");
                 //System.out.println("x - uniteX : " + (x - uniteX + Map.x_adapt) + ", y - uniteY : " + (y - uniteY + Map.y_adapt));
 
-                int xToCheck = x - uniteX + Map.x_adapt;
-                int yToCheck = y - uniteY + Map.y_adapt;
+                int xToCheck = x - uniteX;
+                int yToCheck = y - uniteY;
 
-                if (0 < xToCheck && xToCheck < 35 && 0 < yToCheck && yToCheck < 355) {
-                    Color color = new Color(imgOfUnite.getRGB(15, 15));
+                if (0 < xToCheck && xToCheck < 32 && 0 < yToCheck && yToCheck < 32) {
+                    Color color = new Color(imgOfUnite.getRGB(xToCheck, yToCheck));
                     int red = color.getRed();
                     int green = color.getGreen();
                     int blue = color.getBlue();
