@@ -40,10 +40,8 @@ public class Fenetre extends JFrame {
         joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
         joueurActif.setBounds(1000, 80, 170, 100);
         this.add(joueurActif);
-
         unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
         this.add(unitesRestantes);
-
         unitesRestantes.setBounds(1000, 150, 170, 100);
         findutour.setText("Finir mon tour");
         this.add(findutour);
