@@ -266,15 +266,17 @@ public class Partie {
         iconejoueur = Main.changeColor(iconejoueur, joueur.couleur);
         ImageIcon imageIcon = new ImageIcon(iconejoueur);
         JOptionPane jop = new JOptionPane();
-
-        int rang = jop.showOptionDialog(null,
-                "Bravo " + joueur.getName() + ", tu as gagné !",
-                joueur.getName() + " a gagné !",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                imageIcon,
-                bouton,
-                bouton[1]);
+        int rang = -1;
+        while (rang == -1) {
+            rang = jop.showOptionDialog(null,
+                    "Bravo " + joueur.getName() + ", tu as gagné !",
+                    joueur.getName() + " a gagné !",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    imageIcon,
+                    bouton,
+                    bouton[1]);
+        }
 
 
         if (Objects.equals(rang, 1)) {

@@ -20,7 +20,6 @@ public class Fenetre extends JFrame {
     private JButton unselection;
 
 
-
     public Fenetre() {
         final int width = 1300;
         final int height = 690;
@@ -63,7 +62,13 @@ public class Fenetre extends JFrame {
         unselection.setBounds(1000, 220, 150, 40);
         unselection.setVisible(false);
         this.add(unselection);
-
+        
+        try {
+            Robot r = new Robot();
+            r.keyPress(KeyEvent.VK_ENTER);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
 
 
         this.addKeyListener(new NewKeyListener() {
@@ -73,10 +78,9 @@ public class Fenetre extends JFrame {
                 Partie.KonamiCode(event);
 
 
-
             }
 
-            });
+        });
 
         findutour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
