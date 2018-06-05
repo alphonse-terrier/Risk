@@ -249,7 +249,7 @@ public class Partie {
 
 
     public static boolean checkIfWin(Joueur joueur) {
-        if (joueur.listTerritoires.size() < 42) {
+        if (joueur.listTerritoires.size() == 42) {
             String rejouer = "Rejouer";
             String quitter = "Quitter";
             String[] bouton = {rejouer, quitter};
