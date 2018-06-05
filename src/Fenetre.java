@@ -65,7 +65,9 @@ public class Fenetre extends JFrame {
 
         findutour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                if (currentJoueur.nbUnites == 0) {
+                if (Partie.checkIfWin(currentJoueur)) {
+
+                } else if (currentJoueur.nbUnites == 0) {
                     currentJoueur = changePlayer(currentJoueur);
                     Partie.phasePartie = "Renforts";
 
@@ -82,6 +84,7 @@ public class Fenetre extends JFrame {
 
 
                     currentJoueur = Unite.attributionUnites(currentJoueur);
+                    currentJoueur.nbTerritoiresCapturéesTourPréc = 0;
 
                     unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
                     joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
@@ -231,7 +234,6 @@ public class Fenetre extends JFrame {
                                                      while (wasAnUnitPut == 0) {
                                                          if (Objects.equals("Soldat", currentUnite)) {
                                                              if (currentJoueur.putUnite(new Soldat(x, y))) {
-
                                                                  wasAnUnitPut = 1;
                                                              }
                                                          }
@@ -240,7 +242,6 @@ public class Fenetre extends JFrame {
                                                                  wasAnUnitPut = 1;
                                                              } else {
                                                                  changeCursor("Soldat");
-
                                                              }
 
                                                          }
@@ -249,7 +250,6 @@ public class Fenetre extends JFrame {
                                                                  wasAnUnitPut = 1;
                                                              } else {
                                                                  changeCursor("Soldat");
-
                                                              }
 
                                                          }

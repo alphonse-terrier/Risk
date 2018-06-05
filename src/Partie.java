@@ -243,7 +243,7 @@ public class Partie {
         }
 
 
-
+        Unite.SelectionUnite = new ArrayList<Unite>();
         return false;
 
 
@@ -329,8 +329,7 @@ public class Partie {
 
 
     public static boolean checkIfWin(Joueur joueur) { //listRegions n'est pas fonctionnel
-
-        if (joueur.listRegions.size() == 6) {
+        if (joueur.listTerritoires.size() == 42) {
 
             return true;
         } else {
