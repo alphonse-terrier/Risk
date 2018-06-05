@@ -128,7 +128,6 @@ public class Partie {
         return joueurs;
     }
 
-
     public static boolean attaque(Joueur joueurAttack, String countryToConquest) {
 
         if (Unite.SelectionUnite.size() > 3) {
@@ -171,14 +170,11 @@ public class Partie {
 
         for (int i = 0; i < Unite.SelectionUnite.size(); i++) {
             Unite.SelectionUnite.get(i).actualPower = Unite.SelectionUnite.get(i).getPower();
-            System.out.println(Unite.SelectionUnite.get(i).actualPower);
         }
-        System.out.println();
+
         for (int i = 0; i < unitsJoueurDefense.size(); i++) {
             unitsJoueurDefense.get(i).actualPower = unitsJoueurDefense.get(i).getPower();
-            System.out.println(unitsJoueurDefense.get(i).actualPower);
         }
-        System.out.println();
 
 
         ArrayList<Unite> unitsAttackToRemove = new ArrayList<Unite>();
@@ -187,9 +183,7 @@ public class Partie {
 
 
         Collections.sort(unitsJoueurDefense, (Unit1, Unit2) -> Unit2.actualPower - Unit1.actualPower);
-        for (int i = 0; i < unitsJoueurDefense.size(); i++) {
-            System.out.println(unitsJoueurDefense.get(i).actualPower);
-        }
+
         Collections.sort(Unite.SelectionUnite, (Unit1, Unit2) -> Unit2.actualPower - Unit1.actualPower);
         //trier UnitsJoueurDefense et Unite.SelectionUnite par actualPower
 
@@ -230,14 +224,14 @@ public class Partie {
 
 
 
-            for (int i = 0; i < unitsDefenseToRemove.size(); i++) {
-                for (int j = 0; j < joueurDefense.listUnites.size(); j++) {
-                    if (Objects.equals(unitsDefenseToRemove.get(i), joueurDefense.listUnites.get(j))) {
-                        joueurDefense.listUnites.remove(j);
-                    }
+        for (int i = 0; i < unitsDefenseToRemove.size(); i++) {
+            for (int j = 0; j < joueurDefense.listUnites.size(); j++) {
+                if (Objects.equals(unitsDefenseToRemove.get(i), joueurDefense.listUnites.get(j))) {
+                    joueurDefense.listUnites.remove(j);
                 }
-
             }
+
+        }
 
 
         allUnitsJoueurDefense = Unite.getAllUnitsinTerritoire(countryToConquest, joueurDefense.listUnites);
@@ -251,6 +245,7 @@ public class Partie {
 
 
         return false;
+
 
 
 

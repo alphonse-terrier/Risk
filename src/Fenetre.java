@@ -66,8 +66,7 @@ public class Fenetre extends JFrame {
         findutour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 if (currentJoueur.nbUnites == 0) {
-
-                    changePlayer(currentJoueur);
+                    currentJoueur = changePlayer(currentJoueur);
                     Partie.phasePartie = "Renforts";
 
                     for (int i = 0; i < currentJoueur.listUnites.size(); i++) {
@@ -79,13 +78,14 @@ public class Fenetre extends JFrame {
                             currentJoueur.listUnites.get(i).mvtParTour = Canon.mvtParTourDefault;
                         }
 
-
                     }
 
 
                     currentJoueur = Unite.attributionUnites(currentJoueur);
+
                     unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
                     joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
+                    repaint();
 
 
                 }
@@ -145,8 +145,8 @@ public class Fenetre extends JFrame {
                                                                      Unite.SelectionUnite.get(i).positiony = y - Map.x_adapt;
                                                                      Unite.SelectionUnite.get(i).mvtParTour -= 1;
                                                                  }
-                                                             } else  {
-                                                                 if(Partie.attaque(currentJoueur, countryToConquest)){
+                                                             } else {
+                                                                 if (Partie.attaque(currentJoueur, countryToConquest)) {
                                                                      for (int j = 0; j < Unite.SelectionUnite.size(); j++) {
                                                                          Unite.SelectionUnite.get(j).positionx = x - Map.x_adapt;
                                                                          Unite.SelectionUnite.get(j).positiony = y - Map.x_adapt;
@@ -174,6 +174,9 @@ public class Fenetre extends JFrame {
 
                                                      }
                                                      Partie.phasePartie = "NewSélection";
+                                                     System.out.println(Partie.phasePartie);
+                                                     unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
+                                                     joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
 
                                                  }
 
@@ -327,7 +330,6 @@ public class Fenetre extends JFrame {
     }
 
     public Joueur changePlayer(Joueur currentJoueur) {
-
         numerojoueur = (numerojoueur + 1) % joueurs.size();
         currentJoueur = joueurs.get(numerojoueur);
         unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités.");
