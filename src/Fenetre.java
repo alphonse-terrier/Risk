@@ -95,6 +95,7 @@ public class Fenetre extends JFrame {
 
                 if (currentJoueur.nbUnites == 0) {
                     currentJoueur = changePlayer(currentJoueur);
+                    updateJLabel();
                     Partie.phasePartie = "Renforts";
 
                     for (int i = 0; i < currentJoueur.listUnites.size(); i++) {
@@ -280,6 +281,8 @@ public class Fenetre extends JFrame {
                                                  }
 
                                                  currentJoueur = changePlayer(currentJoueur);
+                                                 updateJLabel();
+
                                                  changeCursor(currentUnite);
                                                  int nbUnitesTotal = 0;
                                                  for (int i = 0; i < joueurs.size(); i++) {
@@ -293,6 +296,7 @@ public class Fenetre extends JFrame {
                                                  } else {
                                                      while (currentJoueur.nbUnites == 0) {
                                                          currentJoueur = changePlayer(currentJoueur);
+                                                         updateJLabel();
                                                          changeCursor(currentUnite);
                                                      }
                                                  }
@@ -352,10 +356,11 @@ public class Fenetre extends JFrame {
     public Joueur changePlayer(Joueur currentJoueur) {
         numerojoueur = (numerojoueur + 1) % joueurs.size();
         currentJoueur = joueurs.get(numerojoueur);
-        updateJLabel();
         if (Objects.equals(currentJoueur.getClass().getName(), "IA")) {
             IA.play(currentJoueur);
         }
+        updateJLabel();
+        repaint();
         return currentJoueur;
     }
 
