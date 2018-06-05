@@ -66,8 +66,10 @@ public class Fenetre extends JFrame {
         findutour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 if (Partie.checkIfWin(currentJoueur)) {
+                    repaint();
+                }
 
-                } else if (currentJoueur.nbUnites == 0) {
+                if (currentJoueur.nbUnites == 0) {
                     currentJoueur = changePlayer(currentJoueur);
                     Partie.phasePartie = "Renforts";
 

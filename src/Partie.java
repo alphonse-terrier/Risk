@@ -62,7 +62,7 @@ public class Partie {
                         imageIcon,
                         null,
                         nomJoueursDefault[x]);
-                 remember = checkbox.isSelected();
+                remember = checkbox.isSelected();
             }
 
 
@@ -223,7 +223,6 @@ public class Partie {
         }
 
 
-
         for (int i = 0; i < unitsDefenseToRemove.size(); i++) {
             for (int j = 0; j < joueurDefense.listUnites.size(); j++) {
                 if (Objects.equals(unitsDefenseToRemove.get(i), joueurDefense.listUnites.get(j))) {
@@ -246,92 +245,41 @@ public class Partie {
         Unite.SelectionUnite = new ArrayList<Unite>();
         return false;
 
-
-
-
-                            /*
-            Random random = new Random();
-            for (int i = 0; i < unitsAttackToSave.size(); i++) {
-                int randx = unitsDefenseToRemove.get(0).positionx + random.nextInt(5 + 1 + 5) - 5;
-                int randy = unitsDefenseToRemove.get(0).positiony + random.nextInt(5 + 1 + 5) - 5;
-                while (Objects.equals(Territoire.getCountryName(unitsDefenseToRemove.get(0).positionx, unitsDefenseToRemove.get(0).positiony), Territoire.getCountryName(randx, randy))) {
-                    unitsAttackToSave.get(i).positionx = randx;
-                    unitsAttackToSave.get(i).positiony = randy;
-                    randx = unitsDefenseToRemove.get(0).positionx + random.nextInt(5 + 1 + 5) - 5;
-                    randy = unitsDefenseToRemove.get(0).positiony + random.nextInt(5 + 1 + 5) - 5;
-
-                }
-            } */
-
-        //Changer position troupe restante
-/*
-
-
-
-
-
-
-
-
-        for (int i = 0; i < unitsJoueurAttack.size(); i++) {
-            unitsJoueurAttack.get(i).actualPower = unitsJoueurAttack.get(i).getPower();
-        }
-
-        for (int i = 0; i < unitsJoueurDefense.size(); i++) {
-            unitsJoueurDefense.get(i).actualPower = unitsJoueurDefense.get(i).getPower();
-        }
-
-
-
-        ArrayList<Unite> unitsJoueurFightAttack = new ArrayList<Unite>();
-        ArrayList<Unite> unitsJoueurFightDefense = new ArrayList<Unite>();
-
-
-        if (unitsJoueurAttack.size() > 1) {
-            while (unitsJoueurFightAttack.size() < 2) {
-                int iterator = 0;
-                for (int i = 0; i < unitsJoueurAttack.size() - 1; i++) {
-                    if (unitsJoueurAttack.get(i + 1).priorityDefense >= unitsJoueurAttack.get(i).priorityDefense) {
-                        iterator = i + 1;
-
-                    }
-
-
-                }
-                unitsJoueurFightAttack.add(unitsJoueurAttack.get(iterator));
-                unitsJoueurAttack.remove(unitsJoueurAttack.get(iterator));
-
-            }
-        }
-        else {
-            unitsJoueurFightAttack = unitsJoueurAttack;
-        }
-
-
-        if (unitsJoueurDefense.size() == 2) {
-            if (Math.max(unitsJoueurDefense.get(0).actualPower, unitsJoueurDefense.get(1).actualPower) == unitsJoueurDefense.get(1).actualPower) {
-                unitsJoueurFightDefense.add(unitsJoueurDefense.get(1));
-                unitsJoueurFightDefense.add(unitsJoueurDefense.get(0));
-            } else {
-                unitsJoueurFightDefense.add(unitsJoueurDefense.get(0));
-                unitsJoueurFightDefense.add(unitsJoueurDefense.get(1));
-            }
-        } else {
-            unitsJoueurFightDefense = unitsJoueurDefense;
-        }
-
-
-
-
-*/
-
     }
 
 
-    public static boolean checkIfWin(Joueur joueur) { //listRegions n'est pas fonctionnel
-        if (joueur.listTerritoires.size() == 42) {
+    public static boolean checkIfWin(Joueur joueur) {
+        if (joueur.listTerritoires.size() < 42) {
+            String rejouer = "Rejouer";
+            String quitter = "Quitter";
+            String[] bouton = {rejouer, quitter};
+            BufferedImage iconejoueur = Main.ImageReader("iconejoueur.png");
+            iconejoueur = Main.changeColor(iconejoueur, joueur.couleur);
+            ImageIcon imageIcon = new ImageIcon(iconejoueur);
+            JOptionPane jop = new JOptionPane();
 
-            return true;
+            int rang = jop.showOptionDialog(null,
+                    "Bravo " + joueur.getName() + ", tu as gagné !",
+                    joueur.getName() + " a gagné !",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    imageIcon,
+                    bouton,
+                    bouton[1]);
+
+
+            if (Objects.equals(rang, 1)) {
+                System.exit(0);
+            }
+
+            if (Objects.equals(rang, 0)) {
+                Fenetre.joueurs = Partie.initGame();
+                Unite.SelectionUnite = new ArrayList<Unite>();
+
+            }
+
+
+                return true;
         } else {
             return false;
         }
