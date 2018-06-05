@@ -18,7 +18,6 @@ public class Fenetre extends JFrame {
     private JLabel unitesRestantes;
     private JButton findutour;
     private JButton unselection;
-    private int Konami = 0;
 
 
 
@@ -71,20 +70,9 @@ public class Fenetre extends JFrame {
             @Override
             public void keyPressed(KeyEvent event) {
 
-                String key = null;
+                Partie.KonamiCode(event);
 
-                if (event.getKeyCode() == KeyEvent.VK_RIGHT ) {
-                    key = "RIGHT";
-                } else if (event.getKeyCode() == KeyEvent.VK_LEFT ) {
-                    key = "LEFT";
-                } else if (event.getKeyCode() == KeyEvent.VK_UP ) {
-                    key = "UP";
-                } else if (event.getKeyCode() == KeyEvent.VK_DOWN ) {
-                    key = "DOWN";
-                } else if (event.getKeyCode() == KeyEvent.VK_B) {
-                    key = "B";}
 
-                System.out.println(key);
 
             }
 

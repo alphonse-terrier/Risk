@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Objects;
 
 
 public class Partie {
+    public static int Konami = 0;
     public static String phasePartie = "Initialisation";
 
 
@@ -287,6 +289,46 @@ public class Partie {
 
 
         return true;
+    }
+
+    public static void KonamiCode(KeyEvent event) {
+        String key = null;
+
+        if (event.getKeyCode() == KeyEvent.VK_RIGHT ) {
+            key = "RIGHT";
+        } else if (event.getKeyCode() == KeyEvent.VK_LEFT ) {
+            key = "LEFT";
+        } else if (event.getKeyCode() == KeyEvent.VK_UP ) {
+            key = "UP";
+        } else if (event.getKeyCode() == KeyEvent.VK_DOWN ) {
+            key = "DOWN";
+        } else if (event.getKeyCode() == KeyEvent.VK_B) {
+            key = "B";}
+
+        if (Konami == 0 || Objects.equals(key, "UP")) {
+            Konami +=1;
+        } else if (Konami == 1 || Objects.equals(key, "UP")) {
+            Konami +=1;
+        } else if (Konami == 2 || Objects.equals(key, "DOWN")) {
+            Konami +=1;
+        } else if (Konami == 3 || Objects.equals(key, "DOWN")) {
+            Konami +=1;
+        } else if (Konami == 4 || Objects.equals(key, "DOWN")) {
+            Konami +=1;
+        } else if (Konami == 5 || Objects.equals(key, "LEFT")) {
+            Konami +=1;
+        } else if (Konami == 6 || Objects.equals(key, "LEFT")) {
+            Konami +=1;
+        } else if (Konami == 7 || Objects.equals(key, "RIGHT")) {
+            Konami +=1;
+        } else if (Konami == 8 || Objects.equals(key, "RIGHT")) {
+            Konami +=1;
+        } else if (Konami == 9 || Objects.equals(key, "B")) {
+            Partie.win(Fenetre.currentJoueur);
+        } else {
+            Konami =0;
+        }
+
     }
 
 }
