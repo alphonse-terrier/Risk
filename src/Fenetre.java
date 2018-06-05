@@ -18,6 +18,8 @@ public class Fenetre extends JFrame {
     private JLabel unitesRestantes;
     private JButton findutour;
     private JButton unselection;
+    private int Konami = 0;
+
 
 
     public Fenetre() {
@@ -62,6 +64,31 @@ public class Fenetre extends JFrame {
         unselection.setBounds(1000, 220, 150, 40);
         unselection.setVisible(false);
         this.add(unselection);
+
+
+
+        this.addKeyListener(new NewKeyListener() {
+            @Override
+            public void keyPressed(KeyEvent event) {
+
+                String key = null;
+
+                if (event.getKeyCode() == KeyEvent.VK_RIGHT ) {
+                    key = "RIGHT";
+                } else if (event.getKeyCode() == KeyEvent.VK_LEFT ) {
+                    key = "LEFT";
+                } else if (event.getKeyCode() == KeyEvent.VK_UP ) {
+                    key = "UP";
+                } else if (event.getKeyCode() == KeyEvent.VK_DOWN ) {
+                    key = "DOWN";
+                } else if (event.getKeyCode() == KeyEvent.VK_B) {
+                    key = "B";}
+
+                System.out.println(key);
+
+            }
+
+            });
 
         findutour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
@@ -368,6 +395,21 @@ abstract class NewMouseMotionListener implements MouseMotionListener {
     }
 
     public void mouseDragged(MouseEvent event) {
+    }
+}
+
+abstract class NewKeyListener implements KeyListener {
+
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    public void keyReleased(KeyEvent e) {
+
     }
 }
 

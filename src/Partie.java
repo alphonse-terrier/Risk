@@ -250,39 +250,43 @@ public class Partie {
 
     public static boolean checkIfWin(Joueur joueur) {
         if (joueur.listTerritoires.size() == 42) {
-            String rejouer = "Rejouer";
-            String quitter = "Quitter";
-            String[] bouton = {rejouer, quitter};
-            BufferedImage iconejoueur = Main.ImageReader("iconejoueur.png");
-            iconejoueur = Main.changeColor(iconejoueur, joueur.couleur);
-            ImageIcon imageIcon = new ImageIcon(iconejoueur);
-            JOptionPane jop = new JOptionPane();
-
-            int rang = jop.showOptionDialog(null,
-                    "Bravo " + joueur.getName() + ", tu as gagné !",
-                    joueur.getName() + " a gagné !",
-                    JOptionPane.YES_NO_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    imageIcon,
-                    bouton,
-                    bouton[1]);
-
-
-            if (Objects.equals(rang, 1)) {
-                System.exit(0);
-            }
-
-            if (Objects.equals(rang, 0)) {
-                Fenetre.joueurs = Partie.initGame();
-                Unite.SelectionUnite = new ArrayList<Unite>();
-
-            }
-
-
-                return true;
+            return win(joueur);
         } else {
             return false;
         }
+    }
+
+    public static boolean win(Joueur joueur) {
+        String rejouer = "Rejouer";
+        String quitter = "Quitter";
+        String[] bouton = {rejouer, quitter};
+        BufferedImage iconejoueur = Main.ImageReader("iconejoueur.png");
+        iconejoueur = Main.changeColor(iconejoueur, joueur.couleur);
+        ImageIcon imageIcon = new ImageIcon(iconejoueur);
+        JOptionPane jop = new JOptionPane();
+
+        int rang = jop.showOptionDialog(null,
+                "Bravo " + joueur.getName() + ", tu as gagné !",
+                joueur.getName() + " a gagné !",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                imageIcon,
+                bouton,
+                bouton[1]);
+
+
+        if (Objects.equals(rang, 1)) {
+            System.exit(0);
+        }
+
+        if (Objects.equals(rang, 0)) {
+            Fenetre.joueurs = Partie.initGame();
+            Unite.SelectionUnite = new ArrayList<Unite>();
+
+        }
+
+
+        return true;
     }
 
 }
