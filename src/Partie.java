@@ -187,7 +187,6 @@ public class Partie {
         Collections.sort(unitsJoueurDefense, (Unit1, Unit2) -> Unit2.actualPower - Unit1.actualPower);
 
         Collections.sort(Unite.SelectionUnite, (Unit1, Unit2) -> Unit2.actualPower - Unit1.actualPower);
-        //trier UnitsJoueurDefense et Unite.SelectionUnite par actualPower
 
 
         for (int i = 0; i < Math.min(Unite.SelectionUnite.size(), unitsJoueurDefense.size()); i++) {
@@ -195,8 +194,7 @@ public class Partie {
                 if (Unite.SelectionUnite.get(i).priorityAttack > unitsJoueurDefense.get(i).priorityDefense) {
                     unitsDefenseToRemove.add(unitsJoueurDefense.get(i));
                     unitsAttackToSave.add(Unite.SelectionUnite.get(i));
-                    //Unite.SelectionUnite.get(i).positionx = unitsJoueurDefense.get(i).positionx;
-                    //Unite.SelectionUnite.get(i).positiony = unitsJoueurDefense.get(i).positiony;
+
                 } else {
                     unitsAttackToRemove.add(Unite.SelectionUnite.get(i));
 
@@ -206,8 +204,7 @@ public class Partie {
             } else if (Unite.SelectionUnite.get(i).actualPower > unitsJoueurDefense.get(i).actualPower) {
                 unitsDefenseToRemove.add(unitsJoueurDefense.get(i));
                 unitsAttackToSave.add(Unite.SelectionUnite.get(i));
-                //Unite.SelectionUnite.get(i).positionx = unitsJoueurDefense.get(i).positionx;
-                //Unite.SelectionUnite.get(i).positiony = unitsJoueurDefense.get(i).positiony;
+
             } else {
                 unitsAttackToRemove.add(Unite.SelectionUnite.get(i));
 
@@ -240,7 +237,11 @@ public class Partie {
         if (allUnitsJoueurDefense.size() == 0) {
             joueurAttack.nbTerritoiresCapturéesTourPréc += 1;
             joueurAttack.listTerritoires.add(territoire);
-            //supprimer le territoire de joueurdefense
+            for (int i = 0; i < joueurDefense.listTerritoires.size(); i ++) {
+                if(Objects.equals(territoire, joueurDefense.listTerritoires.get(i))) {
+                    joueurDefense.listTerritoires.remove(i);
+                }
+            }
             return true;
         }
 

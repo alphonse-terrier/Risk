@@ -13,7 +13,6 @@ public class Joueur {
         this.listTerritoires = listTerritoires;
         this.listUnites = listUnites;
         this.nbUnites = nbUnites;
-        this.listRegions = new ArrayList<Region>();
         this.couleur = couleur;
         this.nbTerritoiresCapturéesTourPréc = nbTerritoiresCapturéesTourPréc;
     }
@@ -22,7 +21,6 @@ public class Joueur {
     public ArrayList<Territoire> listTerritoires;
     public ArrayList<Unite> listUnites;
     public int nbUnites;
-    public ArrayList<Region> listRegions;
     public Color couleur;
     public int nbTerritoiresCapturéesTourPréc;
 
@@ -43,7 +41,7 @@ public class Joueur {
 
         int positionx = unit.positionx;
         int positiony = unit.positiony;
-        String countryname = Territoire.getCountryName(positionx, positiony);
+        String countryname = Territoire.getCountryName(positionx+16, positiony+16);
         boolean possible = false;
         for (int i = 0; i < listTerritoires.size(); i++) {
 

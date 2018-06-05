@@ -27,7 +27,6 @@ public class Unite extends JPanel {
     public int mvtParTourDefault;
 
 
-
     public Unite(int positionx, int positiony, String imgpath, int cost, int minpower, int maxpower, int priorityAttack, int priorityDefense, int mvtParTour, int actualPower) {
         this.positionx = positionx;
         this.positiony = positiony;
@@ -52,13 +51,14 @@ public class Unite extends JPanel {
 
         ArrayList<Region> regions = Region.getRegions(joueur.listTerritoires);
         if (regions.size() > 0) {
-        for (int i = 0; i < regions.size(); i++) {
-            joueur.nbUnites += regions.get(i).getWeight();
-        }}
+            for (int i = 0; i < regions.size(); i++) {
+                joueur.nbUnites += regions.get(i).getWeight();
+            }
+        }
 
         Random rand = new Random();
-        for (int i=0; i < joueur.nbTerritoiresCapturéesTourPréc; i++){
-            if ((rand.nextInt(10) + 1)>5) {
+        for (int i = 0; i < joueur.nbTerritoiresCapturéesTourPréc; i++) {
+            if ((rand.nextInt(10) + 1) > 5) {
                 joueur.nbUnites += 1;
             }
         }
@@ -85,7 +85,7 @@ public class Unite extends JPanel {
 
         ArrayList<Unite> allUnits = getAllUnitsinTerritoire(Territoire.getCountryName(x, y), joueur.listUnites);
 
-        if (SelectionUnite.size()+1 == allUnits.size()) {
+        if (SelectionUnite.size() + 1 == allUnits.size()) {
             return null;
         }
 
@@ -97,13 +97,12 @@ public class Unite extends JPanel {
                 int uniteX = unite.positionx;
                 int uniteY = unite.positiony;
                 BufferedImage imgOfUnite = Main.ImageReader(classOfUnite + ".png");
-                //System.out.println("x - uniteX : " + (x - uniteX + Map.x_adapt) + ", y - uniteY : " + (y - uniteY + Map.y_adapt));
 
                 int xToCheck = x - uniteX;
                 int yToCheck = y - uniteY;
 
                 if (0 <= xToCheck && xToCheck <= 32 && 0 <= yToCheck && yToCheck <= 32) {
-                    Color color = new Color(imgOfUnite.getRGB(xToCheck, yToCheck));
+                    Color color = new Color(imgOfUnite.getRGB(16, 16));
                     int red = color.getRed();
                     int green = color.getGreen();
                     int blue = color.getBlue();
