@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.Random;
 
 /**
  *
@@ -45,25 +44,35 @@ public class Partie {
 
         for (int x = 0; x < nbJoueurs; x++) {
 
-
+            boolean remember = false;
             BufferedImage iconejoueur = Main.ImageReader("iconejoueur.png");
             iconejoueur = Main.changeColor(iconejoueur, couleurs.get(x));
             ImageIcon imageIcon = new ImageIcon(iconejoueur);
             JOptionPane jop2 = new JOptionPane();
+            JCheckBox checkbox = new JCheckBox("IA");
+
             String[] nomJoueursDefault = {"Bill Gates", "Mark Zuckerberg", "Jeff Bezos", "Jimmy Wales", "Dara Khosrowshahi", "Larry Page"};
+
+            Object[] msgContent = {checkbox, "Entrer le nom du joueur " + (x + 1) + ":"};
             String name = "";
             while ("".equals(name) || name == null) {
                 name = (String) jop2.showInputDialog(null,
-                        "Entrer le nom du joueur " + (x + 1) + ":",
+                        msgContent,
                         "Saisie des noms des joueurs", JOptionPane.QUESTION_MESSAGE,
                         imageIcon,
                         null,
                         nomJoueursDefault[x]);
+                 remember = checkbox.isSelected();
             }
 
-            int nbUnites = 50 - 5 * nbJoueurs;
 
-            joueurs.add(new Joueur(name, new ArrayList<Territoire>(), new ArrayList<Unite>(), nbUnites, couleurs.get(x), 0));
+            int nbUnites = 50 - 5 * nbJoueurs;
+            if (remember) {
+                joueurs.add(new IA(name, new ArrayList<Territoire>(), new ArrayList<Unite>(), nbUnites, couleurs.get(x), 0));
+
+            } else {
+                joueurs.add(new Joueur(name, new ArrayList<Territoire>(), new ArrayList<Unite>(), nbUnites, couleurs.get(x), 0));
+            }
         }
 
 
@@ -223,8 +232,6 @@ public class Partie {
         if (unitsDefenseToRemove.size() == unitsJoueurDefense.size()) {
 
 
-
-
             for (int i = 0; i < allUnitsJoueurDefense.size(); i++) {
                 for (int j = 0; j < joueurDefense.listUnites.size(); j++) {
                     if (Objects.equals(allUnitsJoueurDefense.get(i), joueurDefense.listUnites.get(j))) {
@@ -250,7 +257,6 @@ public class Partie {
         }
 
         Unite.SelectionUnite = new ArrayList<Unite>();
-
 
 
         return false;
