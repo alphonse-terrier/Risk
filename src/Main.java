@@ -19,8 +19,6 @@ public class Main {
 
         Fenetre carte = new Fenetre();
 
-
-        // A FAIRE : Condition d'arrêt du jeu : Joueur.listRegions.size() == 6
     }
 
     public static BufferedImage changeColor(BufferedImage image, Color couleur) {

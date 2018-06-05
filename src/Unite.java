@@ -50,10 +50,11 @@ public class Unite extends JPanel {
         int nbTerritoires = joueur.listTerritoires.size();
         joueur.nbUnites += nbTerritoires / 3;
 
-        ArrayList<Region> regions = joueur.listRegions;
+        ArrayList<Region> regions = Region.getRegions(joueur.listTerritoires);
+        if (regions.size() > 0) {
         for (int i = 0; i < regions.size(); i++) {
             joueur.nbUnites += regions.get(i).getWeight();
-        }
+        }}
 
         Random rand = new Random();
         for (int i=0; i < joueur.nbTerritoiresCapturéesTourPréc; i++){

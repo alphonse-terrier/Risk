@@ -1,7 +1,8 @@
 /**
  * Created by Alphonse on 14/05/2018.
  */
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -37,6 +38,10 @@ public class Fenetre extends JFrame {
         Map map = new Map();
         this.setContentPane(map);
         map.setLayout(null);
+
+
+
+
         joueurActif = new JLabel();
         unitesRestantes = new JLabel();
         findutour = new JButton();
@@ -62,7 +67,7 @@ public class Fenetre extends JFrame {
         unselection.setBounds(1000, 220, 150, 40);
         unselection.setVisible(false);
         this.add(unselection);
-        
+
         try {
             Robot r = new Robot();
             r.keyPress(KeyEvent.VK_ENTER);

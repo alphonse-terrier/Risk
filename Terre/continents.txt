@@ -1,11 +1,6 @@
 3;europe;greatbritain;scandinavia;iceland;southeurope;westeurope;northeurope;ukraine;;;
-
 5;asie;ural;afghanistan;middleeast;india;siam;china;mongolia;siberia;japan;kamchatka
-
 4;ameriquedunord;alaska;northcanada;alberta;ontario;quebec;useast;uswest;centralamerica;;
-
 2;ameriquedusud;venezuela;brazil;peru;argentina;;;;;;
-
 3;afrique;northafrica;egypt;eastafrica;congo;southafrica;madagascar;;;;
-
 2;oceanie;indonesia;newguinea;westautralia;eastaustralia;;;;;;

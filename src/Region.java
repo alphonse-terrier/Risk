@@ -43,6 +43,7 @@ public class Region {
             BufferedReader continents = new BufferedReader(new FileReader("./Terre/continents.txt"));
             while ((line = continents.readLine()) != null) {
                 String[] thatLine = line.split(";");
+
                 listAllRegions.add(new Region(thatLine[1], Integer.parseInt(thatLine[0])));
             }
         } catch (Exception e) {
@@ -53,7 +54,7 @@ public class Region {
 
 
     public static ArrayList<Region> getRegions(ArrayList<Territoire> listTerritoires) {
-        ArrayList<Region> listRegions = null;
+        ArrayList<Region> listRegions = new ArrayList<Region>();
 
         ArrayList<Region> listAllRegions = getAllRegions();
 

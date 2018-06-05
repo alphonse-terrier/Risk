@@ -240,6 +240,7 @@ public class Partie {
         if (allUnitsJoueurDefense.size() == 0) {
             joueurAttack.nbTerritoiresCapturéesTourPréc += 1;
             joueurAttack.listTerritoires.add(territoire);
+            //supprimer le territoire de joueurdefense
             return true;
         }
 
@@ -268,6 +269,7 @@ public class Partie {
         JOptionPane jop = new JOptionPane();
         int rang = -1;
         while (rang == -1) {
+            System.out.println(rang);
             rang = jop.showOptionDialog(null,
                     "Bravo " + joueur.getName() + ", tu as gagné !",
                     joueur.getName() + " a gagné !",
