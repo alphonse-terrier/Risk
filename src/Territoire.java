@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -7,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 
 public class Territoire {
@@ -129,12 +132,41 @@ public class Territoire {
         return false;
     }
 
+    public static int[] getRandomXYOfACountry(String countryName) {
+
+        int x = 0;
+        int y =0;
+        Random rand = new Random();
+        try {
+            String line;
+            BufferedReader positionsInit = Main.readTextFile("./Terre/positionsinit.txt");
+            while ((line = positionsInit.readLine()) != null) {
+                String[] thatLine = line.split(";");
+                if (Objects.equals(thatLine[0], countryName)) {
+                    while (!Objects.equals(getCountryName(x, y), countryName) ){
+                        x = Integer.parseInt(thatLine[1])+rand.nextInt((20 + 20) + 1) - 20;
+                        y = Integer.parseInt(thatLine[2])+rand.nextInt((20 + 20) + 1) - 20;
+
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int[] xy = {x, y};
+
+
+        //tester ava
+
+
+
+
+        return xy;
+    }
+
 
     public String getName() {
         return name;
-    }
+    }}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-}

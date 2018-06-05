@@ -15,6 +15,7 @@ import java.util.Objects;
 public class Partie {
     public static int Konami = 0;
     public static String phasePartie = "Initialisation";
+    public static ArrayList<Territoire> allTerritories;
 
 
     public static ArrayList<Joueur> initGame() {
@@ -78,7 +79,7 @@ public class Partie {
         }
 
 
-        ArrayList<Territoire> allTerritories = Territoire.getAllCountriesName();
+        allTerritories = Territoire.getAllCountriesName();
         Collections.shuffle(allTerritories);
 
 
@@ -242,6 +243,16 @@ public class Partie {
                     joueurDefense.listTerritoires.remove(i);
                 }
             }
+
+
+
+            for (int j = 0; j < Unite.SelectionUnite.size(); j++) {
+                int[] XY = Territoire.getRandomXYOfACountry(territoire.getName());
+                Unite.SelectionUnite.get(j).positionx = XY[0];
+                Unite.SelectionUnite.get(j).positiony = XY[1];
+                Unite.SelectionUnite.get(j).mvtParTour -= 1;
+            }
+
             return true;
         }
 

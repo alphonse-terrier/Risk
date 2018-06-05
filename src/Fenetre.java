@@ -47,16 +47,16 @@ public class Fenetre extends JFrame {
         findutour = new JButton();
         unselection = new JButton();
 
-        joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
+
         joueurActif.setFont(new Font("Verdana", 1, 13));
         joueurActif.setBounds(1000, 100, 240, 100);
         this.add(joueurActif);
 
-        unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
+
         unitesRestantes.setFont(new Font("Verdana", 1, 13));
         unitesRestantes.setBounds(1000, 140, 200, 100);
         this.add(unitesRestantes);
-
+        updateJLabel();
         findutour.setText("Finir mon tour");
 
         this.add(findutour);
@@ -112,8 +112,7 @@ public class Fenetre extends JFrame {
                     currentJoueur = Unite.attributionUnites(currentJoueur);
                     currentJoueur.nbTerritoiresCapturéesTourPréc = 0;
 
-                    unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
-                    joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
+                    updateJLabel();
                     repaint();
 
 
@@ -176,11 +175,7 @@ public class Fenetre extends JFrame {
                                                                  }
                                                              } else {
                                                                  if (Partie.attaque(currentJoueur, countryToConquest)) {
-                                                                     for (int j = 0; j < Unite.SelectionUnite.size(); j++) {
-                                                                         Unite.SelectionUnite.get(j).positionx = x - Map.x_adapt;
-                                                                         Unite.SelectionUnite.get(j).positiony = y - Map.x_adapt;
-                                                                         Unite.SelectionUnite.get(j).mvtParTour -= 1;
-                                                                     }
+
                                                                      Unite.SelectionUnite = new ArrayList<Unite>();
                                                                  }
 
@@ -204,8 +199,7 @@ public class Fenetre extends JFrame {
                                                      }
                                                      Partie.phasePartie = "NewSélection";
                                                      System.out.println(Partie.phasePartie);
-                                                     unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités à placer.");
-                                                     joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
+                                                     updateJLabel();
 
                                                  }
 
@@ -241,7 +235,7 @@ public class Fenetre extends JFrame {
                                                  }
                                                  System.out.println(currentJoueur.nbUnites);
 
-                                                 unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités.");
+                                                 updateJLabel();
 
                                                  repaint();
 
@@ -358,9 +352,16 @@ public class Fenetre extends JFrame {
     public Joueur changePlayer(Joueur currentJoueur) {
         numerojoueur = (numerojoueur + 1) % joueurs.size();
         currentJoueur = joueurs.get(numerojoueur);
+        updateJLabel();
+        if (Objects.equals(currentJoueur.getClass().getName(), "IA")) {
+            IA.play(currentJoueur);
+        }
+        return currentJoueur;
+    }
+
+    public void updateJLabel() {
         unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités.");
         joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
-        return currentJoueur;
     }
 
 }
