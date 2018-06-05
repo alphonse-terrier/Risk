@@ -228,23 +228,7 @@ public class Partie {
 
         }
 
-        allUnitsJoueurDefense = Unite.getAllUnitsinTerritoire(countryToConquest, joueurDefense.listUnites);
-        if (unitsDefenseToRemove.size() == unitsJoueurDefense.size()) {
 
-
-            for (int i = 0; i < allUnitsJoueurDefense.size(); i++) {
-                for (int j = 0; j < joueurDefense.listUnites.size(); j++) {
-                    if (Objects.equals(allUnitsJoueurDefense.get(i), joueurDefense.listUnites.get(j))) {
-                        joueurDefense.listUnites.remove(j);
-                    }
-                }
-            }
-
-            joueurAttack.nbTerritoiresCapturéesTourPréc += 1;
-            joueurAttack.listTerritoires.add(territoire);
-
-            return true;
-        } else {
 
             for (int i = 0; i < unitsDefenseToRemove.size(); i++) {
                 for (int j = 0; j < joueurDefense.listUnites.size(); j++) {
@@ -254,9 +238,16 @@ public class Partie {
                 }
 
             }
+
+
+        allUnitsJoueurDefense = Unite.getAllUnitsinTerritoire(countryToConquest, joueurDefense.listUnites);
+
+        if (allUnitsJoueurDefense.size() == 0) {
+            joueurAttack.nbTerritoiresCapturéesTourPréc += 1;
+            joueurAttack.listTerritoires.add(territoire);
+            return true;
         }
 
-        Unite.SelectionUnite = new ArrayList<Unite>();
 
 
         return false;
