@@ -171,12 +171,12 @@ public class Partie {
         }
 
 
-        for (int i = 0; i < Unite.SelectionUnite.size(); i++) {
-            Unite.SelectionUnite.get(i).actualPower = Unite.SelectionUnite.get(i).getPower();
+        for (Unite unite : Unite.SelectionUnite) {
+            unite.actualPower = unite.getPower();
         }
 
-        for (int i = 0; i < unitsJoueurDefense.size(); i++) {
-            unitsJoueurDefense.get(i).actualPower = unitsJoueurDefense.get(i).getPower();
+        for (Unite unite : unitsJoueurDefense) {
+            unite.actualPower = unite.getPower();
         }
 
 
@@ -213,9 +213,9 @@ public class Partie {
         }
 
 
-        for (int i = 0; i < unitsAttackToRemove.size(); i++) {
+        for (Unite uniteToRemove : unitsAttackToRemove) {
             for (int j = 0; j < joueurAttack.listUnites.size(); j++) {
-                if (Objects.equals(unitsAttackToRemove.get(i), joueurAttack.listUnites.get(j))) {
+                if (Objects.equals(unitetoRemove, joueurAttack.listUnites.get(j))) {
                     joueurAttack.listUnites.remove(j);
                 }
             }
@@ -223,9 +223,9 @@ public class Partie {
         }
 
 
-        for (int i = 0; i < unitsDefenseToRemove.size(); i++) {
+        for (Unite uniteToRemove : unitsDefenseToRemove) {
             for (int j = 0; j < joueurDefense.listUnites.size(); j++) {
-                if (Objects.equals(unitsDefenseToRemove.get(i), joueurDefense.listUnites.get(j))) {
+                if (Objects.equals(uniteToRemove, joueurDefense.listUnites.get(j))) {
                     joueurDefense.listUnites.remove(j);
                 }
             }
@@ -246,11 +246,11 @@ public class Partie {
 
 
 
-            for (int j = 0; j < Unite.SelectionUnite.size(); j++) {
+            for (Unite unite : Unite.SelectionUnite) {
                 int[] XY = Territoire.getRandomXYOfACountry(territoire.getName());
-                Unite.SelectionUnite.get(j).positionx = XY[0];
-                Unite.SelectionUnite.get(j).positiony = XY[1];
-                Unite.SelectionUnite.get(j).mvtParTour -= 1;
+                unite.positionx = XY[0];
+                unite.positiony = XY[1];
+                unite.mvtParTour -= 1;
             }
 
             return true;
