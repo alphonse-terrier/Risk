@@ -85,9 +85,9 @@ public class Partie {
 
         int i = 0;
         while (i < allTerritories.size()) {
-            for (int x = 0; x < nbJoueurs; x++) {
+            for (Joueur joueur : joueurs) {
                 if (i < allTerritories.size()) {
-                    joueurs.get(x).listTerritoires.add(allTerritories.get(i));
+                    joueur.listTerritoires.add(allTerritories.get(i));
                     i += 1;
 
                 }
@@ -95,11 +95,11 @@ public class Partie {
         }
 
 
-        for (int x = 0; x < joueurs.size(); x++) {
-            for (int y = 0; y < joueurs.get(x).listTerritoires.size(); y++) {
+        for (Joueur joueur : joueurs) {
+            for (Territoire territoire : joueur.listTerritoires) {
 
 
-                String territoireName = joueurs.get(x).listTerritoires.get(y).getName();
+                String territoireName = territoire.getName();
 
 
                 try {
@@ -110,7 +110,7 @@ public class Partie {
 
                         if (Objects.equals(thatLine[0], territoireName)) {
 
-                            joueurs.get(x).putUnite(new Soldat(Integer.parseInt(thatLine[1]), Integer.parseInt(thatLine[2])));
+                            joueur.putUnite(new Soldat(Integer.parseInt(thatLine[1]), Integer.parseInt(thatLine[2])));
 
 
                         }
@@ -141,11 +141,11 @@ public class Partie {
         Joueur joueurDefense = null;
         Territoire territoire = null;
 
-        for (int i = 0; i < Fenetre.joueurs.size(); i++) {
-            for (int j = 0; j < Fenetre.joueurs.get(i).listTerritoires.size(); j++) {
-                if (Objects.equals(Fenetre.joueurs.get(i).listTerritoires.get(j).getName(), countryToConquest)) {
-                    joueurDefense = Fenetre.joueurs.get(i);
-                    territoire = Fenetre.joueurs.get(i).listTerritoires.get(j);
+        for (Joueur joueur : Fenetre.joueurs) {
+            for (Territoire territoireToConquest : joueur.listTerritoires) {
+                if (Objects.equals(territoire.getName(), countryToConquest)) {
+                    joueurDefense = joueur;
+                    territoire = territoireToConquest;
                 }
             }
         }
