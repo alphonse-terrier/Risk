@@ -143,7 +143,7 @@ public class Partie {
 
         for (Joueur joueur : Fenetre.joueurs) {
             for (Territoire territoireToConquest : joueur.listTerritoires) {
-                if (Objects.equals(territoire.getName(), countryToConquest)) {
+                if (Objects.equals(territoireToConquest.getName(), countryToConquest)) {
                     joueurDefense = joueur;
                     territoire = territoireToConquest;
                 }
@@ -215,7 +215,7 @@ public class Partie {
 
         for (Unite uniteToRemove : unitsAttackToRemove) {
             for (int j = 0; j < joueurAttack.listUnites.size(); j++) {
-                if (Objects.equals(unitetoRemove, joueurAttack.listUnites.get(j))) {
+                if (Objects.equals(uniteToRemove, joueurAttack.listUnites.get(j))) {
                     joueurAttack.listUnites.remove(j);
                 }
             }
