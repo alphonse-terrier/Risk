@@ -567,7 +567,6 @@ public class Partie {
         JOptionPane jop = new JOptionPane();
         int rang = -1;
         while (rang == -1) {
-            System.out.println(rang);
             rang = JOptionPane.showOptionDialog(null,
                     "Bravo " + joueur.getName() + ", tu as gagné !",
                     joueur.getName() + " a gagné !",

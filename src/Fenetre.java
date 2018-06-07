@@ -84,7 +84,6 @@ class Fenetre extends JFrame {
             @Override
             public void keyPressed(KeyEvent event) {
                 //Listener pour le code Konami
-                System.out.println(event.getKeyCode());
                 konamiCode(event);
 
 
@@ -133,7 +132,6 @@ class Fenetre extends JFrame {
                     currentJoueur.nbTerritoiresCapturesTourPrec = 0;
                     unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités.");
                     joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
-                    System.out.println(currentJoueur.getName());
 
                     updateJLabel();
                     repaint();
@@ -224,7 +222,6 @@ class Fenetre extends JFrame {
 
                                                      }
                                                      phasePartie = "NewSélection"; //On démarre une nouvelle sélection
-                                                     System.out.println(phasePartie);
                                                      updateJLabel();
 
                                                  }
@@ -243,6 +240,7 @@ class Fenetre extends JFrame {
                                              }
 
                                              if (Objects.equals(phasePartie, "NewSélection")) {
+                                                 unselection.setVisible(false);
                                                  phasePartie = "Sélection";
                                              }
 
