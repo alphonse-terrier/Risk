@@ -20,6 +20,24 @@ public class Partie {
     ArrayList<Unite> SelectionUnite = new ArrayList<Unite>();
     private ArrayList<Territoire> allTerritories;
 
+    static String getCountryName(int x, int y) {
+        try {
+            String line;
+            BufferedReader countries = new BufferedReader(new FileReader("./Terre/countries.txt"));
+            while ((line = countries.readLine()) != null) {
+                String[] thatLine = line.split(";");
+
+                if (Integer.parseInt(thatLine[0]) == x && Integer.parseInt(thatLine[1]) == y) {
+                    return thatLine[2];
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ("C'est pas l'homme qui prend la mer, c'est la mer qui prend l'homme");
+
+
+    }
 
     ArrayList<Joueur> initGame() {
         ImageIcon icone = new ImageIcon("iconenbjoueurs.png");
@@ -56,10 +74,17 @@ public class Partie {
             ImageIcon imageIcon = new ImageIcon(iconejoueur);
             JOptionPane jop2 = new JOptionPane();
             JCheckBox checkbox = new JCheckBox("IA");
-
+            Object[] msgContent;
             String[] nomJoueursDefault = {"Bill Gates", "Mark Zuckerberg", "Jeff Bezos", "Jimmy Wales", "Dara Khosrowshahi", "Larry Page"};
 
-            Object[] msgContent = {checkbox, "Entrer le nom du joueur " + (x + 1) + ":"};
+            if (x > 0) {
+
+                msgContent = new Object[]{checkbox, "Entrer le nom du joueur " + (x + 1) + ":"};
+            } else {
+                msgContent = new Object[]{"Entrer le nom du joueur " + (x + 1) + ":"};
+            }
+
+
             String name = "";
             while ("".equals(name) || name == null) {
                 name = (String) jop2.showInputDialog(null,
@@ -126,7 +151,6 @@ public class Partie {
 
             }
         }
-
 
 
         return joueurs;
@@ -236,12 +260,11 @@ public class Partie {
         if (allUnitsJoueurDefense.size() == 0) {
             joueurAttack.nbTerritoiresCapturesTourPrec += 1;
             joueurAttack.listTerritoires.add(territoire);
-            for (int i = 0; i < joueurDefense.listTerritoires.size(); i ++) {
-                if(Objects.equals(territoire, joueurDefense.listTerritoires.get(i))) {
+            for (int i = 0; i < joueurDefense.listTerritoires.size(); i++) {
+                if (Objects.equals(territoire, joueurDefense.listTerritoires.get(i))) {
                     joueurDefense.listTerritoires.remove(i);
                 }
             }
-
 
 
             for (Unite unite : SelectionUnite) {
@@ -261,29 +284,9 @@ public class Partie {
 
     }
 
-    static String getCountryName(int x, int y) {
-        try {
-            String line;
-            BufferedReader countries = new BufferedReader(new FileReader("./Terre/countries.txt"));
-            while ((line = countries.readLine()) != null) {
-                String[] thatLine = line.split(";");
-
-                if (Integer.parseInt(thatLine[0]) == x && Integer.parseInt(thatLine[1]) == y) {
-                    return thatLine[2];
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ("C'est pas l'homme qui prend la mer, c'est la mer qui prend l'homme");
-
-
-    }
-
     boolean areTheseCountriesTheSame(String countryname1, String countryname2) {
         return Objects.equals(countryname1, countryname2);
     }
-
 
 
     boolean areTheseCountriesAdjacents(String countryname1, String countryname2) {
@@ -328,7 +331,7 @@ public class Partie {
     boolean checkIfThisIsOneOfMyCountry(Joueur joueur, String country) {
 
         for (Territoire territoire : joueur.listTerritoires) {
-            if(Objects.equals(country, territoire.getName())) {
+            if (Objects.equals(country, territoire.getName())) {
                 return true;
             }
         }
@@ -337,10 +340,10 @@ public class Partie {
         return false;
     }
 
-    private int[] getRandomXYOfACountry(String countryName) {
+    int[] getRandomXYOfACountry(String countryName) {
 
         int x = 0;
-        int y =0;
+        int y = 0;
         Random rand = new Random();
         try {
             String line;
@@ -348,9 +351,9 @@ public class Partie {
             while ((line = positionsInit.readLine()) != null) {
                 String[] thatLine = line.split(";");
                 if (Objects.equals(thatLine[0], countryName)) {
-                    while (!Objects.equals(getCountryName(x, y), countryName) ){
-                        x = Integer.parseInt(thatLine[1])+rand.nextInt((20 + 20) + 1) - 20;
-                        y = Integer.parseInt(thatLine[2])+rand.nextInt((20 + 20) + 1) - 20;
+                    while (!Objects.equals(getCountryName(x, y), countryName)) {
+                        x = Integer.parseInt(thatLine[1]) + rand.nextInt((20 + 20) + 1) - 20;
+                        y = Integer.parseInt(thatLine[2]) + rand.nextInt((20 + 20) + 1) - 20;
 
                     }
                 }
@@ -413,6 +416,14 @@ public class Partie {
         }
 
         return listRegions;
+    }
+
+    int totalNbUnites(ArrayList<Joueur> joueurs) {
+        int n = 0;
+        for (Joueur joueur : joueurs) {
+            n+= joueur.nbUnites;
+        }
+        return n;
     }
 
     Joueur attributionUnites(Joueur joueur) {

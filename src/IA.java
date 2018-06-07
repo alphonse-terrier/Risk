@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Random;
 
@@ -12,25 +13,47 @@ public class IA extends Joueur {
     }
 
 
-    public void play() {
-        /*
-        if (Objects.equals(Partie.phasePartie, "PoseUnites")) {
-            Random random = new Random();
-            int randomIndexCountry = random.nextInt(currentJoueur.listTerritoires.size());
-            String countryName = currentJoueur.listTerritoires.get(randomIndexCountry).getName();
-            int[] XY = Territoire.getRandomXYOfACountry(countryName);
-            if (currentJoueur.putUnite(new Canon(XY[0], XY[1]))) {
+    public void play(String phasePartie, Partie partie) {
 
-            } else if (currentJoueur.putUnite(new Cavalier(XY[0], XY[1]))) {
 
-            } else {
-                currentJoueur.putUnite(new Soldat(XY[0], XY[1]));
 
+        if (Objects.equals(phasePartie, "Renforts")) {
+            partie.attributionUnites(this);
+            while (nbUnites != 0 ) {
+                putAnIaUnite(partie);
             }
 
         }
-        */
 
+        if (Objects.equals(phasePartie, "PoseUnites")) {
+
+            putAnIaUnite(partie);
+
+        }
+
+
+
+
+    }
+
+
+    public void putAnIaUnite(Partie partie) {
+        Random random = new Random();
+        int randomIndexCountry = random.nextInt(listTerritoires.size());
+        String countryName = listTerritoires.get(randomIndexCountry).getName();
+        int[] XY = partie.getRandomXYOfACountry(countryName);
+        ArrayList<Unite> unites = new ArrayList<>() ;
+        unites.add(new Canon(XY[0], XY[1]));
+        unites.add(new Cavalier(XY[0], XY[1]));
+        unites.add(new Cavalier(XY[0], XY[1]));
+        Collections.shuffle(unites);
+        if (putUnite(unites.get(0))) {
+
+        } else if (putUnite(unites.get(1))) {
+
+        } else {
+            putUnite(unites.get(2));
+        }
 
     }
 

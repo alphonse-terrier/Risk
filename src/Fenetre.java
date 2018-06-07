@@ -15,7 +15,7 @@ import java.util.Objects;
 class Fenetre extends JFrame {
     private ArrayList<Joueur> joueurs;
     private String currentUnite = "Soldat";
-    private Joueur currentJoueur;
+    public static Joueur currentJoueur;
     private int Konami = 0;
     private Partie partie;
     private Map map;
@@ -110,10 +110,12 @@ class Fenetre extends JFrame {
                         currentJoueur = changePlayer();
                     }
                     */
+
+                    phasePartie = "Renforts";
                     currentJoueur = changePlayer();
 
                     updateJLabel();
-                    phasePartie = "Renforts";
+
                     if (currentJoueur.listUnites.size() > 0) {
                         for (Unite unite : currentJoueur.listUnites) {
                             if (Objects.equals(unite.getClass().getName(), "Soldat")) {
@@ -309,9 +311,9 @@ class Fenetre extends JFrame {
                                                      currentUnite = "Soldat";
                                                  }
 
-                                                 currentJoueur = changePlayer();
-                                                 updateJLabel();
 
+
+                                                 currentJoueur = changePlayer();
                                                  changeCursor(currentUnite);
                                                  int nbUnitesTotal = 0;
                                                  for (Joueur joueur : joueurs) {
@@ -325,11 +327,10 @@ class Fenetre extends JFrame {
                                                  } else {
                                                      while (currentJoueur.nbUnites == 0) {
                                                          currentJoueur = changePlayer();
-                                                         updateJLabel();
                                                          changeCursor(currentUnite);
                                                      }
                                                  }
-                                                 map = new Map(joueurs, currentJoueur, partie);
+                                                 //map = new Map(joueurs, currentJoueur, partie);
 
                                                  repaint();
 
@@ -384,23 +385,30 @@ class Fenetre extends JFrame {
     }
 
     private Joueur changePlayer() {
+        //map = new Map(joueurs, currentJoueur, partie);
+        //repaint();
         numerojoueur = (numerojoueur + 1) % joueurs.size();
-        System.out.println(numerojoueur);
-        System.out.println(phasePartie);
         currentJoueur = joueurs.get(numerojoueur);
-        if (Objects.equals(currentJoueur.getClass().getName(), "IA")) {
-            //IA.play(currentJoueur);
-        }
-        updateJLabel();
         map = new Map(joueurs, currentJoueur, partie);
-
+        updateJLabel();
         repaint();
+        if (Objects.equals(currentJoueur.getClass().getName(), "IA")) {
+            currentJoueur.play(phasePartie, partie);
+            if(partie.totalNbUnites(joueurs) == 0) {
+                phasePartie = "Sélection";
+            }
+            changePlayer();
+        }
+        //map = new Map(joueurs, currentJoueur, partie);
+        //repaint();
+
         return currentJoueur;
     }
 
     private void updateJLabel() {
         unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités.");
         joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
+
     }
 
     private void konamiCode(KeyEvent event) {
@@ -442,6 +450,7 @@ class Fenetre extends JFrame {
         }
 
     }
+
 
 }
 

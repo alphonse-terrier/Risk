@@ -39,7 +39,9 @@ public class Map extends JPanel {
 
         Main.drawImage(Main.ImageReader("./Terre/liaisons.png"), x_adapt, y_adapt, g);
         Main.drawImage(Main.ImageReader("./Terre/countriesborders.png"), x_adapt, y_adapt, g);
-        Main.drawImage(Main.changeColor(Main.ImageReader("iconejoueur.png"), currentJoueur.couleur), 1050, 50, g);
+        System.out.println(currentJoueur.getName());
+        System.out.println(currentJoueur.couleur);
+        Main.drawImage(Main.changeColor(Main.ImageReader("iconejoueur.png"), Fenetre.currentJoueur.couleur), 1050, 50, g);
 
         for (Joueur joueur : joueurs) {
             if (!joueur.listUnites.isEmpty()) {
@@ -53,7 +55,6 @@ public class Map extends JPanel {
         if (!partie.SelectionUnite.isEmpty()) {
         for (Unite unite : partie.SelectionUnite) {
 
-                System.out.println("le canon" + unite);
                 Main.drawImage(Main.changeColor(Main.ImageReader(unite.imgpath), new Color(255, 255, 255)), unite.positionx, unite.positiony, g);
             }
 

@@ -34,7 +34,9 @@ public class Joueur {
         this.name = name;
     }
 
+    public void play(String phasePartie, Partie partie) {
 
+    }
 
 
     boolean putUnite(Unite unit) {
