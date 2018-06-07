@@ -1,14 +1,20 @@
-
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
- *
+ * Classe du joueur
  */
 public class Joueur {
 
-    public Joueur(String name, ArrayList<Territoire> listTerritoires, ArrayList<Unite> listUnites, int nbUnites, Color couleur, int nbTerritoiresCapturesTourPrec) {
+    public int nbTerritoiresCapturesTourPrec; //nombre de territoires capturés au tour précédent
+    ArrayList < Territoire > listTerritoires; //liste des territoires du joueur
+    ArrayList < Unite > listUnites; //liste de ses unités
+    int nbUnites; //nombre d'unités qu'il a à poser
+    Color couleur; //couleur associé au joueur
+    private String name;
+    public Joueur(String name, ArrayList < Territoire > listTerritoires, ArrayList < Unite > listUnites, int nbUnites, Color couleur, int nbTerritoiresCapturesTourPrec) {
         this.name = name;
         this.listTerritoires = listTerritoires;
         this.listUnites = listUnites;
@@ -17,22 +23,10 @@ public class Joueur {
         this.nbTerritoiresCapturesTourPrec = nbTerritoiresCapturesTourPrec;
     }
 
-    private String name;
-    ArrayList<Territoire> listTerritoires;
-    ArrayList<Unite> listUnites;
-    int nbUnites;
-    Color couleur;
-    public int nbTerritoiresCapturesTourPrec;
-
-
-
     String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public void play(String phasePartie, Partie partie) {
 
@@ -40,12 +34,12 @@ public class Joueur {
 
 
     boolean putUnite(Unite unit) {
-
+        /* Permet de poser une unité sur le plateau (vérifie les conditions) */
         int positionx = unit.positionx;
         int positiony = unit.positiony;
-        String countryname = Partie.getCountryName(positionx+16, positiony+16);
+        String countryname = Partie.getCountryName(positionx + 16, positiony + 16);
         boolean possible = false;
-        for (Territoire territoire : listTerritoires) {
+        for (Territoire territoire: listTerritoires) {
 
             if (Objects.equals(countryname, territoire.getName())) {
                 possible = true;
@@ -56,8 +50,7 @@ public class Joueur {
             listUnites.add(unit);
             nbUnites -= unit.cost;
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

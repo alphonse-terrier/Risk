@@ -1,8 +1,3 @@
-/**
- * Created by Alphonse on 14/05/2018.
- */
-
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -23,6 +18,7 @@ public class Main {
     }
 
     static BufferedImage changeColor(BufferedImage image, Color couleur) {
+        /* Permet de changer la couleur d'une image noire */
         Color black = new Color(0, 0, 0);
 
         final int blackRGB = black.getRGB();
@@ -39,6 +35,8 @@ public class Main {
     }
 
     static BufferedImage ImageReader(String pathname) {
+        /* Permet de lire une image*/
+
         BufferedImage img = null;
         try {
 
@@ -56,12 +54,14 @@ public class Main {
 
 
     static void drawImage(BufferedImage img, int x, int y, Graphics g) {
+        /* Permet de dessiner une image sur le JPanel */
 
 
         g.drawImage(img, x, y, Map.imgobs);
     }
 
     static BufferedReader readTextFile(String pathname) {
+        /* Permet de lire un fichier texte */
         BufferedReader txt = null;
         try {
             txt = new BufferedReader(new FileReader(pathname));
@@ -73,12 +73,6 @@ public class Main {
         return txt;
     }
 
-    static void sleep(int time) {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+
 
 }

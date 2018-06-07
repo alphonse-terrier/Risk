@@ -1,12 +1,7 @@
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
-/**
- *
- */
 public class Soldat extends Unite {
 
+    /**Classe du soldat qui hérite de Unité*/
 
 
 

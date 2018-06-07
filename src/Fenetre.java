@@ -1,10 +1,3 @@
-/**
- * Created by Alphonse on 14/05/2018.
- */
-
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,14 +6,14 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 class Fenetre extends JFrame {
+    public static Joueur currentJoueur;
     private ArrayList<Joueur> joueurs;
     private String currentUnite = "Soldat";
-    public static Joueur currentJoueur;
     private int Konami = 0;
     private Partie partie;
     private Map map;
     private String phasePartie;
-    private int numerojoueur; //quand il clique sur passer le tour cette variable se change en (numerojoueur+1)%joueurs.size()
+    private int numerojoueur;
     private JLabel joueurActif;
     private JLabel unitesRestantes;
     private JButton findutour;
@@ -28,9 +21,12 @@ class Fenetre extends JFrame {
 
 
     Fenetre() {
-
+        //Initialisation du jeu
         partie = new Partie();
         joueurs = partie.initGame();
+
+
+        //Initialisation fen^tre
         final int width = 1300;
         final int height = 690;
         this.setTitle("Jeu Risk par Aymeric Bès de Berc & Alphonse Terrier");
@@ -44,11 +40,12 @@ class Fenetre extends JFrame {
         currentJoueur = joueurs.get(numerojoueur);
         changeCursor("Soldat");
 
-        map = new Map(joueurs, currentJoueur, partie);
+        //Création de la carte
+        map = new Map(joueurs, partie);
         this.setContentPane(map);
         map.setLayout(null);
 
-
+        //Création des données de la sidebar
         joueurActif = new JLabel();
         unitesRestantes = new JLabel();
         findutour = new JButton();
@@ -86,6 +83,7 @@ class Fenetre extends JFrame {
         this.addKeyListener(new NewKeyListener() {
             @Override
             public void keyPressed(KeyEvent event) {
+                //Listener pour le code Konami
                 System.out.println(event.getKeyCode());
                 konamiCode(event);
 
@@ -95,27 +93,28 @@ class Fenetre extends JFrame {
         });
 
         findutour.addActionListener(new ActionListener() {
-
+            //Listener du bouton fin de tour
             public void actionPerformed(ActionEvent ae) {
                 if (partie.checkIfWin(currentJoueur)) {
-                    map = new Map(joueurs, currentJoueur, partie);
-
+//Teste si le joueur a gagné
                     repaint();
 
                 }
 
                 if (currentJoueur.nbUnites == 0) {
-                    /*
+
+                    //permet d'éliminer un joueur
                     while (currentJoueur.listTerritoires.size() == 0) {
                         currentJoueur = changePlayer();
                     }
-                    */
 
-                    phasePartie = "Renforts";
-                    currentJoueur = changePlayer();
+
+                    phasePartie = "Renforts"; //Changement de phase de jeu
+                    currentJoueur = changePlayer(); //Changmeent de joueur
 
                     updateJLabel();
 
+                    //On remet les mouvements par tour à leurs valeurs par défaut
                     if (currentJoueur.listUnites.size() > 0) {
                         for (Unite unite : currentJoueur.listUnites) {
                             if (Objects.equals(unite.getClass().getName(), "Soldat")) {
@@ -129,7 +128,7 @@ class Fenetre extends JFrame {
                         }
                     }
 
-
+                    //On attribue les unités au joueur
                     currentJoueur = partie.attributionUnites(currentJoueur);
                     currentJoueur.nbTerritoiresCapturesTourPrec = 0;
                     unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités.");
@@ -137,7 +136,6 @@ class Fenetre extends JFrame {
                     System.out.println(currentJoueur.getName());
 
                     updateJLabel();
-                    map = new Map(joueurs, currentJoueur, partie);
                     repaint();
 
 
@@ -146,13 +144,13 @@ class Fenetre extends JFrame {
         });
 
         unselection.addActionListener(new ActionListener() {
+            //Listener qui permet de désélectionner des unités
             public void actionPerformed(ActionEvent ae) {
                 if (partie.SelectionUnite.size() > 0) {
                     for (int i = 0; i < partie.SelectionUnite.size(); i++) {
                         partie.SelectionUnite.remove(i);
                         unselection.setVisible(false);
                         phasePartie = "Sélection";
-                        map = new Map(joueurs, currentJoueur, partie);
 
                         repaint();
                     }
@@ -165,6 +163,7 @@ class Fenetre extends JFrame {
         map.addMouseMotionListener(new NewMouseMotionListener() {
             @Override
             public void mouseMoved(MouseEvent event) {
+                //Listener qui détecte le mouvement de la souris
                 super.mouseMoved(event);
                 int x = event.getX();
                 if (Objects.equals(phasePartie, "Renforts") || Objects.equals(phasePartie, "PoseUnites")) {
@@ -194,13 +193,13 @@ class Fenetre extends JFrame {
                                                          String countryToConquest = Partie.getCountryName(x, y);
                                                          String countryOfTheUnit = Partie.getCountryName(partie.SelectionUnite.get(i).positionx, partie.SelectionUnite.get(i).positiony);
                                                          if (partie.areTheseCountriesAdjacents(countryToConquest, countryOfTheUnit)) {
-                                                             if (partie.checkIfThisIsOneOfMyCountry(currentJoueur, countryToConquest)) {
+                                                             if (partie.checkIfThisIsOneOfMyCountry(currentJoueur, countryToConquest)) { //Déplacement
                                                                  if (partie.SelectionUnite.get(i).mvtParTour > 0) {
                                                                      partie.SelectionUnite.get(i).positionx = x - map.x_adapt;
                                                                      partie.SelectionUnite.get(i).positiony = y - map.x_adapt;
                                                                      partie.SelectionUnite.get(i).mvtParTour -= 1;
                                                                  }
-                                                             } else {
+                                                             } else { //Attaque si le pays cliqué n'appartient pas au joueur
                                                                  if (partie.attaque(currentJoueur, countryToConquest, joueurs)) {
                                                                      partie.SelectionUnite = new ArrayList<>();
 
@@ -224,23 +223,21 @@ class Fenetre extends JFrame {
 
 
                                                      }
-                                                     phasePartie = "NewSélection";
+                                                     phasePartie = "NewSélection"; //On démarre une nouvelle sélection
                                                      System.out.println(phasePartie);
                                                      updateJLabel();
 
                                                  }
 
-                                                 map = new Map(joueurs, currentJoueur, partie);
 
                                                  repaint();
                                              }
 
                                              if (Objects.equals(phasePartie, "Sélection")) {
-                                                 if (partie.checkIfDeplacementIsPossible(currentJoueur, x, y) != null) {
+                                                 if (partie.checkIfDeplacementIsPossible(currentJoueur, x, y) != null) {//On regarde si l'unité cliquée peut se déplacer
                                                      unselection.setVisible(true);
                                                      phasePartie = "Déplacement";
                                                  }
-                                                 map = new Map(joueurs, currentJoueur, partie);
 
                                                  repaint();
                                              }
@@ -249,7 +246,7 @@ class Fenetre extends JFrame {
                                                  phasePartie = "Sélection";
                                              }
 
-                                             if (Objects.equals(phasePartie, "Renforts")) {
+                                             if (Objects.equals(phasePartie, "Renforts")) { //Phase de renforts
                                                  unselection.setVisible(false);
                                                  if (Objects.equals("Soldat", currentUnite)) {
                                                      currentJoueur.putUnite(new Soldat(x, y));
@@ -264,14 +261,11 @@ class Fenetre extends JFrame {
                                                  }
 
 
-                                                 System.out.println(currentJoueur.nbUnites);
-
                                                  updateJLabel();
-                                                 map = new Map(joueurs, currentJoueur, partie);
 
                                                  repaint();
 
-                                                 if (currentJoueur.nbUnites == 0) {
+                                                 if (currentJoueur.nbUnites == 0) { //Si plus d'unités : Sélection
                                                      phasePartie = "Sélection";
                                                      findutour.setVisible(true);
                                                      setCursor(Cursor.getDefaultCursor());
@@ -279,7 +273,7 @@ class Fenetre extends JFrame {
 
                                              }
 
-                                             if (Objects.equals(phasePartie, "PoseUnites") && partie.checkIfThisIsOneOfMyCountry(currentJoueur, partie.getCountryName(x, y))) {
+                                             if (Objects.equals(phasePartie, "PoseUnites") && partie.checkIfThisIsOneOfMyCountry(currentJoueur, Partie.getCountryName(x, y))) {//PoseUnites est la phase au premier tour de jeu où chacun pose successivement un pion
                                                  unselection.setVisible(false);
                                                  int wasAnUnitPut = 0;
                                                  if (currentJoueur.nbUnites != 0) {
@@ -312,9 +306,10 @@ class Fenetre extends JFrame {
                                                  }
 
 
-
                                                  currentJoueur = changePlayer();
                                                  changeCursor(currentUnite);
+
+                                                 //On vérifie q'il reste des unités à poser
                                                  int nbUnitesTotal = 0;
                                                  for (Joueur joueur : joueurs) {
                                                      nbUnitesTotal += joueur.nbUnites;
@@ -330,7 +325,6 @@ class Fenetre extends JFrame {
                                                          changeCursor(currentUnite);
                                                      }
                                                  }
-                                                 //map = new Map(joueurs, currentJoueur, partie);
 
                                                  repaint();
 
@@ -338,7 +332,7 @@ class Fenetre extends JFrame {
 
                                          }
 
-
+                                         //gère les changements de curseur au clic droit
                                          if (event.getButton() == MouseEvent.BUTTON3) {
 
                                              if (Objects.equals(phasePartie, "Renforts") || Objects.equals(phasePartie, "PoseUnites")) {
@@ -358,17 +352,6 @@ class Fenetre extends JFrame {
                                      }
                                  }
 
-                                 public void mouseMoved(MouseEvent event) {
-                                     int x = event.getX();
-                                     if (x > 1000) {
-                                         setCursor(Cursor.getDefaultCursor());
-                                     } else {
-                                         changeCursor(currentUnite);
-
-                                     }
-
-                                 }
-
                              }
 
 
@@ -378,6 +361,7 @@ class Fenetre extends JFrame {
     }
 
     private void changeCursor(String pathname) {
+        /*permet de changer de curseur*/
         BufferedImage icone = Main.ImageReader(pathname + ".png");
         icone = Main.changeColor(icone, currentJoueur.couleur);
         setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon(icone).getImage(), new Point(0, 0), "Curseur"));
@@ -385,68 +369,69 @@ class Fenetre extends JFrame {
     }
 
     private Joueur changePlayer() {
-        //map = new Map(joueurs, currentJoueur, partie);
+        /*permet de changer de joueur*/
         //repaint();
         numerojoueur = (numerojoueur + 1) % joueurs.size();
         currentJoueur = joueurs.get(numerojoueur);
-        map = new Map(joueurs, currentJoueur, partie);
         updateJLabel();
         repaint();
         if (Objects.equals(currentJoueur.getClass().getName(), "IA")) {
             currentJoueur.play(phasePartie, partie);
-            if(partie.totalNbUnites(joueurs) == 0) {
+            if (partie.totalNbUnites(joueurs) == 0) {
                 phasePartie = "Sélection";
             }
             changePlayer();
         }
-        //map = new Map(joueurs, currentJoueur, partie);
         //repaint();
 
         return currentJoueur;
     }
 
     private void updateJLabel() {
+        /*Met à jour les JLabel*/
         unitesRestantes.setText("Il reste " + currentJoueur.nbUnites + " unités.");
         joueurActif.setText("C'est au tour de " + currentJoueur.getName() + ".");
 
     }
 
     private void konamiCode(KeyEvent event) {
+        /*Fait fonctionner le cheatcode*/
         String key = null;
 
-        if (event.getKeyCode() == KeyEvent.VK_RIGHT ) {
+        if (event.getKeyCode() == KeyEvent.VK_RIGHT) {
             key = "RIGHT";
-        } else if (event.getKeyCode() == KeyEvent.VK_LEFT ) {
+        } else if (event.getKeyCode() == KeyEvent.VK_LEFT) {
             key = "LEFT";
-        } else if (event.getKeyCode() == KeyEvent.VK_UP ) {
+        } else if (event.getKeyCode() == KeyEvent.VK_UP) {
             key = "UP";
-        } else if (event.getKeyCode() == KeyEvent.VK_DOWN ) {
+        } else if (event.getKeyCode() == KeyEvent.VK_DOWN) {
             key = "DOWN";
         } else if (event.getKeyCode() == KeyEvent.VK_B) {
-            key = "B";}
+            key = "B";
+        }
 
         if (Konami == 0 || Objects.equals(key, "UP")) {
-            Konami +=1;
+            Konami += 1;
         } else if (Konami == 1 || Objects.equals(key, "UP")) {
-            Konami +=1;
+            Konami += 1;
         } else if (Konami == 2 || Objects.equals(key, "DOWN")) {
-            Konami +=1;
+            Konami += 1;
         } else if (Konami == 3 || Objects.equals(key, "DOWN")) {
-            Konami +=1;
+            Konami += 1;
         } else if (Konami == 4 || Objects.equals(key, "DOWN")) {
-            Konami +=1;
+            Konami += 1;
         } else if (Konami == 5 || Objects.equals(key, "LEFT")) {
-            Konami +=1;
+            Konami += 1;
         } else if (Konami == 6 || Objects.equals(key, "LEFT")) {
-            Konami +=1;
+            Konami += 1;
         } else if (Konami == 7 || Objects.equals(key, "RIGHT")) {
-            Konami +=1;
+            Konami += 1;
         } else if (Konami == 8 || Objects.equals(key, "RIGHT")) {
-            Konami +=1;
+            Konami += 1;
         } else if (Konami == 9 || Objects.equals(key, "B")) {
             partie.win(currentJoueur);
         } else {
-            Konami =0;
+            Konami = 0;
         }
 
     }

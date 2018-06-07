@@ -1,12 +1,7 @@
 
-import java.util.*;
-
-import java.io.FileReader;
-
-import java.io.BufferedReader;
 
 /**
- *
+ * Classe Région
  */
 public class Region {
 
@@ -20,16 +15,8 @@ public class Region {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     int getWeight() {
         return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
     }
 
     private String name;

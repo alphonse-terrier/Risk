@@ -4,9 +4,10 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Random;
 
-/**
- * Created by Alphonse on 05/06/2018.
- */
+
+
+
+/*Classe de l'IA (malheureusement pas totalement développée) */
 public class IA extends Joueur {
     IA(String name, ArrayList<Territoire> listTerritoires, ArrayList<Unite> listUnites, int nbUnites, Color couleur, int nbTerritoiresCaptureesTourPrec) {
         super(name, listTerritoires, listUnites, nbUnites, couleur, nbTerritoiresCaptureesTourPrec);
@@ -38,6 +39,7 @@ public class IA extends Joueur {
 
 
     public void putAnIaUnite(Partie partie) {
+        /*Permet à l'IA de poser une unité aléatoire sur le plateau */
         Random random = new Random();
         int randomIndexCountry = random.nextInt(listTerritoires.size());
         String countryName = listTerritoires.get(randomIndexCountry).getName();
