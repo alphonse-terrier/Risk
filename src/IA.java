@@ -7,12 +7,13 @@ import java.util.Random;
  * Created by Alphonse on 05/06/2018.
  */
 public class IA extends Joueur {
-    public IA(String name, ArrayList<Territoire> listTerritoires, ArrayList<Unite> listUnites, int nbUnites, Color couleur, int nbTerritoiresCapturéesTourPréc) {
-        super(name, listTerritoires, listUnites, nbUnites, couleur, nbTerritoiresCapturéesTourPréc);
+    IA(String name, ArrayList<Territoire> listTerritoires, ArrayList<Unite> listUnites, int nbUnites, Color couleur, int nbTerritoiresCaptureesTourPrec) {
+        super(name, listTerritoires, listUnites, nbUnites, couleur, nbTerritoiresCaptureesTourPrec);
     }
 
 
-    public static void play(Joueur currentJoueur) {
+    public void play() {
+        /*
         if (Objects.equals(Partie.phasePartie, "PoseUnites")) {
             Random random = new Random();
             int randomIndexCountry = random.nextInt(currentJoueur.listTerritoires.size());
@@ -28,6 +29,7 @@ public class IA extends Joueur {
             }
 
         }
+        */
 
 
     }

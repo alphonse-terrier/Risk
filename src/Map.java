@@ -5,12 +5,25 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 
 
 public class Map extends JPanel {
+    public Joueur currentJoueur;
+    public ArrayList<Joueur> joueurs;
+    public Partie partie;
 
-    public static int x_adapt = 15;
-    public static int y_adapt = 15;
+    public Map(ArrayList<Joueur> joueurs, Joueur currentJoueur, Partie partie) {
+        this.joueurs = joueurs;
+        this.currentJoueur = currentJoueur;
+        this.partie = partie;
+
+    }
+
+
+    public int x_adapt = 15;
+    public int y_adapt = 15;
+
 
     public static ImageObserver imgobs = new ImageObserver() {
         @Override
@@ -26,23 +39,22 @@ public class Map extends JPanel {
 
         Main.drawImage(Main.ImageReader("./Terre/liaisons.png"), x_adapt, y_adapt, g);
         Main.drawImage(Main.ImageReader("./Terre/countriesborders.png"), x_adapt, y_adapt, g);
-        Main.drawImage(Main.changeColor(Main.ImageReader("iconejoueur.png"), Fenetre.currentJoueur.couleur), 1050, 50, g);
+        Main.drawImage(Main.changeColor(Main.ImageReader("iconejoueur.png"), currentJoueur.couleur), 1050, 50, g);
 
-        for (int x = 0; x < Fenetre.joueurs.size(); x++) {
-            for (int y = 0; y < Fenetre.joueurs.get(x).listUnites.size(); y++) {
-                if (!Fenetre.joueurs.get(x).listUnites.isEmpty()) {
-
-                    Main.drawImage(Main.changeColor(Main.ImageReader(Fenetre.joueurs.get(x).listUnites.get(y).imgpath), Fenetre.joueurs.get(x).couleur), Fenetre.joueurs.get(x).listUnites.get(y).positionx, Fenetre.joueurs.get(x).listUnites.get(y).positiony, g);
+        for (Joueur joueur : joueurs) {
+            if (!joueur.listUnites.isEmpty()) {
+            for (Unite unite : joueur.listUnites) {
+                    Main.drawImage(Main.changeColor(Main.ImageReader(unite.imgpath), joueur.couleur), unite.positionx, unite.positiony, g);
                 }
             }
         }
 
 
+        if (!partie.SelectionUnite.isEmpty()) {
+        for (Unite unite : partie.SelectionUnite) {
 
-
-        for (int a = 0; a < Unite.SelectionUnite.size(); a++) {
-            if (!Unite.SelectionUnite.isEmpty()) {
-                Main.drawImage(Main.changeColor(Main.ImageReader(Unite.SelectionUnite.get(a).imgpath), new Color(255, 255, 255)), Unite.SelectionUnite.get(a).positionx, Unite.SelectionUnite.get(a).positiony, g);
+                System.out.println("le canon" + unite);
+                Main.drawImage(Main.changeColor(Main.ImageReader(unite.imgpath), new Color(255, 255, 255)), unite.positionx, unite.positiony, g);
             }
 
         }

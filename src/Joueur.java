@@ -8,25 +8,25 @@ import java.util.*;
  */
 public class Joueur {
 
-    public Joueur(String name, ArrayList<Territoire> listTerritoires, ArrayList<Unite> listUnites, int nbUnites, Color couleur, int nbTerritoiresCapturéesTourPréc) {
+    public Joueur(String name, ArrayList<Territoire> listTerritoires, ArrayList<Unite> listUnites, int nbUnites, Color couleur, int nbTerritoiresCapturesTourPrec) {
         this.name = name;
         this.listTerritoires = listTerritoires;
         this.listUnites = listUnites;
         this.nbUnites = nbUnites;
         this.couleur = couleur;
-        this.nbTerritoiresCapturéesTourPréc = nbTerritoiresCapturéesTourPréc;
+        this.nbTerritoiresCapturesTourPrec = nbTerritoiresCapturesTourPrec;
     }
 
     private String name;
-    public ArrayList<Territoire> listTerritoires;
-    public ArrayList<Unite> listUnites;
-    public int nbUnites;
-    public Color couleur;
-    public int nbTerritoiresCapturéesTourPréc;
+    ArrayList<Territoire> listTerritoires;
+    ArrayList<Unite> listUnites;
+    int nbUnites;
+    Color couleur;
+    public int nbTerritoiresCapturesTourPrec;
 
 
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
@@ -37,15 +37,15 @@ public class Joueur {
 
 
 
-    public boolean putUnite(Unite unit) {
+    boolean putUnite(Unite unit) {
 
         int positionx = unit.positionx;
         int positiony = unit.positiony;
-        String countryname = Territoire.getCountryName(positionx+16, positiony+16);
+        String countryname = Partie.getCountryName(positionx+16, positiony+16);
         boolean possible = false;
-        for (int i = 0; i < listTerritoires.size(); i++) {
+        for (Territoire territoire : listTerritoires) {
 
-            if (Objects.equals(countryname, listTerritoires.get(i).getName())) {
+            if (Objects.equals(countryname, territoire.getName())) {
                 possible = true;
             }
         }

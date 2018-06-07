@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
+
 public class Main {
 
 
@@ -21,7 +22,7 @@ public class Main {
 
     }
 
-    public static BufferedImage changeColor(BufferedImage image, Color couleur) {
+    static BufferedImage changeColor(BufferedImage image, Color couleur) {
         Color black = new Color(0, 0, 0);
 
         final int blackRGB = black.getRGB();
@@ -37,7 +38,7 @@ public class Main {
         return image;
     }
 
-    public static BufferedImage ImageReader(String pathname) {
+    static BufferedImage ImageReader(String pathname) {
         BufferedImage img = null;
         try {
 
@@ -54,22 +55,22 @@ public class Main {
     }
 
 
-    public static void drawImage(BufferedImage img, int x, int y, Graphics g) {
+    static void drawImage(BufferedImage img, int x, int y, Graphics g) {
 
 
         g.drawImage(img, x, y, Map.imgobs);
     }
 
-    public static BufferedReader readTextFile(String pathname) {
-        BufferedReader frontieres = null;
+    static BufferedReader readTextFile(String pathname) {
+        BufferedReader txt = null;
         try {
-            frontieres = new BufferedReader(new FileReader(pathname));
+            txt = new BufferedReader(new FileReader(pathname));
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return frontieres;
+        return txt;
     }
 
 }
